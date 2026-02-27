@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LLM Composition • Cowork AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800&family=JetBrains+Mono:wght@500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/src/style.css">
+</head>
+
+<body class="bg-zinc-950 text-zinc-200">
+    <!-- @partial:topbar -->
+
+    <div class="flex min-h-screen">
+        <!-- @partial:sidebar -->
+
+        <!-- Main Content Area -->
+        <main class="flex-1 lg:ml-64 relative">
+            <div class="max-w-4xl mx-auto px-6 lg:px-12 pt-12 lg:pt-24 pb-20">
+                <div id="content" class="prose prose-invert prose-zinc max-w-none">
+                    <h1 class="text-4xl font-extrabold tracking-tight text-white mb-8 logo-font">LLM Composition</h1>
+                    <p class="text-xl text-zinc-400 leading-relaxed mb-12">
+                        Understand how messages are constructed and strategy is applied before being dispatched to the
+                        Large Language Model.
+                    </p>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">The Agentic Pipeline</h2>
+                    <p class="text-zinc-300 mb-6">
+                        Before a user's request ever reaches the model's core reasoning engine, it passes through
+                        several deterministic and stochastic preparation phases.
+                    </p>
+
+                    <div class="grid md:grid-cols-2 gap-6 mb-12">
+                        <div class="p-6 bg-white/5 border border-white/10 rounded-2xl">
+                            <h4 class="text-amber-400 font-mono text-xs mb-2 uppercase tracking-widest">Phase 1:
+                                Gatekeeper</h4>
+                            <p class="text-sm text-zinc-400">Offloads large inputs to scratchpad, replacing them with
+                                reference keys (ref:input_xxx) to stay within context limits.</p>
+                        </div>
+                        <div class="p-6 bg-white/5 border border-white/10 rounded-2xl">
+                            <h4 class="text-amber-400 font-mono text-xs mb-2 uppercase tracking-widest">Phase 2:
+                                Meta-Routing</h4>
+                            <p class="text-sm text-zinc-400">Classifies intent into tool categories. Injects context
+                                hints for short "follow-up" messages to prevent misclassification.</p>
+                        </div>
+                        <div class="p-6 bg-white/5 border border-white/10 rounded-2xl">
+                            <h4 class="text-amber-400 font-mono text-xs mb-2 uppercase tracking-widest">Phase 2.5:
+                                Strategic Planning</h4>
+                            <p class="text-sm text-zinc-400">Generates a high-level Roadmap before execution. This plan
+                                is injected into the system prompt to guide stable tool usage.</p>
+                        </div>
+                        <div class="p-6 bg-white/5 border border-white/10 rounded-2xl">
+                            <h4 class="text-amber-400 font-mono text-xs mb-2 uppercase tracking-widest">Phase 3: REACT
+                                Loop</h4>
+                            <p class="text-sm text-zinc-400">The core execution loop where reasoning tokens are
+                                generated, tool calls are processed, and observations are fed back.</p>
+                        </div>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Message Composition Strategies</h2>
+                    <p class="text-zinc-300 mb-6">
+                        The final message list sent to the LLM is a carefully curated stack of context, instructions,
+                        and history.
+                    </p>
+
+                    <h3 class="text-xl font-bold text-white mt-8 mb-4">Standard Reasoning Stack</h3>
+                    <div class="p-6 bg-zinc-900 rounded-2xl border border-white/10 mb-8 overflow-hidden">
+                        <div class="space-y-4">
+                            <div class="flex gap-4">
+                                <div class="w-24 shrink-0 font-mono text-xs text-zinc-500 uppercase pt-1">System</div>
+                                <div class="text-sm text-zinc-300">
+                                    <strong class="text-white">AGENT_SYSTEM_PROMPT</strong>
+                                    <ul class="list-disc ml-4 space-y-1 mt-2 text-zinc-400 text-xs">
+                                        <li>Dynamic Memory & Personas</li>
+                                        <li>Scratchpad Index (Live awareness of stored files)</li>
+                                        <li>Active Skill Context & Tool Usage Contract</li>
+                                        <li>Execution Plan (The Strategic Roadmap)</li>
+                                        <li>Prior Tool Call Ledger (Prevents repetition)</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="border-t border-white/5 pt-4 flex gap-4">
+                                <div class="w-24 shrink-0 font-mono text-xs text-zinc-500 uppercase pt-1">History</div>
+                                <div class="text-sm text-zinc-300 italic">
+                                    Compressed chat history (Map-Reduce algorithm keeps only high-density facts).
+                                </div>
+                            </div>
+                            <div class="border-t border-white/5 pt-4 flex gap-4">
+                                <div class="w-24 shrink-0 font-mono text-xs text-zinc-500 uppercase pt-1">User</div>
+                                <div class="text-sm text-zinc-300">
+                                    Processed Input (Cleaned, references resolved).
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Execution Scenarios</h2>
+
+                    <h3 class="text-xl font-bold text-white mt-8 mb-4">1. The Observation Turn (Tool Call)</h3>
+                    <p class="text-zinc-300 mb-6">
+                        When the LLM requests a tool, the loop executes it and injects the result. To prevent the model
+                        from drowning in raw data, an <strong>Assessment Phase</strong> distills tool outputs.
+                    </p>
+                    <div class="p-6 bg-zinc-900 rounded-2xl border border-white/10 mb-8 font-mono text-xs">
+                        <div class="text-zinc-500">// Observation Message Injected after Tool Call</div>
+                        <div class="mt-4 text-sky-400">role: "tool", content: "... raw output from terminal ..."</div>
+                        <div class="mt-4 text-emerald-400">role: "user", content: "[TOOL REFLECTION]
+                            1. tool=read_file; status=ok; finding=Config found on line 42;
+                            next=Update variable Y."</div>
+                    </div>
+
+                    <h3 class="text-xl font-bold text-white mt-8 mb-4">2. Simple Conversational Mode</h3>
+                    <p class="text-zinc-300 mb-6">
+                        If the Router detects a conversational intent, it switches to a lean
+                        <strong>AGENT_CHAT_SYSTEM_PROMPT</strong>. This prunes the tool-reasoning overhead, reducing
+                        latency and cost.
+                    </p>
+
+                    <h3 class="text-xl font-bold text-white mt-8 mb-4">3. The Limit Hammer</h3>
+                    <p class="text-zinc-300 mb-6">
+                        When the reasoning limit (e.g., 20 steps) is reached, the system forces a hard stop by injecting
+                        a <strong>Terminal Notice</strong>.
+                    </p>
+                    <div class="p-6 bg-rose-500/10 border border-rose-500/20 rounded-2xl mb-12">
+                        <div class="text-rose-400 font-mono text-xs mb-2 uppercase tracking-widest">System Notice: Limit
+                            Reached</div>
+                        <p class="text-sm text-zinc-300">
+                            "You have reached the maximum step limit. You MUST now provide a final response... Clearly
+                            state GOAL ACHIEVED, PARTIALLY ACHIEVED, or NOT ACHIEVED."
+                        </p>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Token Efficiency</h2>
+                    <p class="text-zinc-300 mb-12">
+                        Cowork optimizes for the "Reasoning High Cloud" (high-context models). We prioritize precision
+                        over brevity in the system prompt, but use aggressive compression in the history to ensure the
+                        model's focus remains on the current user request.
+                    </p>
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Panel (ToC) -->
+        <aside class="hidden xl:block w-72 h-screen sticky top-0 border-l border-white/5 py-24 px-8 overflow-y-auto">
+            <h5 class="mb-4 text-[10px] font-bold tracking-[0.2em] text-zinc-500 uppercase">On this page</h5>
+            <nav id="toc" class="space-y-3 text-sm">
+                <!-- Generated by docs.js -->
+            </nav>
+        </aside>
+    </div>
+
+    <script type="module" src="/src/docs.js"></script>
+
+    <script type="module" src="/src/search.js"></script>
+</body>
+
+</html>
