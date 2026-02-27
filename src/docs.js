@@ -8,6 +8,29 @@ if (mobileMenuBtn && sidebar) {
     });
 }
 
+// Sidebar Active Link Highlighting
+const highlightActiveLink = () => {
+    const currentPath = window.location.pathname;
+    const sidebarLinks = document.querySelectorAll('#sidebar nav a');
+
+    sidebarLinks.forEach(link => {
+        const linkPath = link.getAttribute('href');
+
+        // Handle cases like /docs/ and /docs/index.html being the same
+        const isIndex = (currentPath === '/docs/' || currentPath.endsWith('/docs/index.html')) && linkPath.endsWith('/docs/index.html');
+        const isMatch = currentPath.endsWith(linkPath) || isIndex;
+
+        if (isMatch) {
+            link.classList.remove('text-zinc-400', 'hover:text-white');
+            link.classList.add('bg-white/5', 'text-yellow-400', 'font-medium');
+        } else {
+            // Ensure classes are correct if they were partially added
+            link.classList.add('text-zinc-400', 'hover:text-white');
+            link.classList.remove('bg-white/5', 'text-yellow-400', 'font-medium');
+        }
+    });
+};
+
 // Simple Table of Contents generator
 const content = document.getElementById('content');
 const toc = document.getElementById('toc');
@@ -36,4 +59,6 @@ if (content && toc) {
     }
 }
 
+highlightActiveLink();
 console.log('Docs engine initialized 🚀');
+
