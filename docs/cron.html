@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cron Service • Cowork AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800&family=JetBrains+Mono:wght@500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/src/style.css">
+</head>
+
+<body class="bg-zinc-950 text-zinc-200">
+    <!-- @partial:topbar -->
+
+    <div class="flex min-h-screen">
+        <!-- @partial:sidebar -->
+
+        <!-- Main Content Area -->
+        <main class="flex-1 lg:ml-64 relative">
+            <div class="max-w-4xl mx-auto px-6 lg:px-12 pt-12 lg:pt-24 pb-20">
+                <div id="content" class="prose prose-invert prose-zinc max-w-none">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div
+                            class="w-12 h-12 bg-yellow-400/10 rounded-2xl flex items-center justify-center border border-yellow-400/20">
+                            <i class="fas fa-clock text-yellow-400 text-xl"></i>
+                        </div>
+                        <h1 class="text-4xl font-extrabold tracking-tight text-white mb-0 logo-font">Cron Service</h1>
+                    </div>
+
+                    <p class="text-xl text-zinc-400 leading-relaxed mb-12">
+                        Cowork features a built-in task scheduler that allows for the execution of agentic workflows at
+                        specific intervals or one-off delayed times.
+                    </p>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Overview</h2>
+                    <p class="text-zinc-300 mb-6">
+                        The Cron Service manages persistent agent tasks. Unlike standard cron jobs that run shell
+                        scripts, Cowork cron jobs execute full agentic "turns" using the same reasoning engine and tool
+                        access as interactive sessions.
+                    </p>
+
+                    <div class="grid md:grid-cols-2 gap-6 mb-12">
+                        <div class="glass-card p-6 rounded-2xl border border-white/5">
+                            <h4 class="text-white font-bold mb-2">Persistence</h4>
+                            <p class="text-sm text-zinc-500">Jobs are stored in <code>~/.cowork/cron_jobs.json</code>
+                                and persist across system restarts.</p>
+                        </div>
+                        <div class="glass-card p-6 rounded-2xl border border-white/5">
+                            <h4 class="text-white font-bold mb-2">Unattended Mode</h4>
+                            <p class="text-sm text-zinc-500">Cron jobs run by the background poller execute in
+                                "unattended" mode, where the firewall blocks any tool requiring user confirmation.</p>
+                        </div>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Schedule Types</h2>
+                    <div class="space-y-4 mb-12">
+                        <div class="flex items-start gap-4 p-4 bg-white/5 rounded-xl border border-white/10">
+                            <div
+                                class="w-10 h-10 rounded-lg bg-sky-500/10 flex items-center justify-center flex-shrink-0">
+                                <span class="text-sky-400 font-bold text-xs">ONCE</span>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold text-sm">One-off Execution</h4>
+                                <p class="text-xs text-zinc-500">Runs once at a specific ISO timestamp or natural time
+                                    (e.g., "14:00"). Becomes disabled after execution.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 p-4 bg-white/5 rounded-xl border border-white/10">
+                            <div
+                                class="w-10 h-10 rounded-lg bg-emerald-500/10 flex items-center justify-center flex-shrink-0">
+                                <span class="text-emerald-400 font-bold text-xs">DAILY</span>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold text-sm">Daily Interval</h4>
+                                <p class="text-xs text-zinc-500">Repeats every day at the specified time. If no time is
+                                    provided, it defaults to 09:00.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-4 p-4 bg-white/5 rounded-xl border border-white/10">
+                            <div
+                                class="w-10 h-10 rounded-lg bg-violet-500/10 flex items-center justify-center flex-shrink-0">
+                                <span class="text-violet-400 font-bold text-xs">WEEKLY</span>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold text-sm">Weekly Interval</h4>
+                                <p class="text-xs text-zinc-500">Repeats every 7 days from the first scheduled execution
+                                    time.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">CLI Commands</h2>
+                    <div class="bg-zinc-900 rounded-xl p-6 border border-white/10 font-mono text-sm space-y-4">
+                        <div>
+                            <span class="text-zinc-500"># List all jobs</span><br>
+                            <span class="text-yellow-400">cowork</span> cron list
+                        </div>
+                        <div>
+                            <span class="text-zinc-500"># Add a new job</span><br>
+                            <span class="text-yellow-400">cowork</span> cron add daily 08:30 "Summarize my unread emails
+                            and save to scratchpad"
+                        </div>
+                        <div>
+                            <span class="text-zinc-500"># View job details</span><br>
+                            <span class="text-yellow-400">cowork</span> cron view [job_id]
+                        </div>
+                        <div>
+                            <span class="text-zinc-500"># Run pending jobs immediately</span><br>
+                            <span class="text-yellow-400">cowork</span> cron run-pending
+                        </div>
+                        <div>
+                            <span class="text-zinc-500"># Force run a specific job</span><br>
+                            <span class="text-yellow-400">cowork</span> cron run [job_id] --interactive
+                        </div>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">The Background Poller</h2>
+                    <p class="text-zinc-300 mb-6">
+                        When the Cowork CLI is active (e.g., in a long-standing chat session), a background thread wakes
+                        up every 60 seconds to check for "due" jobs. If found, it spawns an unattended agent turn.
+                    </p>
+                    <div class="p-6 bg-rose-500/10 border border-rose-500/20 rounded-2xl">
+                        <h4 class="text-rose-400 font-bold mb-2 flex items-center gap-2">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Safety Note
+                        </h4>
+                        <p class="text-sm text-zinc-400">
+                            Unattended jobs <strong>cannot</strong> bypass the firewall for "ask" actions. If a cron job
+                            requires a tool that is not explicitly "allowed" in <code>firewall.yaml</code>, the tool
+                            execution will be skipped, and the job may fail to complete its intended goal.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Panel (ToC) -->
+        <aside class="hidden xl:block w-72 h-screen sticky top-0 border-l border-white/5 py-24 px-8 overflow-y-auto">
+            <h5 class="mb-4 text-[10px] font-bold tracking-[0.2em] text-zinc-500 uppercase">On this page</h5>
+            <nav id="toc" class="space-y-3 text-sm">
+                <!-- Generated by docs.js -->
+            </nav>
+        </aside>
+    </div>
+
+    <script type="module" src="/src/docs.js"></script>
+    <script type="module" src="/src/search.js"></script>
+</body>
+
+</html>

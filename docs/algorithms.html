@@ -65,6 +65,65 @@
                     <h2 class="text-2xl font-bold text-white mt-12 mb-6">Context Compression</h2>
                     <p class="text-zinc-300 mb-6">Map-Reduce sequence to preserve linear reasoning without hitting
                         context limits.</p>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Workflow Execution Planning</h2>
+                    <p class="text-zinc-300 mb-6">
+                        Cowork uses a <strong>Pre-Execution Roadmap (PER)</strong> algorithm to ensure tasks are
+                        completed without infinite loops or "reasoning drift."
+                    </p>
+
+                    <div class="space-y-4 mb-12">
+                        <div class="p-6 bg-white/5 border border-white/10 rounded-2xl">
+                            <h4 class="text-white font-bold mb-2 flex items-center gap-2">
+                                <span
+                                    class="w-6 h-6 rounded bg-yellow-400 text-zinc-900 flex items-center justify-center text-[10px] font-bold">1</span>
+                                Linear Reasoning Chain
+                            </h4>
+                            <p class="text-sm text-zinc-400">Before the first tool is called, the agent must generate a
+                                JSON-structured plan. This plan identifies dependencies between tools (e.g., "I must
+                                read the file before I can grep for the pattern").</p>
+                        </div>
+                        <div class="p-6 bg-white/5 border border-white/10 rounded-2xl">
+                            <h4 class="text-white font-bold mb-2 flex items-center gap-2">
+                                <span
+                                    class="w-6 h-6 rounded bg-yellow-400 text-zinc-900 flex items-center justify-center text-[10px] font-bold">2</span>
+                                Persistence Verification
+                            </h4>
+                            <p class="text-sm text-zinc-400">Every tool execution is checked against the plan's current
+                                step. If the output of a tool significantly deviates from the plan's expectation, the
+                                agent is forced to "re-route" and regenerate the plan from that point.</p>
+                        </div>
+                        <div class="p-6 bg-white/5 border border-white/10 rounded-2xl">
+                            <h4 class="text-white font-bold mb-2 flex items-center gap-2">
+                                <span
+                                    class="w-6 h-6 rounded bg-yellow-400 text-zinc-900 flex items-center justify-center text-[10px] font-bold">3</span>
+                                Termination Anchors
+                            </h4>
+                            <p class="text-sm text-zinc-400">The plan includes explicit "Exit Success" and "Exit
+                                Failure" conditions. The loop terminates immediately when these anchors are met,
+                                preventing unnecessary token spend on "wrap-up" reasoning.</p>
+                        </div>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">The REACT-Sentinel Loop</h2>
+                    <p class="text-zinc-300 mb-6">
+                        The core execution loop is a modified REACT (Reasoning + Acting) pattern governed by <strong>The
+                            Sentinel</strong>:
+                    </p>
+                    <div class="p-6 bg-zinc-900 rounded-2xl border border-white/10 font-mono text-xs">
+                        <div class="text-zinc-500">// Pseudo-code for Core Loop</div>
+                        <div class="mt-2"><span class="text-rose-400">while</span> (steps &lt; max_steps) {</div>
+                        <div class="ml-4">thought = agent.think(state, plan);</div>
+                        <div class="ml-4">tool_call = thought.extract_tool();</div>
+                        <div class="ml-4"><span class="text-rose-400">if</span> (firewall.authorize(tool_call))
+                            {</div>
+                        <div class="ml-8 text-sky-400">result = tool_call.execute();</div>
+                        <div class="ml-8">state.update(result);</div>
+                        <div class="ml-4">}</div>
+                        <div class="ml-4"><span class="text-rose-400">if</span> (plan.is_met(state)) <span
+                                class="text-emerald-400">break</span>;</div>
+                        <div class="mt-0">}</div>
+                    </div>
                 </div>
             </div>
         </main>
@@ -79,7 +138,7 @@
     </div>
 
     <script type="module" src="/src/docs.js"></script>
-    
+
     <script type="module" src="/src/search.js"></script>
 </body>
 

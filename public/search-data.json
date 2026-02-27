@@ -125,5 +125,69 @@
             "uuid",
             "jsonl"
         ]
+    },
+    {
+        "id": "cron",
+        "title": "Cron Service",
+        "description": "Information about scheduled agent tasks and the background poller.",
+        "url": "/docs/cron.html",
+        "keywords": [
+            "cron",
+            "schedule",
+            "unattended",
+            "tasks",
+            "poller"
+        ]
+    },
+    {
+        "id": "jobs",
+        "title": "Job Queue",
+        "description": "Durable task management and concurrency control via The Sentinel.",
+        "url": "/docs/jobs.html",
+        "keywords": [
+            "jobs",
+            "queue",
+            "sentinel",
+            "concurrency",
+            "history"
+        ]
+    },
+    {
+        "id": "issues",
+        "title": "Issue Manager",
+        "description": "Knowledge base for failed executions and troubleshooting hints.",
+        "url": "/docs/issues.html",
+        "keywords": [
+            "issues",
+            "errors",
+            "troubleshooting",
+            "vector",
+            "triplets"
+        ]
+    },
+    {
+        "id": "trace",
+        "title": "Workflow Trace",
+        "description": "Event-sourced high-fidelity logging for agent turns.",
+        "url": "/docs/trace.html",
+        "keywords": [
+            "trace",
+            "logs",
+            "events",
+            "jsonl",
+            "audit"
+        ]
+    },
+    {
+        "id": "tools",
+        "title": "Tools Registry",
+        "description": "Central repository for built-in and external tool capabilities.",
+        "url": "/docs/tools.html",
+        "keywords": [
+            "tools",
+            "registry",
+            "gateway",
+            "schemas"
+        ]
     }
 ]

@@ -31,61 +31,122 @@
                         instructions that the Meta-Router loads dynamically based on your intent.
                     </p>
 
-                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Core Skill Categories</h2>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
-                        <div class="glass-card p-8 rounded-3xl hover:border-yellow-400/30 transition-all group">
-                            <div class="text-yellow-400 mb-6 flex items-center justify-between">
-                                <i class="fas fa-code text-2xl"></i>
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Full Skill Catalog</h2>
+                    <p class="text-zinc-300 mb-8">Below are the currently supported skills available in the Cowork
+                        library. Each skill can be activated individually or automatically by the Meta-Router.</p>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-12">
+                        <!-- Coding & Development -->
+                        <div class="p-4 bg-white/5 border border-white/10 rounded-xl">
+                            <h4 class="text-white font-bold text-sm mb-2 flex items-center gap-2">
+                                <i class="fas fa-code text-blue-400 text-xs"></i> Development
+                            </h4>
+                            <div class="flex flex-wrap gap-1">
                                 <span
-                                    class="text-[10px] mono-font uppercase tracking-widest px-3 py-1 bg-white/5 rounded-full border border-white/5">CODING_TOOLS</span>
-                            </div>
-                            <h3 class="text-xl font-bold text-white mb-3">Codebase Mastery</h3>
-                            <p class="text-sm text-zinc-400 mb-6">Read, write, and refactor code across entire
-                                repositories with context awareness.</p>
-                            <div class="flex flex-wrap gap-2 text-[10px] mono-font text-zinc-500">
-                                <span>workspace_write</span> • <span>workspace_read</span> • <span>grep_search</span>
+                                    class="bg-blue-500/10 text-blue-400 text-[10px] px-2 py-0.5 rounded border border-blue-500/20">coding-tools</span>
+                                <span
+                                    class="bg-blue-500/10 text-blue-400 text-[10px] px-2 py-0.5 rounded border border-blue-500/20">coding-implementation</span>
+                                <span
+                                    class="bg-blue-500/10 text-blue-400 text-[10px] px-2 py-0.5 rounded border border-blue-500/20">git-tools</span>
+                                <span
+                                    class="bg-blue-500/10 text-blue-400 text-[10px] px-2 py-0.5 rounded border border-blue-500/20">workspace-tools</span>
                             </div>
                         </div>
 
-                        <div class="glass-card p-8 rounded-3xl hover:border-yellow-400/30 transition-all group">
-                            <div class="text-yellow-400 mb-6 flex items-center justify-between">
-                                <i class="fas fa-globe text-2xl"></i>
+                        <!-- Web & Research -->
+                        <div class="p-4 bg-white/5 border border-white/10 rounded-xl">
+                            <h4 class="text-white font-bold text-sm mb-2 flex items-center gap-2">
+                                <i class="fas fa-search text-emerald-400 text-xs"></i> Research
+                            </h4>
+                            <div class="flex flex-wrap gap-1">
                                 <span
-                                    class="text-[10px] mono-font uppercase tracking-widest px-3 py-1 bg-white/5 rounded-full border border-white/5">WEB_TOOLS</span>
-                            </div>
-                            <h3 class="text-xl font-bold text-white mb-3">Web Intelligence</h3>
-                            <p class="text-sm text-zinc-400 mb-6">Scrape, crawl, and extract structured data from any
-                                website or online resource.</p>
-                            <div class="flex flex-wrap gap-2 text-[10px] mono-font text-zinc-500">
-                                <span>web_scrape</span> • <span>web_crawl</span> • <span>firecrawl</span>
+                                    class="bg-emerald-500/10 text-emerald-400 text-[10px] px-2 py-0.5 rounded border border-emerald-500/20">web-tools</span>
+                                <span
+                                    class="bg-emerald-500/10 text-emerald-400 text-[10px] px-2 py-0.5 rounded border border-emerald-500/20">web-research</span>
+                                <span
+                                    class="bg-emerald-500/10 text-emerald-400 text-[10px] px-2 py-0.5 rounded border border-emerald-500/20">search-tools</span>
+                                <span
+                                    class="bg-emerald-500/10 text-emerald-400 text-[10px] px-2 py-0.5 rounded border border-emerald-500/20">news-tools</span>
                             </div>
                         </div>
 
-                        <div class="glass-card p-8 rounded-3xl hover:border-yellow-400/30 transition-all group">
-                            <div class="text-yellow-400 mb-6 flex items-center justify-between">
-                                <i class="fas fa-cloud text-2xl"></i>
+                        <!-- Data & Cloud -->
+                        <div class="p-4 bg-white/5 border border-white/10 rounded-xl">
+                            <h4 class="text-white font-bold text-sm mb-2 flex items-center gap-2">
+                                <i class="fas fa-database text-amber-400 text-xs"></i> Data Services
+                            </h4>
+                            <div class="flex flex-wrap gap-1">
                                 <span
-                                    class="text-[10px] mono-font uppercase tracking-widest px-3 py-1 bg-white/5 rounded-full border border-white/5">NEXTCLOUD_TOOLS</span>
-                            </div>
-                            <h3 class="text-xl font-bold text-white mb-3">Cloud Syncing</h3>
-                            <p class="text-sm text-zinc-400 mb-6">Manage files and folders on your Nextcloud instance
-                                with full CRUD support.</p>
-                            <div class="flex flex-wrap gap-2 text-[10px] mono-font text-zinc-500">
-                                <span>nextcloud_upload</span> • <span>nextcloud_list</span>
+                                    class="bg-amber-500/10 text-amber-400 text-[10px] px-2 py-0.5 rounded border border-amber-500/20">supabase-tools</span>
+                                <span
+                                    class="bg-amber-500/10 text-amber-400 text-[10px] px-2 py-0.5 rounded border border-amber-500/20">nextcloud-tools</span>
+                                <span
+                                    class="bg-amber-500/10 text-amber-400 text-[10px] px-2 py-0.5 rounded border border-amber-500/20">google-tools</span>
                             </div>
                         </div>
 
-                        <div class="glass-card p-8 rounded-3xl hover:border-yellow-400/30 transition-all group">
-                            <div class="text-yellow-400 mb-6 flex items-center justify-between">
-                                <i class="fas fa-eye text-2xl"></i>
+                        <!-- Productivity -->
+                        <div class="p-4 bg-white/5 border border-white/10 rounded-xl">
+                            <h4 class="text-white font-bold text-sm mb-2 flex items-center gap-2">
+                                <i class="fas fa-calendar-check text-rose-400 text-xs"></i> Productivity
+                            </h4>
+                            <div class="flex flex-wrap gap-1">
                                 <span
-                                    class="text-[10px] mono-font uppercase tracking-widest px-3 py-1 bg-white/5 rounded-full border border-white/5">MULTIMODAL_TOOLS</span>
+                                    class="bg-rose-500/10 text-rose-400 text-[10px] px-2 py-0.5 rounded border border-rose-500/20">kanban-supabase</span>
+                                <span
+                                    class="bg-rose-500/10 text-rose-400 text-[10px] px-2 py-0.5 rounded border border-rose-500/20">notes-supabase</span>
+                                <span
+                                    class="bg-rose-500/10 text-rose-400 text-[10px] px-2 py-0.5 rounded border border-rose-500/20">diary-supabase</span>
+                                <span
+                                    class="bg-rose-500/10 text-rose-400 text-[10px] px-2 py-0.5 rounded border border-rose-500/20">cron-tools</span>
                             </div>
-                            <h3 class="text-xl font-bold text-white mb-3">Vision & Audio</h3>
-                            <p class="text-sm text-zinc-400 mb-6">Analyze images, generate assets, and perform
-                                speech-to-text / text-to-speech.</p>
-                            <div class="flex flex-wrap gap-2 text-[10px] mono-font text-zinc-500">
-                                <span>vision_analyze</span> • <span>image_generate</span>
+                        </div>
+
+                        <!-- Media & Processing -->
+                        <div class="p-4 bg-white/5 border border-white/10 rounded-xl">
+                            <h4 class="text-white font-bold text-sm mb-2 flex items-center gap-2">
+                                <i class="fas fa-film text-violet-400 text-xs"></i> Media
+                            </h4>
+                            <div class="flex flex-wrap gap-1">
+                                <span
+                                    class="bg-violet-500/10 text-violet-400 text-[10px] px-2 py-0.5 rounded border border-violet-500/20">media-tools</span>
+                                <span
+                                    class="bg-violet-500/10 text-violet-400 text-[10px] px-2 py-0.5 rounded border border-violet-500/20">youtube-tools</span>
+                                <span
+                                    class="bg-violet-500/10 text-violet-400 text-[10px] px-2 py-0.5 rounded border border-violet-500/20">multimodal-tools</span>
+                                <span
+                                    class="bg-violet-500/10 text-violet-400 text-[10px] px-2 py-0.5 rounded border border-violet-500/20">document-tools</span>
+                            </div>
+                        </div>
+
+                        <!-- Utility & System -->
+                        <div class="p-4 bg-white/5 border border-white/10 rounded-xl">
+                            <h4 class="text-white font-bold text-sm mb-2 flex items-center gap-2">
+                                <i class="fas fa-terminal text-zinc-400 text-xs"></i> System
+                            </h4>
+                            <div class="flex flex-wrap gap-1">
+                                <span
+                                    class="bg-zinc-500/10 text-zinc-400 text-[10px] px-2 py-0.5 rounded border border-zinc-500/20">commandline-tools</span>
+                                <span
+                                    class="bg-zinc-500/10 text-zinc-400 text-[10px] px-2 py-0.5 rounded border border-zinc-500/20">session-scratchpad-tools</span>
+                                <span
+                                    class="bg-zinc-500/10 text-zinc-400 text-[10px] px-2 py-0.5 rounded border border-zinc-500/20">knowledge-tools</span>
+                                <span
+                                    class="bg-zinc-500/10 text-zinc-400 text-[10px] px-2 py-0.5 rounded border border-zinc-500/20">data-utility-tools</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Social & Communication</h2>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-12">
+                        <div class="p-4 bg-white/5 border border-white/10 rounded-xl">
+                            <div class="flex flex-wrap gap-1">
+                                <span
+                                    class="bg-sky-500/10 text-sky-400 text-[10px] px-2 py-0.5 rounded border border-sky-500/20">social-tools</span>
+                                <span
+                                    class="bg-sky-500/10 text-sky-400 text-[10px] px-2 py-0.5 rounded border border-sky-500/20">communication-tools</span>
+                                <span
+                                    class="bg-sky-500/10 text-sky-400 text-[10px] px-2 py-0.5 rounded border border-sky-500/20">weather-tools</span>
                             </div>
                         </div>
                     </div>
@@ -103,7 +164,7 @@
     </div>
 
     <script type="module" src="/src/docs.js"></script>
-    
+
     <script type="module" src="/src/search.js"></script>
 </body>
 

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tools Registry • Cowork AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800&family=JetBrains+Mono:wght@500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/src/style.css">
+</head>
+
+<body class="bg-zinc-950 text-zinc-200">
+    <!-- @partial:topbar -->
+
+    <div class="flex min-h-screen">
+        <!-- @partial:sidebar -->
+
+        <!-- Main Content Area -->
+        <main class="flex-1 lg:ml-64 relative">
+            <div class="max-w-4xl mx-auto px-6 lg:px-12 pt-12 lg:pt-24 pb-20">
+                <div id="content" class="prose prose-invert prose-zinc max-w-none">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div
+                            class="w-12 h-12 bg-emerald-400/10 rounded-2xl flex items-center justify-center border border-emerald-400/20">
+                            <i class="fas fa-hammer text-emerald-400 text-xl"></i>
+                        </div>
+                        <h1 class="text-4xl font-extrabold tracking-tight text-white mb-0 logo-font">Tools Registry</h1>
+                    </div>
+
+                    <p class="text-xl text-zinc-400 leading-relaxed mb-12">
+                        Tools are the primary way Cowork agents interact with the outside world. They are modular,
+                        schema-driven, and governed by the security firewall.
+                    </p>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Tool Architecture</h2>
+                    <p class="text-zinc-300 mb-6">
+                        All tools in Cowork inherit from a common <code>BaseTool</code> class and are registered in a
+                        central <code>registry</code>. This ensures consistent error handling, metadata extraction, and
+                        safety checks.
+                    </p>
+
+                    <div class="grid md:grid-cols-2 gap-6 mb-12">
+                        <div class="p-6 bg-white/5 border border-white/10 rounded-2xl">
+                            <h4 class="text-white font-bold mb-2">Built-in Tools</h4>
+                            <p class="text-sm text-zinc-500">Core capabilities like File System access, Scratchpad
+                                management, and CLI execution that are compiled into the Cowork binary.</p>
+                        </div>
+                        <div class="p-6 bg-white/5 border border-white/10 rounded-2xl">
+                            <h4 class="text-white font-bold mb-2">External Adapters</h4>
+                            <p class="text-sm text-zinc-500">Dynamic wrappers for 3rd-party APIs (Search, Weather, News)
+                                that map external schemas to the Cowork internal protocol.</p>
+                        </div>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Execution Gateway</h2>
+                    <p class="text-zinc-300 mb-6">
+                        Every tool execution passes through the <code>ExecutionGateway</code>. This singleton:
+                    </p>
+                    <ul class="space-y-4 text-zinc-300 list-disc pl-6 mb-12">
+                        <li><strong>Identifies</strong> the tool by its unique name.</li>
+                        <li><strong>Validates</strong> the input arguments against the tool's JSON schema.</li>
+                        <li><strong>Consults the Firewall</strong> to determine if the user needs to confirm the action.
+                        </li>
+                        <li><strong>Captures</strong> the output and any execution errors for the trace log.</li>
+                    </ul>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">CLI Tool Management</h2>
+                    <div class="bg-zinc-900 rounded-xl p-6 border border-white/10 font-mono text-sm space-y-4">
+                        <div>
+                            <span class="text-zinc-500"># List all available and activated tools</span><br>
+                            <span class="text-yellow-400">cowork</span> tools
+                        </div>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Tool Categories</h2>
+                    <p class="text-zinc-300 mb-6">
+                        Tools are grouped into categories, which allows the <strong>Meta-Router</strong> to activate
+                        only relevant toolsets, reducing prompt tokens and improving reasoning accuracy.
+                    </p>
+                    <div class="columns-2 gap-6 space-y-4 mb-12">
+                        <div class="break-inside-avoid p-4 bg-white/5 rounded-xl border border-white/10">
+                            <h5 class="text-xs font-bold text-white uppercase tracking-widest mb-2">FILE_SYSTEM</h5>
+                            <p class="text-[10px] text-zinc-500">Read, write, and list project files.</p>
+                        </div>
+                        <div class="break-inside-avoid p-4 bg-white/5 rounded-xl border border-white/10">
+                            <h5 class="text-xs font-bold text-white uppercase tracking-widest mb-2">SCRATCHPAD</h5>
+                            <p class="text-[10px] text-zinc-500">Manage episodic pass-by-reference memory.</p>
+                        </div>
+                        <div class="break-inside-avoid p-4 bg-white/5 rounded-xl border border-white/10">
+                            <h5 class="text-xs font-bold text-white uppercase tracking-widest mb-2">BASH_COMMANDS</h5>
+                            <p class="text-[10px] text-zinc-500">Execute Linux shell commands via the CLI.</p>
+                        </div>
+                        <div class="break-inside-avoid p-4 bg-white/5 rounded-xl border border-white/10">
+                            <h5 class="text-xs font-bold text-white uppercase tracking-widest mb-2">WEB_SEARCH</h5>
+                            <p class="text-[10px] text-zinc-500">Dynamic Google/Brave search integration.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Panel (ToC) -->
+        <aside class="hidden xl:block w-72 h-screen sticky top-0 border-l border-white/5 py-24 px-8 overflow-y-auto">
+            <h5 class="mb-4 text-[10px] font-bold tracking-[0.2em] text-zinc-500 uppercase">On this page</h5>
+            <nav id="toc" class="space-y-3 text-sm">
+                <!-- Generated by docs.js -->
+            </nav>
+        </aside>
+    </div>
+
+    <script type="module" src="/src/docs.js"></script>
+    <script type="module" src="/src/search.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Issue Manager • Cowork AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800&family=JetBrains+Mono:wght@500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/src/style.css">
+</head>
+
+<body class="bg-zinc-950 text-zinc-200">
+    <!-- @partial:topbar -->
+
+    <div class="flex min-h-screen">
+        <!-- @partial:sidebar -->
+
+        <!-- Main Content Area -->
+        <main class="flex-1 lg:ml-64 relative">
+            <div class="max-w-4xl mx-auto px-6 lg:px-12 pt-12 lg:pt-24 pb-20">
+                <div id="content" class="prose prose-invert prose-zinc max-w-none">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div
+                            class="w-12 h-12 bg-rose-400/10 rounded-2xl flex items-center justify-center border border-rose-400/20">
+                            <i class="fas fa-bug text-rose-400 text-xl"></i>
+                        </div>
+                        <h1 class="text-4xl font-extrabold tracking-tight text-white mb-0 logo-font">Issue Manager</h1>
+                    </div>
+
+                    <p class="text-xl text-zinc-400 leading-relaxed mb-12">
+                        The Issue Manager is a specialized knowledge base that stores failure patterns and their
+                        solutions, allowing Cowork to learn from errors and provide real-time hints to the LLM during
+                        future turns.
+                    </p>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Learning from Failure</h2>
+                    <p class="text-zinc-300 mb-6">
+                        When a tool call fails or a specific technical hurdle is encountered, a "Problem Triplet" can be
+                        recorded. This triplet consists of:
+                    </p>
+
+                    <div class="grid md:grid-cols-3 gap-6 mb-12">
+                        <div class="glass-card p-6 rounded-2xl border border-white/5 bg-rose-500/5">
+                            <h4 class="text-white font-bold mb-2">The Issue</h4>
+                            <p class="text-xs text-zinc-500">A description of what went wrong (e.g., "Connection Timeout
+                                on port 8080").</p>
+                        </div>
+                        <div class="glass-card p-6 rounded-2xl border border-white/5 bg-amber-500/5">
+                            <h4 class="text-white font-bold mb-2">The Reason</h4>
+                            <p class="text-xs text-zinc-500">The underlying cause (e.g., "The local dev server was not
+                                started").</p>
+                        </div>
+                        <div class="glass-card p-6 rounded-2xl border border-white/5 bg-emerald-500/5">
+                            <h4 class="text-white font-bold mb-2">The Solution</h4>
+                            <p class="text-xs text-zinc-500">Steps to fix it (e.g., "Run 'npm run dev' before initiating
+                                the sync tool").</p>
+                        </div>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Vector-Based Retrieval</h2>
+                    <p class="text-zinc-300 mb-6">
+                        Issues are stored in a SQLite database with <strong>vector search</strong> capabilities (via
+                        <code>sqlite-vec</code>). When the agent encounters an error message in any session:
+                    </p>
+                    <ol class="space-y-4 text-zinc-400 text-sm">
+                        <li>The system localizes the error text and generates a temporary embedding.</li>
+                        <li>It queries the <code>issue_vec</code> virtual table for high-similarity triplets.</li>
+                        <li>If a match is found (similarity > 0.5), the solution is injected into the agent's current
+                            scratchpad or context as a "troubleshooting hint."</li>
+                    </ol>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">CLI Commands</h2>
+                    <div class="bg-zinc-900 rounded-xl p-6 border border-white/10 font-mono text-sm space-y-4">
+                        <div>
+                            <span class="text-zinc-500"># List all known issues</span><br>
+                            <span class="text-yellow-400">cowork</span> issues list
+                        </div>
+                        <div>
+                            <span class="text-zinc-500"># Add a new issue-solution triplet manually</span><br>
+                            <span class="text-yellow-400">cowork</span> issues add "API Auth Error" "Expired Token" "Run
+                            'login' again"
+                        </div>
+                        <div>
+                            <span class="text-zinc-500"># Clear the issue database</span><br>
+                            <span class="text-yellow-400">cowork</span> issues clear
+                        </div>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Automatic Recording</h2>
+                    <p class="text-zinc-300 mb-6">
+                        The <code>record_issue_solution</code> tool allows the agent itself to contribute to this
+                        knowledge base. If an agent successfully debugs a problem, it can proactively save the "Reason"
+                        and "Solution" for future instances.
+                    </p>
+
+                    <div class="p-6 bg-white/5 border border-white/10 rounded-2xl">
+                        <h4 class="text-white font-bold mb-4">Storage Location</h4>
+                        <p class="text-sm text-zinc-500">All issue data is stored in a SQLite database at:</p>
+                        <code class="text-xs text-yellow-400">~/.cowork/issues/issues.db</code>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Panel (ToC) -->
+        <aside class="hidden xl:block w-72 h-screen sticky top-0 border-l border-white/5 py-24 px-8 overflow-y-auto">
+            <h5 class="mb-4 text-[10px] font-bold tracking-[0.2em] text-zinc-500 uppercase">On this page</h5>
+            <nav id="toc" class="space-y-3 text-sm">
+                <!-- Generated by docs.js -->
+            </nav>
+        </aside>
+    </div>
+
+    <script type="module" src="/src/docs.js"></script>
+    <script type="module" src="/src/search.js"></script>
+</body>
+
+</html>

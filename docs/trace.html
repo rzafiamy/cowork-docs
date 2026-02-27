@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Workflow Trace • Cowork AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800&family=JetBrains+Mono:wght@500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/src/style.css">
+</head>
+
+<body class="bg-zinc-950 text-zinc-200">
+    <!-- @partial:topbar -->
+
+    <div class="flex min-h-screen">
+        <!-- @partial:sidebar -->
+
+        <!-- Main Content Area -->
+        <main class="flex-1 lg:ml-64 relative">
+            <div class="max-w-4xl mx-auto px-6 lg:px-12 pt-12 lg:pt-24 pb-20">
+                <div id="content" class="prose prose-invert prose-zinc max-w-none">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div
+                            class="w-12 h-12 bg-amber-400/10 rounded-2xl flex items-center justify-center border border-amber-400/20">
+                            <i class="fas fa-microscope text-amber-400 text-xl"></i>
+                        </div>
+                        <h1 class="text-4xl font-extrabold tracking-tight text-white mb-0 logo-font">Workflow Trace</h1>
+                    </div>
+
+                    <p class="text-xl text-zinc-400 leading-relaxed mb-12">
+                        Workflow Traing provides a high-fidelity, event-sourced record of every agent action, thought,
+                        and API request, ensuring that Cowork is never a "black box."
+                    </p>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Event-Sourced Logging</h2>
+                    <p class="text-zinc-300 mb-6">
+                        Instead of simple text logs, Cowork emits structured JSONL events during each turn. This
+                        captures:
+                    </p>
+
+                    <div class="space-y-4 mb-12">
+                        <div class="p-6 bg-white/5 border border-white/10 rounded-2xl flex gap-6">
+                            <div class="pt-1"><i class="fas fa-route text-sky-400"></i></div>
+                            <div>
+                                <h4 class="text-white font-bold mb-1">Router Decisions</h4>
+                                <p class="text-sm text-zinc-400">Which skills were considered, their probability scores,
+                                    and why the router chose a specific set of tools.</p>
+                            </div>
+                        </div>
+                        <div class="p-6 bg-white/5 border border-white/10 rounded-2xl flex gap-6">
+                            <div class="pt-1"><i class="fas fa-brain text-violet-400"></i></div>
+                            <div>
+                                <h4 class="text-white font-bold mb-1">LLM Raw Interaction</h4>
+                                <p class="text-sm text-zinc-400">The exact prompt composition sent to the LLM and the
+                                    raw token-by-token stream received.</p>
+                            </div>
+                        </div>
+                        <div class="p-6 bg-white/5 border border-white/10 rounded-2xl flex gap-6">
+                            <div class="pt-1"><i class="fas fa-tools text-amber-400"></i></div>
+                            <div>
+                                <h4 class="text-white font-bold mb-1">Tool Execution Data</h4>
+                                <p class="text-sm text-zinc-400">Arguments passed to tools, their execution time (ms),
+                                    and the full content of tool outputs.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Visualizing the Timeline</h2>
+                    <p class="text-zinc-300 mb-6">
+                        The <code>trace</code> command renders these JSONL files into a human-readable timeline directly
+                        in the terminal, color-coded by event family.
+                    </p>
+
+                    <div class="bg-zinc-900 rounded-xl p-8 border border-white/10 mb-12">
+                        <div class="flex items-center gap-2 mb-4">
+                            <div class="w-3 h-3 rounded-full bg-rose-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-amber-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-emerald-500"></div>
+                        </div>
+                        <div class="font-mono text-[10px] space-y-2 leading-tight">
+                            <div class="text-zinc-500">[1] +0ms trace_started</div>
+                            <div class="text-sky-400">[2] +45ms router_classification</div>
+                            <div class="text-zinc-300"> keys: categories, confidence, reasoning</div>
+                            <div class="text-amber-400">[3] +120ms tool_call</div>
+                            <div class="text-zinc-300"> keys: name, arguments</div>
+                            <div class="text-emerald-400">[4] +580ms final_answer</div>
+                        </div>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">CLI Commands</h2>
+                    <div class="bg-zinc-900 rounded-xl p-6 border border-white/10 font-mono text-sm space-y-4">
+                        <div>
+                            <span class="text-zinc-500"># View the latest trace timeline</span><br>
+                            <span class="text-yellow-400">cowork</span> trace
+                        </div>
+                        <div>
+                            <span class="text-zinc-500"># View a specific trace with full data payloads</span><br>
+                            <span class="text-yellow-400">cowork</span> trace [job_id] --full
+                        </div>
+                        <div>
+                            <span class="text-zinc-500"># Clear all trace files from disk</span><br>
+                            <span class="text-yellow-400">cowork</span> trace clean
+                        </div>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Storage Subsystem</h2>
+                    <p class="text-zinc-300 mb-6">
+                        Traces are stored per-session. If a session is linked to a workspace, the traces are co-located
+                        with the project files for easier export and analysis.
+                    </p>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="p-4 bg-white/5 rounded-xl border border-white/10">
+                            <span class="block text-[10px] text-zinc-500 uppercase font-bold mb-1">Standard Root</span>
+                            <code class="text-xs text-amber-500">~/.cowork/traces/[session_id]/*.jsonl</code>
+                        </div>
+                        <div class="p-4 bg-white/5 rounded-xl border border-white/10">
+                            <span class="block text-[10px] text-zinc-500 uppercase font-bold mb-1">Workspace Root</span>
+                            <code class="text-xs text-sky-500">~/workspace/[slug]/traces/*.jsonl</code>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Panel (ToC) -->
+        <aside class="hidden xl:block w-72 h-screen sticky top-0 border-l border-white/5 py-24 px-8 overflow-y-auto">
+            <h5 class="mb-4 text-[10px] font-bold tracking-[0.2em] text-zinc-500 uppercase">On this page</h5>
+            <nav id="toc" class="space-y-3 text-sm">
+                <!-- Generated by docs.js -->
+            </nav>
+        </aside>
+    </div>
+
+    <script type="module" src="/src/docs.js"></script>
+    <script type="module" src="/src/search.js"></script>
+</body>
+
+</html>

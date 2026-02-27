@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Queue • Cowork AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800&family=JetBrains+Mono:wght@500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/src/style.css">
+</head>
+
+<body class="bg-zinc-950 text-zinc-200">
+    <!-- @partial:topbar -->
+
+    <div class="flex min-h-screen">
+        <!-- @partial:sidebar -->
+
+        <!-- Main Content Area -->
+        <main class="flex-1 lg:ml-64 relative">
+            <div class="max-w-4xl mx-auto px-6 lg:px-12 pt-12 lg:pt-24 pb-20">
+                <div id="content" class="prose prose-invert prose-zinc max-w-none">
+                    <div class="flex items-center gap-4 mb-8">
+                        <div
+                            class="w-12 h-12 bg-sky-400/10 rounded-2xl flex items-center justify-center border border-sky-400/20">
+                            <i class="fas fa-tasks text-sky-400 text-xl"></i>
+                        </div>
+                        <h1 class="text-4xl font-extrabold tracking-tight text-white mb-0 logo-font">The Sentinel (Job
+                            Queue)</h1>
+                    </div>
+
+                    <p class="text-xl text-zinc-400 leading-relaxed mb-12">
+                        Cowork uses a central job management system called <strong>The Sentinel</strong> to track
+                        concurrent executions, enforce resource limits, and provide a durable audit trail of all agent
+                        actions.
+                    </p>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Execution Lifecycle</h2>
+                    <p class="text-zinc-300 mb-6">
+                        Every time an agent turn is initiated (via CLI, Cron, or Web), it is registered as an
+                        <code>AgentJob</code>. This allows the system to monitor its progress and handle unexpected
+                        interruptions.
+                    </p>
+
+                    <div class="space-y-6 mb-12">
+                        <div class="flex gap-6 items-start">
+                            <div class="text-zinc-600 font-mono text-lg pt-1">01</div>
+                            <div>
+                                <h4 class="text-white font-bold mb-1">Registration</h4>
+                                <p class="text-sm text-zinc-400">The job is assigned a unique 8-character ID. The
+                                    Sentinel checks global concurrency limits (default: 10 concurrent jobs).</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 items-start">
+                            <div class="text-zinc-600 font-mono text-lg pt-1">02</div>
+                            <div>
+                                <h4 class="text-white font-bold mb-1">Trace Binding</h4>
+                                <p class="text-sm text-zinc-400">A dedicated <code>.jsonl</code> trace file is created
+                                    and linked to the job ID for real-time observability.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 items-start">
+                            <div class="text-zinc-600 font-mono text-lg pt-1">03</div>
+                            <div>
+                                <h4 class="text-white font-bold mb-1">Loop Execution</h4>
+                                <p class="text-sm text-zinc-400">The agent enters its reasoning/action loop. Token usage
+                                    and tool calls are tracked per-job.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 items-start">
+                            <div class="text-zinc-600 font-mono text-lg pt-1">04</div>
+                            <div>
+                                <h4 class="text-white font-bold mb-1">Completion/Failure</h4>
+                                <p class="text-sm text-zinc-400">The final result or error message is persisted. Ghost
+                                    jobs (interrupted processes) are automatically detected and marked as failed.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Durable Job History</h2>
+                    <p class="text-zinc-300 mb-6">
+                        All jobs are persisted to <code>~/.cowork/jobs.json</code>. This history can be inspected to
+                        understand past agent behavior and resource consumption.
+                    </p>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">CLI Commands</h2>
+                    <div class="bg-zinc-900 rounded-xl p-6 border border-white/10 font-mono text-sm space-y-4">
+                        <div>
+                            <span class="text-zinc-500"># Show the jobs dashboard (recent 24 jobs)</span><br>
+                            <span class="text-yellow-400">cowork</span> jobs
+                        </div>
+                        <div>
+                            <span class="text-zinc-500"># Wipe all job history</span><br>
+                            <span class="text-yellow-400">cowork</span> jobs clean
+                        </div>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Ghost Job Detection</h2>
+                    <p class="text-zinc-300 mb-6">
+                        Because Cowork is a CLI-first tool, a process might be killed (SIGINT/SIGTERM) during an agent
+                        turn. The Sentinel identifies jobs marked as "RUNNING" during startup and re-labels them as
+                        "Ghost jobs" with an appropriate error message, ensuring the concurrency slots are freed.
+                    </p>
+
+                    <div class="p-6 bg-white/5 border border-white/10 rounded-2xl">
+                        <h4 class="text-white font-bold mb-4">Job Schema</h4>
+                        <pre class="text-[10px] text-zinc-400 overflow-x-auto bg-black/30 p-4 rounded-lg">
+{
+  "job_id": "8a2f1c34",
+  "session_id": "uuid-...",
+  "status": "completed",
+  "created_at": "2024-03-20T10:00:00",
+  "steps": 4,
+  "tool_calls": 2,
+  "trace_path": "~/.cowork/traces/..."
+}</pre>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Panel (ToC) -->
+        <aside class="hidden xl:block w-72 h-screen sticky top-0 border-l border-white/5 py-24 px-8 overflow-y-auto">
+            <h5 class="mb-4 text-[10px] font-bold tracking-[0.2em] text-zinc-500 uppercase">On this page</h5>
+            <nav id="toc" class="space-y-3 text-sm">
+                <!-- Generated by docs.js -->
+            </nav>
+        </aside>
+    </div>
+
+    <script type="module" src="/src/docs.js"></script>
+    <script type="module" src="/src/search.js"></script>
+</body>
+
+</html>
