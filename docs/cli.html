@@ -33,7 +33,7 @@
         <aside id="sidebar"
             class="fixed top-0 bottom-0 left-0 z-50 w-64 bg-zinc-950 border-r border-white/5 transform -translate-x-full lg:translate-x-0 transition-transform duration-300">
             <div class="flex flex-col h-full">
-                <div class="px-6 py-8 border-b border-white/5 hidden lg:block">
+                                <div class="px-6 py-8 border-b border-white/5 hidden lg:block">
                     <a href="/" class="flex items-center gap-3">
                         <div
                             class="w-10 h-10 bg-gradient-to-br from-yellow-400 to-amber-600 rounded-xl flex items-center justify-center font-bold text-zinc-950">
@@ -41,6 +41,16 @@
                         <span class="logo-font text-xl font-bold tracking-tighter text-white">cowork</span>
                     </a>
                 </div>
+
+                <div class="px-4 py-4 border-b border-white/5">
+                    <div class="relative">
+                        <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500 text-[10px]"></i>
+                        <input type="text" id="search-input" placeholder="Search docs..."
+                            class="search-input pl-8 py-1.5 text-xs">
+                        <div id="search-results" class="search-results hidden"></div>
+                    </div>
+                </div>
+
 
                 <nav class="flex-1 overflow-y-auto px-4 py-8 space-y-8">
                     <div>
@@ -78,7 +88,7 @@
                             <a href="/docs/config.html"
                                 class="block px-3 py-2 rounded-lg text-zinc-400 hover:text-white transition-colors">Configuration</a>
                             <a href="/docs/security.html"
-                                class="block px-3 py-2 rounded-lg text-zinc-400 hover:text-white transition-colors">Security</a>
+                                class="block px-3 py-2 rounded-lg text-zinc-400 hover:text-white transition-colors">Security & Firewall</a>
                         </div>
                     </div>
                 </nav>
@@ -113,6 +123,24 @@
                     <pre
                         class="bg-zinc-900 border border-white/5 rounded-xl p-6 font-mono text-sm mb-8 text-amber-400">cowork run "Refactor utility.js to use ESM"</pre>
 
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">cowork ai</h2>
+                    <p
+                        class="text-zinc-400 mb-6 font-medium font-mono text-sm uppercase tracking-widest bg-yellow-400/5 inline-block px-3 py-1 rounded-full border border-yellow-400/10">
+                        Profile Management</p>
+                    <p class="text-zinc-300 mb-6">Manage AI profiles including endpoints, models, and API keys. Switch
+                        between different providers seamlessly.</p>
+                    <pre class="bg-zinc-900 border border-white/5 rounded-xl p-6 font-mono text-sm mb-8 text-amber-400">cowork ai list
+cowork ai switch gpt-4o</pre>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">cowork sessions</h2>
+                    <p
+                        class="text-zinc-400 mb-6 font-medium font-mono text-sm uppercase tracking-widest bg-yellow-400/5 inline-block px-3 py-1 rounded-full border border-yellow-400/10">
+                        History & Context</p>
+                    <p class="text-zinc-300 mb-6">List, resume, or delete chat sessions. Sessions persist all state,
+                        including scratchpad and planning strategy.</p>
+                    <pre class="bg-zinc-900 border border-white/5 rounded-xl p-6 font-mono text-sm mb-8 text-amber-400">cowork sessions list
+cowork session resume [id]</pre>
+
                     <h2 class="text-2xl font-bold text-white mt-12 mb-6">cowork memory</h2>
                     <p
                         class="text-zinc-400 mb-6 font-medium font-mono text-sm uppercase tracking-widest bg-yellow-400/5 inline-block px-3 py-1 rounded-full border border-yellow-400/10">
@@ -122,6 +150,51 @@
                     <pre
                         class="bg-zinc-900 border border-white/5 rounded-xl p-6 font-mono text-sm mb-8 text-amber-400">cowork memory list</pre>
 
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">cowork vector</h2>
+                    <p
+                        class="text-zinc-400 mb-6 font-medium font-mono text-sm uppercase tracking-widest bg-yellow-400/5 inline-block px-3 py-1 rounded-full border border-yellow-400/10">
+                        RAG Embeddings</p>
+                    <p class="text-zinc-300 mb-6">Manage vector database embeddings for Retrieval-Augmented Generation.
+                    </p>
+                    <pre
+                        class="bg-zinc-900 border border-white/5 rounded-xl p-6 font-mono text-sm mb-8 text-amber-400">cowork vector ingest path/to/docs</pre>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">cowork firewall</h2>
+                    <p
+                        class="text-zinc-400 mb-6 font-medium font-mono text-sm uppercase tracking-widest bg-yellow-400/5 inline-block px-3 py-1 rounded-full border border-yellow-400/10">
+                        Security Control</p>
+                    <p class="text-zinc-300 mb-6">Audit and configure the tool execution firewall. Control which tools
+                        require handshake confirmation.</p>
+                    <pre class="bg-zinc-900 border border-white/5 rounded-xl p-6 font-mono text-sm mb-8 text-amber-400">cowork firewall list
+cowork firewall edit</pre>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">cowork trace</h2>
+                    <p
+                        class="text-zinc-400 mb-6 font-medium font-mono text-sm uppercase tracking-widest bg-yellow-400/5 inline-block px-3 py-1 rounded-full border border-yellow-400/10">
+                        Execution Audit</p>
+                    <p class="text-zinc-300 mb-6">View detailed execution traces of the agent's internal reasoning and
+                        tool calls in a beautiful timeline.</p>
+                    <pre
+                        class="bg-zinc-900 border border-white/5 rounded-xl p-6 font-mono text-sm mb-8 text-amber-400">cowork trace --latest</pre>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">cowork cron</h2>
+                    <p
+                        class="text-zinc-400 mb-6 font-medium font-mono text-sm uppercase tracking-widest bg-yellow-400/5 inline-block px-3 py-1 rounded-full border border-yellow-400/10">
+                        Scheduled Tasks</p>
+                    <p class="text-zinc-300 mb-6">Schedule autonomous tasks to run periodically (daily, weekly, or
+                        once).</p>
+                    <pre
+                        class="bg-zinc-900 border border-white/5 rounded-xl p-6 font-mono text-sm mb-8 text-amber-400">cowork cron add daily 09:00 "Generate daily summary"</pre>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">cowork mm</h2>
+                    <p
+                        class="text-zinc-400 mb-6 font-medium font-mono text-sm uppercase tracking-widest bg-yellow-400/5 inline-block px-3 py-1 rounded-full border border-yellow-400/10">
+                        Multi-Modal</p>
+                    <p class="text-zinc-300 mb-6">Configure Vision, ASR (Speech-to-Text), and TTS (Text-to-Speech)
+                        service endpoints.</p>
+                    <pre
+                        class="bg-zinc-900 border border-white/5 rounded-xl p-6 font-mono text-sm mb-8 text-amber-400">cowork mm status</pre>
+
                     <h2 class="text-2xl font-bold text-white mt-12 mb-6">cowork config</h2>
                     <p
                         class="text-zinc-400 mb-6 font-medium font-mono text-sm uppercase tracking-widest bg-yellow-400/5 inline-block px-3 py-1 rounded-full border border-yellow-400/10">
@@ -129,6 +202,33 @@
                     <p class="text-zinc-300 mb-6">Manage global agent settings, API keys, and model preferences.</p>
                     <pre
                         class="bg-zinc-900 border border-white/5 rounded-xl p-6 font-mono text-sm mb-8 text-amber-400">cowork config set model gpt-4o</pre>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">cowork setup</h2>
+                    <p
+                        class="text-zinc-400 mb-6 font-medium font-mono text-sm uppercase tracking-widest bg-yellow-400/5 inline-block px-3 py-1 rounded-full border border-yellow-400/10">
+                        Initialization</p>
+                    <p class="text-zinc-300 mb-6">Run the interactive setup wizard to configure your agent environment.
+                    </p>
+                    <pre
+                        class="bg-zinc-900 border border-white/5 rounded-xl p-6 font-mono text-sm mb-8 text-amber-400">cowork setup</pre>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">cowork tokens</h2>
+                    <p
+                        class="text-zinc-400 mb-6 font-medium font-mono text-sm uppercase tracking-widest bg-yellow-400/5 inline-block px-3 py-1 rounded-full border border-yellow-400/10">
+                        Usage Tracking</p>
+                    <p class="text-zinc-300 mb-6">Monitor cumulative token consumption across different models and
+                        sessions.</p>
+                    <pre
+                        class="bg-zinc-900 border border-white/5 rounded-xl p-6 font-mono text-sm mb-8 text-amber-400">cowork tokens</pre>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">cowork reset</h2>
+                    <p
+                        class="text-zinc-400 mb-6 font-medium font-mono text-sm uppercase tracking-widest bg-yellow-400/5 inline-block px-3 py-1 rounded-full border border-yellow-400/10">
+                        Danger Zone</p>
+                    <p class="text-zinc-300 mb-6">Wipe all local Cowork state and start fresh. Use with caution.</p>
+                    <pre
+                        class="bg-zinc-900 border border-white/5 rounded-xl p-6 font-mono text-sm mb-8 text-amber-400">cowork reset</pre>
+
                 </div>
             </div>
         </main>
@@ -143,6 +243,8 @@
     </div>
 
     <script type="module" src="/src/docs.js"></script>
+
+    <script type="module" src="/src/search.js"></script>
 </body>
 
 </html>

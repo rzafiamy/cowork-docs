@@ -30,6 +30,14 @@
                 </div>
             </div>
             <div class="hidden md:flex items-center gap-x-8 text-sm font-medium">
+                <div class="hidden lg:flex items-center relative mr-2">
+                    <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500 text-[10px]"></i>
+                    <input type="text" id="search-input" placeholder="Search docs..."
+                        class="search-input pl-8 py-1.5 text-xs w-48">
+                    <div id="search-results" class="search-results hidden w-80 right-0 left-auto"></div>
+                </div>
+
+                
                 <a href="#features" class="nav-link">Features</a>
                 <a href="/docs/index.html"
                     class="px-5 py-2 bg-white text-zinc-950 rounded-xl font-bold hover:bg-yellow-400 transition-all active:scale-95 shadow-xl shadow-white/5">
@@ -281,6 +289,8 @@
     </footer>
 
     <script type="module" src="/src/main.js"></script>
+    
+    <script type="module" src="/src/search.js"></script>
 </body>
 
 </html>

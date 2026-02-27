@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Security • Cowork AI</title>
+    <title>Security & Firewall • Cowork AI</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -42,6 +42,16 @@
                     </a>
                 </div>
 
+                <div class="px-4 py-4 border-b border-white/5">
+                    <div class="relative">
+                        <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500 text-[10px]"></i>
+                        <input type="text" id="search-input" placeholder="Search docs..."
+                            class="search-input pl-8 py-1.5 text-xs">
+                        <div id="search-results" class="search-results hidden"></div>
+                    </div>
+                </div>
+
+
                 <nav class="flex-1 overflow-y-auto px-4 py-8 space-y-8">
                     <div>
                         <h5 class="px-2 mb-4 text-[10px] font-bold tracking-[0.2em] text-zinc-500 uppercase">
@@ -78,7 +88,8 @@
                             <a href="/docs/config.html"
                                 class="block px-3 py-2 rounded-lg text-zinc-400 hover:text-white transition-colors">Configuration</a>
                             <a href="/docs/security.html"
-                                class="block px-3 py-2 rounded-lg bg-white/5 text-yellow-400 font-medium">Security</a>
+                                class="block px-3 py-2 rounded-lg bg-white/5 text-yellow-400 font-medium tracking-tight">Security
+                                & Firewall</a>
                         </div>
                     </div>
                 </nav>
@@ -89,48 +100,128 @@
         <main class="flex-1 lg:ml-64 relative">
             <div class="max-w-4xl mx-auto px-6 lg:px-12 pt-12 lg:pt-24 pb-20">
                 <div id="content" class="prose prose-invert prose-zinc max-w-none">
-                    <h1 class="text-4xl font-extrabold tracking-tight text-white mb-8 logo-font">Firewall & Trust</h1>
+                    <h1 class="text-4xl font-extrabold tracking-tight text-white mb-8 logo-font text-glow">Firewall &
+                        Security Protocols
+                    </h1>
                     <p class="text-xl text-zinc-400 leading-relaxed mb-12">
-                        Cowork implements a strict Zero-Trust security posture. No tool executes without passing through
-                        the multi-layer firewall validation engine.
+                        Cowork implements a multi-layered <strong>Zero-Trust</strong> security architecture. No tool
+                        executes without passing through the autonomous firewall validation engine.
                     </p>
 
                     <h2 class="text-2xl font-bold text-white mt-12 mb-6">The Tool Firewall</h2>
-                    <p class="text-zinc-300 mb-6">The firewall is the final gatekeeper before any tool execution,
-                        evaluating rules based on tool name, arguments, and context.</p>
+                    <p class="text-zinc-300 mb-6">The firewall is the final logic gate before any execution. It
+                        evaluates rules based on tool names, intent classification, and argument-level regex patterns.
+                    </p>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
-                        <div class="p-6 bg-emerald-500/5 border border-emerald-500/20 rounded-2xl">
-                            <div
-                                class="w-8 h-8 bg-emerald-500 rounded-lg flex items-center justify-center text-zinc-950 mb-4">
-                                <i class="fas fa-check"></i>
-                            </div>
-                            <h4 class="text-white font-bold mb-2">ALLOW</h4>
-                            <p class="text-[12px] text-zinc-500 italic">Immediate execution for safe, read-only
-                                operations.</p>
+                        <div class="p-6 bg-emerald-500/5 border border-emerald-500/10 rounded-2xl">
+                            <i class="fas fa-check-circle text-emerald-500 text-lg mb-4"></i>
+                            <h4 class="text-white font-bold mb-1 text-sm uppercase tracking-wide">ALLOW</h4>
+                            <p class="text-xs text-zinc-500 leading-relaxed">Immediate background execution for safe,
+                                read-only tools.</p>
                         </div>
-                        <div class="p-6 bg-yellow-400/5 border border-yellow-400/20 rounded-2xl">
-                            <div
-                                class="w-8 h-8 bg-yellow-400 rounded-lg flex items-center justify-center text-zinc-950 mb-4">
-                                <i class="fas fa-question"></i>
-                            </div>
-                            <h4 class="text-white font-bold mb-2">ASK</h4>
-                            <p class="text-[12px] text-zinc-500 italic">Pauses execution for explicit user confirmation.
-                            </p>
+                        <div class="p-6 bg-yellow-400/5 border border-yellow-400/10 rounded-2xl">
+                            <i class="fas fa-hand-paper text-yellow-400 text-lg mb-4"></i>
+                            <h4 class="text-white font-bold mb-1 text-sm uppercase tracking-wide">ASK</h4>
+                            <p class="text-xs text-zinc-500 leading-relaxed">Agent pauses and requests explicit user
+                                approval before proceeding.</p>
                         </div>
-                        <div class="p-6 bg-rose-500/5 border border-rose-500/20 rounded-2xl">
-                            <div
-                                class="w-8 h-8 bg-rose-500 rounded-lg flex items-center justify-center text-zinc-950 mb-4">
-                                <i class="fas fa-xmark"></i>
+                        <div class="p-6 bg-rose-500/5 border border-rose-500/10 rounded-2xl">
+                            <i class="fas fa-ban text-rose-500 text-lg mb-4"></i>
+                            <h4 class="text-white font-bold mb-1 text-sm uppercase tracking-wide">BLOCK</h4>
+                            <p class="text-xs text-zinc-500 leading-relaxed">Execution strictly denied. Agent is
+                                informed of the policy violation.</p>
+                        </div>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Configuring <code>firewall.yaml</code></h2>
+                    <p class="text-zinc-300 mb-4">Located at <code>~/.cowork/firewall.yaml</code>, this file defines the
+                        global security posture.</p>
+
+                    <div
+                        class="bg-zinc-900 border border-white/5 rounded-2xl p-6 mb-12 font-mono text-[12px] text-zinc-400 overflow-x-auto">
+                        <div class="text-zinc-500 mb-2"># Example Firewall Configuration</div>
+                        <div><span class="text-yellow-400">policy:</span></div>
+                        <div class="pl-4"><span class="text-yellow-400">default_action:</span> ask</div>
+                        <div class="mt-4"><span class="text-yellow-400">tools:</span></div>
+                        <div class="pl-4">- <span class="text-yellow-400">name:</span> "git_push"</div>
+                        <div class="pl-6"><span class="text-yellow-400">action:</span> ask</div>
+                        <div class="pl-6"><span class="text-yellow-400">description:</span> "Prevent unverified remote
+                            code changes"</div>
+                        <div class="mt-2 pl-4">- <span class="text-yellow-400">name:</span> "codebase_bash"</div>
+                        <div class="pl-6"><span class="text-yellow-400">action:</span> ask</div>
+                        <div class="pl-6"><span class="text-yellow-400">rules:</span></div>
+                        <div class="pl-10">- <span class="text-yellow-400">field:</span> command</div>
+                        <div class="pl-12"><span class="text-yellow-400">regex:</span> "^rm -rf"</div>
+                        <div class="pl-12"><span class="text-yellow-400">action:</span> block</div>
+                        <div class="pl-12"><span class="text-yellow-400">description:</span> "strictly block recursive
+                            deletions"</div>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Argument-Level Filtering</h2>
+                    <p class="text-zinc-300 mb-6">Cowork supports deep inspection of tool arguments using regular
+                        expressions. This allows you to allow a tool generally but block specific dangerous payloads.
+                    </p>
+                    <div class="space-y-4 mb-12">
+                        <div
+                            class="p-6 bg-white/5 border border-white/10 rounded-2xl group hover:border-white/20 transition-colors">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div
+                                    class="w-8 h-8 rounded-lg bg-zinc-800 flex items-center justify-center border border-white/10">
+                                    <i class="fas fa-code text-zinc-400 text-xs text-nowrap"></i>
+                                </div>
+                                <h4 class="text-white font-bold font-mono text-sm leading-none">Regex Inspection</h4>
                             </div>
-                            <h4 class="text-white font-bold mb-2">BLOCK</h4>
-                            <p class="text-[12px] text-zinc-500 italic">Execution strictly denied for forbidden actions.
+                            <p class="text-sm text-zinc-500 leading-relaxed">
+                                You can target specific <code>fields</code> in a tool call's arguments. If the
+                                <code>regex</code> matches, the specified <code>action</code> overrides the tool's
+                                default.
                             </p>
                         </div>
                     </div>
 
-                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Trust Tiers</h2>
-                    <p class="text-zinc-300 mb-6">Tools are categorized into tiers, with increasing levels of scrutiny
-                        and firewall friction required for each.</p>
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6 text-glow">Trust Tiers</h2>
+                    <p class="text-zinc-300 mb-8">Tools are grouped into tiers based on their potential impact on the
+                        system.</p>
+
+                    <div class="space-y-6 mb-12">
+                        <div class="relative pl-8 border-l border-white/10">
+                            <div
+                                class="absolute -left-[5px] top-1 w-2 h-2 rounded-full bg-emerald-500 shadow-[0_0_10px_rgba(16,185,129,0.5)]">
+                            </div>
+                            <h4 class="text-white font-bold mb-1">Tier 1: Observational (ReadOnly)</h4>
+                            <p class="text-xs text-zinc-500">Tools like <code>web_search</code>,
+                                <code>codebase_read_file</code>, or <code>calc</code>. Usually set to
+                                <strong>ALLOW</strong>.</p>
+                        </div>
+                        <div class="relative pl-8 border-l border-white/10">
+                            <div
+                                class="absolute -left-[5px] top-1 w-2 h-2 rounded-full bg-yellow-400 shadow-[0_0_10px_rgba(250,204,21,0.5)]">
+                            </div>
+                            <h4 class="text-white font-bold mb-1">Tier 2: Mutative (Workspaces)</h4>
+                            <p class="text-xs text-zinc-500">Tools that write files or modify local session state.
+                                Usually set to <strong>ASK</strong> or <strong>ALLOW</strong> in trusted environments.
+                            </p>
+                        </div>
+                        <div class="relative pl-8 border-l border-white/10">
+                            <div
+                                class="absolute -left-[5px] top-1 w-2 h-2 rounded-full bg-rose-500 shadow-[0_0_10px_rgba(244,63,94,0.5)]">
+                            </div>
+                            <h4 class="text-white font-bold mb-1">Tier 3: Critical (System/External)</h4>
+                            <p class="text-xs text-zinc-500">Shell execution, git mutations, or email sending. Strictly
+                                set to <strong>ASK</strong> by default.</p>
+                        </div>
+                    </div>
+
+                    <!-- Footer prompt -->
+                    <div
+                        class="mt-20 p-8 rounded-3xl bg-gradient-to-br from-yellow-400/10 to-transparent border border-yellow-400/10">
+                        <h4 class="text-white font-bold mb-2">Safety First</h4>
+                        <p class="text-sm text-zinc-400 leading-relaxed">
+                            We recommend keeping the <code>default_action</code> at <code>ask</code> for production
+                            environments. You can always use the <code>cowork firewall reset</code> command to restore
+                            factory-safe defaults.
+                        </p>
+                    </div>
                 </div>
             </div>
         </main>
@@ -145,6 +236,7 @@
     </div>
 
     <script type="module" src="/src/docs.js"></script>
+    <script type="module" src="/src/search.js"></script>
 </body>
 
 </html>

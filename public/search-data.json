@@ -1,0 +1,112 @@
+[
+    {
+        "id": "index",
+        "title": "Cowork AI Documentation",
+        "description": "Welcome to the Cowork AI documentation. Learn how to use the autonomous agentic coworker.",
+        "url": "/docs/index.html",
+        "keywords": [
+            "getting started",
+            "introduction",
+            "setup"
+        ]
+    },
+    {
+        "id": "architecture",
+        "title": "Architecture Overview",
+        "description": "Deep dive into the 7-phase execution pipeline and Makix Enterprise Architecture.",
+        "url": "/docs/architecture.html",
+        "keywords": [
+            "pipeline",
+            "meta-router",
+            "planning",
+            "execution",
+            "memoria"
+        ]
+    },
+    {
+        "id": "cli",
+        "title": "CLI Reference",
+        "description": "Complete guide to Cowork CLI commands: chat, run, sessions, memory, firewall, and more.",
+        "url": "/docs/cli.html",
+        "keywords": [
+            "commands",
+            "terminal",
+            "usage",
+            "chat",
+            "run",
+            "config"
+        ]
+    },
+    {
+        "id": "algorithms",
+        "title": "Algorithms & Logic",
+        "description": "Detailed explanation of the algorithms powering Cowork, including reasoning and termination guarantees.",
+        "url": "/docs/algorithms.html",
+        "keywords": [
+            "reasoning",
+            "prompting",
+            "termination",
+            "hallucination"
+        ]
+    },
+    {
+        "id": "memory",
+        "title": "Memoria Knowledge Graph",
+        "description": "How Cowork remembers interactions and builds a long-term knowledge graph.",
+        "url": "/docs/memory.html",
+        "keywords": [
+            "long-term memory",
+            "graph",
+            "embeddings",
+            "context"
+        ]
+    },
+    {
+        "id": "skills",
+        "title": "Skill Registry",
+        "description": "Extending Cowork with custom skills and tool integrations.",
+        "url": "/docs/skills.html",
+        "keywords": [
+            "tools",
+            "plugins",
+            "registry",
+            "capability"
+        ]
+    },
+    {
+        "id": "config",
+        "title": "Configuration Guide",
+        "description": "Managing environment variables, API keys, and model settings.",
+        "url": "/docs/config.html",
+        "keywords": [
+            "env",
+            "api key",
+            "settings",
+            "profiles",
+            "max_steps",
+            "tokens",
+            "decay_rate",
+            "model_text",
+            "firewall.yaml",
+            "config.json"
+        ]
+    },
+    {
+        "id": "security",
+        "title": "Security & Firewall",
+        "description": "Understanding the tool firewall, trust tiers, and safety protocols.",
+        "url": "/docs/security.html",
+        "keywords": [
+            "firewall",
+            "safety",
+            "trust",
+            "sandboxing",
+            "yaml",
+            "regex",
+            "allow",
+            "ask",
+            "block",
+            "zero-trust"
+        ]
+    }
+]

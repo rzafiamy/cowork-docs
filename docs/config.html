@@ -42,6 +42,16 @@
                     </a>
                 </div>
 
+                <div class="px-4 py-4 border-b border-white/5">
+                    <div class="relative">
+                        <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500 text-[10px]"></i>
+                        <input type="text" id="search-input" placeholder="Search docs..."
+                            class="search-input pl-8 py-1.5 text-xs">
+                        <div id="search-results" class="search-results hidden"></div>
+                    </div>
+                </div>
+
+
                 <nav class="flex-1 overflow-y-auto px-4 py-8 space-y-8">
                     <div>
                         <h5 class="px-2 mb-4 text-[10px] font-bold tracking-[0.2em] text-zinc-500 uppercase">
@@ -78,7 +88,8 @@
                             <a href="/docs/config.html"
                                 class="block px-3 py-2 rounded-lg bg-white/5 text-yellow-400 font-medium">Configuration</a>
                             <a href="/docs/security.html"
-                                class="block px-3 py-2 rounded-lg text-zinc-400 hover:text-white transition-colors">Security</a>
+                                class="block px-3 py-2 rounded-lg text-zinc-400 hover:text-white transition-colors">Security
+                                & Firewall</a>
                         </div>
                     </div>
                 </nav>
@@ -89,72 +100,310 @@
         <main class="flex-1 lg:ml-64 relative">
             <div class="max-w-4xl mx-auto px-6 lg:px-12 pt-12 lg:pt-24 pb-20">
                 <div id="content" class="prose prose-invert prose-zinc max-w-none">
-                    <h1 class="text-4xl font-extrabold tracking-tight text-white mb-8 logo-font">Configuration Reference
+                    <h1 class="text-4xl font-extrabold tracking-tight text-white mb-8 logo-font text-glow">Full Settings
+                        Reference
                     </h1>
                     <p class="text-xl text-zinc-400 leading-relaxed mb-12">
-                        Cowork can be customized via the <code>~/.cowork/config.json</code> file or environment
-                        variables. This section outlines the primary system settings.
+                        Cowork provides granular control over reasoning, memory, and performance. All parameters below
+                        can be managed via <code>cowork config</code> or direct file editing.
                     </p>
 
-                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Core Parameters</h2>
-                    <div class="glass-card rounded-2xl overflow-hidden border border-white/10 mb-12">
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left text-sm">
-                                <thead class="bg-white/5 border-b border-white/10">
-                                    <tr>
-                                        <th
-                                            class="px-6 py-4 font-bold text-zinc-300 uppercase tracking-widest text-[10px]">
-                                            Parameter</th>
-                                        <th
-                                            class="px-6 py-4 font-bold text-zinc-300 uppercase tracking-widest text-[10px]">
-                                            Default</th>
-                                        <th
-                                            class="px-6 py-4 font-bold text-zinc-300 uppercase tracking-widest text-[10px]">
-                                            Description</th>
-                                    </tr>
-                                </thead>
-                                <tbody class="divide-y divide-white/5">
-                                    <tr class="hover:bg-white/5 transition-colors">
-                                        <td class="px-6 py-4 font-mono text-yellow-400">model_text</td>
-                                        <td class="px-6 py-4 text-zinc-500">"gpt-4o-mini"</td>
-                                        <td class="px-6 py-4 text-zinc-400">The primary LLM used for reasoning and text
-                                            generation.</td>
-                                    </tr>
-                                    <tr class="hover:bg-white/5 transition-colors">
-                                        <td class="px-6 py-4 font-mono text-yellow-400">max_steps</td>
-                                        <td class="px-6 py-4 text-zinc-500">15</td>
-                                        <td class="px-6 py-4 text-zinc-400">Safety limit for the number of REACT loops
-                                            before termination.</td>
-                                    </tr>
-                                    <tr class="hover:bg-white/5 transition-colors">
-                                        <td class="px-6 py-4 font-mono text-yellow-400">context_limit</td>
-                                        <td class="px-6 py-4 text-zinc-500">6000</td>
-                                        <td class="px-6 py-4 text-zinc-400">The token threshold that triggers context
-                                            compression.</td>
-                                    </tr>
-                                    <tr class="hover:bg-white/5 transition-colors">
-                                        <td class="px-6 py-4 font-mono text-yellow-400">temperature</td>
-                                        <td class="px-6 py-4 text-zinc-500">0.4</td>
-                                        <td class="px-6 py-4 text-zinc-400">LLM temperature for the main execution
-                                            worker.</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
+                    <!-- Core Model Logic -->
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Core Model & Logic</h2>
+                    <div class="glass-card rounded-2xl overflow-hidden border border-white/10 mb-12 text-sm">
+                        <table class="w-full text-left text-zinc-400">
+                            <thead
+                                class="bg-white/5 border-b border-white/10 text-zinc-300 uppercase text-[10px] tracking-widest">
+                                <tr>
+                                    <th class="px-6 py-4 font-bold">Setting</th>
+                                    <th class="px-6 py-4 font-bold">Default Role</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-white/5">
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">api_endpoint</td>
+                                    <td class="px-6 py-4">Target API gateway (e.g. Makix Edpt / OpenAI).</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">model_text</td>
+                                    <td class="px-6 py-4">Primary worker for reasoning (Qwen3-30B-A3B-2507).</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">model_router</td>
+                                    <td class="px-6 py-4">High-speed model for intent classification.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">model_compress</td>
+                                    <td class="px-6 py-4">Model used for Map-Reduce compression.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">embedding_model</td>
+                                    <td class="px-6 py-4">Used for Memoria Graph vector generation.</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
 
-                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Environment Variables</h2>
-                    <div class="space-y-4 mb-12">
-                        <div class="p-6 bg-white/5 border border-white/10 rounded-2xl">
-                            <h4 class="text-white font-bold mb-2 font-mono">OPENAI_API_KEY</h4>
-                            <p class="text-sm text-zinc-500">Primary API key for model access. Overrides configuration
-                                file settings.</p>
+                    <!-- Runtime & Performance -->
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Runtime & Performance</h2>
+                    <div class="glass-card rounded-2xl overflow-hidden border border-white/10 mb-12 text-sm">
+                        <table class="w-full text-left text-zinc-400">
+                            <thead
+                                class="bg-white/5 border-b border-white/10 text-zinc-300 uppercase text-[10px] tracking-widest">
+                                <tr>
+                                    <th class="px-6 py-4 font-bold">Setting</th>
+                                    <th class="px-6 py-4 font-bold">Value</th>
+                                    <th class="px-6 py-4 font-bold">Description</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-white/5">
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">max_steps</td>
+                                    <td class="px-6 py-4">15</td>
+                                    <td class="px-6 py-4">Safety limit for REACT loop turns.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">max_total_tool_calls</td>
+                                    <td class="px-6 py-4">30</td>
+                                    <td class="px-6 py-4">Max aggregate tools per turn sequence.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">max_tool_calls_per_step</td>
+                                    <td class="px-6 py-4">5</td>
+                                    <td class="px-6 py-4">Max parallel tool threads per step.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">context_limit_tokens</td>
+                                    <td class="px-6 py-4">6000</td>
+                                    <td class="px-6 py-4">Threshold for context compression trigger.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">request_delay_ms</td>
+                                    <td class="px-6 py-4">0</td>
+                                    <td class="px-6 py-4">Inter-turn delay to avoid rate limits.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">retry_base_delay</td>
+                                    <td class="px-6 py-4">2.0</td>
+                                    <td class="px-6 py-4">Initial delay (s) for exponential backoff on retry.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">max_retries</td>
+                                    <td class="px-6 py-4">5</td>
+                                    <td class="px-6 py-4">Total attempts for failed API calls.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">max_concurrent_jobs</td>
+                                    <td class="px-6 py-4">10</td>
+                                    <td class="px-6 py-4">Limit for background cron/batch executions.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Temperature Tuning -->
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Inference Temperature</h2>
+                    <div class="glass-card rounded-2xl overflow-hidden border border-white/10 mb-12 text-sm">
+                        <table class="w-full text-left text-zinc-400">
+                            <thead
+                                class="bg-white/5 border-b border-white/10 text-zinc-300 uppercase text-[10px] tracking-widest">
+                                <tr>
+                                    <th class="px-6 py-4 font-bold">Setting</th>
+                                    <th class="px-6 py-4 font-bold">Value</th>
+                                    <th class="px-6 py-4 font-bold">Context</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-white/5">
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">temperature_router</td>
+                                    <td class="px-6 py-4">0.0</td>
+                                    <td class="px-6 py-4">Must be deterministic for routing accuracy.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">temperature_compress</td>
+                                    <td class="px-6 py-4">0.1</td>
+                                    <td class="px-6 py-4">Low creativity for factual summarization.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">temperature_agent</td>
+                                    <td class="px-6 py-4">0.4</td>
+                                    <td class="px-6 py-4">Balanced for tool use and structured logic.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">temperature_chat</td>
+                                    <td class="px-6 py-4">0.7</td>
+                                    <td class="px-6 py-4">Higher creativity for human interaction.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Memoria System -->
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6 text-glow">Memoria & Knowledge Graph</h2>
+                    <div class="glass-card rounded-2xl overflow-hidden border border-white/10 mb-12 text-sm">
+                        <table class="w-full text-left text-zinc-400">
+                            <tbody class="divide-y divide-white/5">
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">decay_rate</td>
+                                    <td class="px-6 py-4">0.02</td>
+                                    <td class="px-6 py-4">Temporal relevance decay factor.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">top_k_memories</td>
+                                    <td class="px-6 py-4">5</td>
+                                    <td class="px-6 py-4">Count of memories injected into context.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">memory_min_similarity</td>
+                                    <td class="px-6 py-4">0.2</td>
+                                    <td class="px-6 py-4">Similarity gate for RAG retrieval.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">memory_min_weight</td>
+                                    <td class="px-6 py-4">0.015</td>
+                                    <td class="px-6 py-4">Min. weight for concept linkage.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">memory_topic_overlap_min
+                                    </td>
+                                    <td class="px-6 py-4">1</td>
+                                    <td class="px-6 py-4">Min overlap for cross-topic association.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">
+                                        memory_high_similarity_bypass</td>
+                                    <td class="px-6 py-4">0.55</td>
+                                    <td class="px-6 py-4">Threshold to ignore nearly identical inputs.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">memory_kg_limit_triplets
+                                    </td>
+                                    <td class="px-6 py-4">100</td>
+                                    <td class="px-6 py-4">Triple limit to prevent graph bloating.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">memory_user_id</td>
+                                    <td class="px-6 py-4 text-xs">UUID</td>
+                                    <td class="px-6 py-4">Unique identity for personalized memory.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Multi-Modal Services -->
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Multi-Modal Services</h2>
+                    <div class="glass-card rounded-2xl overflow-hidden border border-white/10 mb-12 text-sm">
+                        <table class="w-full text-left text-zinc-400">
+                            <thead
+                                class="bg-white/5 border-b border-white/10 text-zinc-300 uppercase text-[10px] tracking-widest">
+                                <tr>
+                                    <th class="px-6 py-4 font-bold">Service</th>
+                                    <th class="px-6 py-4 font-bold">Endpoint / Model / Token Parameters</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-white/5">
+                                <tr>
+                                    <td class="px-6 py-4 font-bold text-white">Vision</td>
+                                    <td class="px-6 py-4"><code>mm_vision_endpoint</code>, <code>mm_vision_model</code>,
+                                        <code>mm_vision_token</code></td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-bold text-white">Images</td>
+                                    <td class="px-6 py-4"><code>mm_image_endpoint</code>, <code>mm_image_model</code>,
+                                        <code>mm_image_token</code></td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-bold text-white">ASR</td>
+                                    <td class="px-6 py-4"><code>mm_asr_endpoint</code>, <code>mm_asr_model</code>,
+                                        <code>mm_asr_token</code></td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-bold text-white">TTS</td>
+                                    <td class="px-6 py-4"><code>mm_tts_endpoint</code>, <code>mm_tts_model</code>,
+                                        <code>mm_tts_token</code>, <code>mm_tts_voice</code></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Skills Runtime -->
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Skills Runtime</h2>
+                    <div class="glass-card rounded-2xl overflow-hidden border border-white/10 mb-12 text-sm">
+                        <table class="w-full text-left text-zinc-400">
+                            <tbody class="divide-y divide-white/5">
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">skills_enabled</td>
+                                    <td class="px-6 py-4">Toggle the dynamic skill Registry (True/False).</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">skills_paths</td>
+                                    <td class="px-6 py-4">Custom directories for external .agent skills.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">skills_router_min_score</td>
+                                    <td class="px-6 py-4">Min. confidence for activating a new skill (0.22).</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">
+                                        skills_allow_category_expansion</td>
+                                    <td class="px-6 py-4">Allows agent to discover skills by category broad-match.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">skills_max_metadata_skills
+                                    </td>
+                                    <td class="px-6 py-4">Limit (64) for skills loaded in prime context.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">skills_instruction_max_chars
+                                    </td>
+                                    <td class="px-6 py-4">Upper limit for injected skill system prompt.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">
+                                        skills_max_resources_per_activation</td>
+                                    <td class="px-6 py-4">Limit for resource files read per tool call.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">skills_resource_max_chars
+                                    </td>
+                                    <td class="px-6 py-4">Limit for total resource content injected in prompt.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Global Config Keys (Env) -->
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Environment API Tokens</h2>
+                    <p class="text-zinc-400 text-sm mb-6">Provide these keys via <code>.env</code> file or system export
+                        strings.</p>
+                    <div class="grid grid-cols-2 lg:grid-cols-3 gap-3 mb-12 font-mono text-[10px] text-yellow-400/80">
+                        <div class="p-3 bg-white/5 border border-white/10 rounded-xl">FIRECRAWL_API_KEY</div>
+                        <div class="p-3 bg-white/5 border border-white/10 rounded-xl">GOOGLE_API_KEY</div>
+                        <div class="p-3 bg-white/5 border border-white/10 rounded-xl">GOOGLE_SEARCH_ENGINE_ID</div>
+                        <div class="p-3 bg-white/5 border border-white/10 rounded-xl">GOOGLE_OAUTH_REDIRECT_URI</div>
+                        <div class="p-3 bg-white/5 border border-white/10 rounded-xl">OPENWEATHER_API_KEY</div>
+                        <div class="p-3 bg-white/5 border border-white/10 rounded-xl">YOUTUBE_API_KEY</div>
+                        <div class="p-3 bg-white/5 border border-white/10 rounded-xl">SMTP_HOST / USER / PASS / PORT
                         </div>
-                        <div class="p-6 bg-white/5 border border-white/10 rounded-2xl">
-                            <h4 class="text-white font-bold mb-2 font-mono">COWORK_DEBUG</h4>
-                            <p class="text-sm text-zinc-500">Enables verbose system logs and detailed error traces when
-                                set to <code>true</code>.</p>
-                        </div>
+                        <div class="p-3 bg-white/5 border border-white/10 rounded-xl">BRAVE_SEARCH_API_KEY</div>
+                    </div>
+
+                    <!-- Misc -->
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Miscellaneous</h2>
+                    <div
+                        class="glass-card rounded-2xl p-6 border border-white/10 mb-12 text-sm text-zinc-400 space-y-3">
+                        <p><strong class="text-white font-mono">auto_save_important_refs:</strong> Persist scratchpad
+                            pointers to permanent storage.</p>
+                        <p><strong class="text-white font-mono">idle_threshold_seconds:</strong> Time before session
+                            hibernation (900).</p>
+                        <p><strong class="text-white font-mono">search_freshness:</strong> Web search time constraint
+                            (e.g. "1wk").</p>
+                        <p><strong class="text-white font-mono">show_trace:</strong> Visual execution tracing for
+                            debugging (Boolean).</p>
+                        <p><strong class="text-white font-mono">stream:</strong> Token-by-token UI response streaming
+                            (Boolean).</p>
+                        <p><strong class="text-white font-mono">theme:</strong> Interface styling selection
+                            (dark/light).</p>
                     </div>
                 </div>
             </div>
@@ -170,6 +419,7 @@
     </div>
 
     <script type="module" src="/src/docs.js"></script>
+    <script type="module" src="/src/search.js"></script>
 </body>
 
 </html>
