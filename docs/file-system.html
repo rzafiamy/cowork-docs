@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File System & Structure • Cowork AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800&family=JetBrains+Mono:wght@500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/src/style.css">
+</head>
+
+<body class="bg-zinc-950 text-zinc-200">
+    <!-- Top bar for mobile -->
+    <div
+        class="lg:hidden fixed top-0 left-0 right-0 z-[60] bg-zinc-950 border-b border-white/5 px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+            <div class="w-8 h-8 bg-yellow-400 rounded-lg flex items-center justify-center font-bold text-zinc-950">C
+            </div>
+            <span class="logo-font font-bold">cowork</span>
+        </div>
+        <button id="mobile-menu-btn" class="p-2 text-zinc-400">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+
+    <div class="flex min-h-screen">
+        <!-- Left Sidebar -->
+        <aside id="sidebar"
+            class="fixed top-0 bottom-0 left-0 z-50 w-64 bg-zinc-950 border-r border-white/5 transform -translate-x-full lg:translate-x-0 transition-transform duration-300">
+            <div class="flex flex-col h-full">
+                <div class="px-6 py-8 border-b border-white/5 hidden lg:block">
+                    <a href="/" class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 bg-gradient-to-br from-yellow-400 to-amber-600 rounded-xl flex items-center justify-center font-bold text-zinc-950">
+                            C</div>
+                        <span class="logo-font text-xl font-bold tracking-tighter text-white">cowork</span>
+                    </a>
+                </div>
+
+                <div class="px-4 py-4 border-b border-white/5">
+                    <div class="relative">
+                        <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-zinc-500 text-[10px]"></i>
+                        <input type="text" id="search-input" placeholder="Search docs..."
+                            class="search-input pl-8 py-1.5 text-xs">
+                        <div id="search-results" class="search-results hidden"></div>
+                    </div>
+                </div>
+
+
+                <nav class="flex-1 overflow-y-auto px-4 py-8 space-y-8">
+                    <div>
+                        <h5 class="px-2 mb-4 text-[10px] font-bold tracking-[0.2em] text-zinc-500 uppercase">
+                            Introduction</h5>
+                        <div class="space-y-1">
+                            <a href="/docs/index.html"
+                                class="block px-3 py-2 rounded-lg text-zinc-400 hover:text-white transition-colors">Getting
+                                Started</a>
+                            <a href="/docs/architecture.html"
+                                class="block px-3 py-2 rounded-lg text-zinc-400 hover:text-white transition-colors">Architecture</a>
+                        </div>
+                    </div>
+                    <div>
+                        <h5 class="px-2 mb-4 text-[10px] font-bold tracking-[0.2em] text-zinc-500 uppercase">Core
+                            Concepts</h5>
+                        <div class="space-y-1">
+                            <a href="/docs/algorithms.html"
+                                class="block px-3 py-2 rounded-lg text-zinc-400 hover:text-white transition-colors">Algorithms</a>
+                            <a href="/docs/memory.html"
+                                class="block px-3 py-2 rounded-lg text-zinc-400 hover:text-white transition-colors">Memoria
+                                Graph</a>
+                            <a href="/docs/skills.html"
+                                class="block px-3 py-2 rounded-lg text-zinc-400 hover:text-white transition-colors">Skill
+                                Registry</a>
+                        </div>
+                    </div>
+                    <div>
+                        <h5 class="px-2 mb-4 text-[10px] font-bold tracking-[0.2em] text-zinc-500 uppercase">Reference
+                        </h5>
+                        <div class="space-y-1">
+                            <a href="/docs/cli.html"
+                                class="block px-3 py-2 rounded-lg text-zinc-400 hover:text-white transition-colors">CLI
+                                Commands</a>
+                            <a href="/docs/config.html"
+                                class="block px-3 py-2 rounded-lg text-zinc-400 hover:text-white transition-colors">Configuration</a>
+                            <a href="/docs/security.html"
+                                class="block px-3 py-2 rounded-lg text-zinc-400 hover:text-white transition-colors">Security
+                                & Firewall</a>
+                            <a href="/docs/file-system.html"
+                                class="block px-3 py-2 rounded-lg bg-white/5 text-yellow-400 font-medium">File System</a>
+                            
+                            
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 lg:ml-64 relative">
+            <div class="max-w-4xl mx-auto px-6 lg:px-12 pt-12 lg:pt-24 pb-20">
+                <div id="content" class="prose prose-invert prose-zinc max-w-none">
+                    <h1 class="text-4xl font-extrabold tracking-tight text-white mb-8 logo-font text-glow">File System &
+                        Internal Structure</h1>
+                    <p class="text-xl text-zinc-400 leading-relaxed mb-12">
+                        Understand how Cowork manages state, memory, and security through its internal
+                        <code>.cowork</code> directory.
+                    </p>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">The .cowork Directory</h2>
+                    <p class="text-zinc-300 mb-8">
+                        The <code>.cowork</code> folder is the brain of the agent. Located by default in the user's home
+                        directory (<code>~/.cowork</code>), it persists all session data, configurations, and long-term
+                        memories.
+                    </p>
+
+                    <!-- Folders Section -->
+                    <h2 class="text-2xl font-bold text-white mt-16 mb-8">Directory Breakdown</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                        <div class="glass-card p-6 rounded-2xl border border-white/5">
+                            <h3 class="text-lg font-bold text-yellow-400 mb-2 font-mono">sessions/</h3>
+                            <p class="text-sm text-zinc-400">Stores full state objects for every chat session. Files are
+                                named using <strong>UUIDs</strong>. These allow the agent to resume any conversation
+                                with perfect context retention.</p>
+                        </div>
+                        <div class="glass-card p-6 rounded-2xl border border-white/5">
+                            <h3 class="text-lg font-bold text-yellow-400 mb-2 font-mono">traces/</h3>
+                            <p class="text-sm text-zinc-400">Contains execution logs for every tool call and reasoning
+                                step. Organized by session UUID, with individual steps saved as timestamped JSONL files.
+                            </p>
+                        </div>
+                        <div class="glass-card p-6 rounded-2xl border border-white/5">
+                            <h3 class="text-lg font-bold text-yellow-400 mb-2 font-mono">memoria/</h3>
+                            <p class="text-sm text-zinc-400">The persistent storage for the Knowledge Graph and Vector
+                                Database. Contains SQLite (.db) files with semantic triples and embeddings.</p>
+                        </div>
+                        <div class="glass-card p-6 rounded-2xl border border-white/5">
+                            <h3 class="text-lg font-bold text-yellow-400 mb-2 font-mono">scratchpad/</h3>
+                            <p class="text-sm text-zinc-400">Used for context offloading. When a conversation exceeds
+                                token limits, older chunks are moved here to keep the "working memory" lean.</p>
+                        </div>
+                        <div class="glass-card p-6 rounded-2xl border border-white/5">
+                            <h3 class="text-lg font-bold text-yellow-400 mb-2 font-mono">api_cache/</h3>
+                            <p class="text-sm text-zinc-400">Caches LLM and tool responses to reduce latency and token
+                                costs. Essential for debugging and re-running failed steps without extra expense.</p>
+                        </div>
+                        <div class="glass-card p-6 rounded-2xl border border-white/5">
+                            <h3 class="text-lg font-bold text-yellow-400 mb-2 font-mono">workspace/</h3>
+                            <p class="text-sm text-zinc-400">A managed containment area for temporary files, git clones,
+                                and build artifacts generated during task execution.</p>
+                        </div>
+                    </div>
+
+                    <!-- Files Section -->
+                    <h2 class="text-2xl font-bold text-white mt-16 mb-6">Core Configuration Files</h2>
+                    <div class="glass-card rounded-2xl overflow-hidden border border-white/10 mb-12 text-sm">
+                        <table class="w-full text-left text-zinc-400">
+                            <thead
+                                class="bg-white/5 border-b border-white/10 text-zinc-300 uppercase text-[10px] tracking-widest">
+                                <tr>
+                                    <th class="px-6 py-4 font-bold">File</th>
+                                    <th class="px-6 py-4 font-bold">Purpose</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-white/5">
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">config.json</td>
+                                    <td class="px-6 py-4">Global settings, model preferences, and API endpoints.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">firewall.yaml</td>
+                                    <td class="px-6 py-4">Security policies and tool permission manifests.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">tokens.json</td>
+                                    <td class="px-6 py-4">Cumulative usage tracking and model-specific cost analysis.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">jobs.json</td>
+                                    <td class="px-6 py-4">Registry of background and long-running autonomous tasks.</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">super_history.db</td>
+                                    <td class="px-6 py-4">Global search index for all inputs and outputs across every
+                                        session.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-white mt-16 mb-6">Naming Conventions</h2>
+                    <p class="text-zinc-300 mb-6">
+                        Cowork uses strict naming conventions to ensure deterministic lookup and auditability:
+                    </p>
+                    <ul class="space-y-4 text-zinc-400">
+                        <li class="flex gap-4">
+                            <span class="text-yellow-400 font-mono flex-shrink-0">UUIDs:</span>
+                            <span>Sessions and trace directories use version 4 UUIDs (e.g., <code>528840d4...</code>) to
+                                avoid collisions in multi-agent environments.</span>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="text-yellow-400 font-mono flex-shrink-0">ISO Traces:</span>
+                            <span>Trace files use concentrated ISO 8601 timestamps:
+                                <code>YYYYMMDDTHHMMSSZ_shortid.jsonl</code>.</span>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="text-yellow-400 font-mono flex-shrink-0">Snapshots:</span>
+                            <span>Backups and migrations are prefixed with <code>pre_migration_</code> and a compact
+                                date string.</span>
+                        </li>
+                    </ul>
+
+                    <h2 class="text-2xl font-bold text-white mt-16 mb-6">The "Process" Lifecycle</h2>
+                    <p class="text-zinc-300 mb-6">
+                        During a high-complexity task, Cowork creates transient files to manage its reasoning.
+                        Understanding these helps in auditing the 7-Phase Protocol.
+                    </p>
+
+                    <div class="space-y-6">
+                        <div class="p-6 bg-zinc-900/50 rounded-2xl border border-white/5">
+                            <h4 class="text-white font-bold mb-2">plan.json</h4>
+                            <p class="text-sm text-zinc-400">Generated during <strong>Phase 04 (Planning)</strong>. It
+                                contains the graph of steps the agent intends to take before it starts executing them.
+                            </p>
+                        </div>
+                        <div class="p-6 bg-zinc-900/50 rounded-2xl border border-white/5">
+                            <h4 class="text-white font-bold mb-2">context.jsonl</h4>
+                            <p class="text-sm text-zinc-400">The ephemeral representation of the <strong>Execution Loop
+                                    (Phase 05)</strong>, tracking the current prompt state and tool outputs.</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Panel (ToC) -->
+        <aside class="hidden xl:block w-72 h-screen sticky top-0 border-l border-white/5 py-24 px-8 overflow-y-auto">
+            <h5 class="mb-4 text-[10px] font-bold tracking-[0.2em] text-zinc-500 uppercase">On this page</h5>
+            <nav id="toc" class="space-y-3 text-sm">
+                <!-- Generated by docs.js -->
+            </nav>
+        </aside>
+    </div>
+
+    <script type="module" src="/src/docs.js"></script>
+    <script type="module" src="/src/search.js"></script>
+</body>
+
+</html>

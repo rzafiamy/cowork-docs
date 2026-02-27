@@ -108,5 +108,22 @@
             "block",
             "zero-trust"
         ]
+    },
+    {
+        "id": "file-system",
+        "title": "File System & Structure",
+        "description": "Information about .cowork folders, naming conventions, and internal file structure.",
+        "url": "/docs/file-system.html",
+        "keywords": [
+            "folders",
+            "directory",
+            "naming",
+            "sessions",
+            "traces",
+            "scratchpad",
+            "memoria",
+            "uuid",
+            "jsonl"
+        ]
     }
 ]
