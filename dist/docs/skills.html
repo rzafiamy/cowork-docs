@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skills & Tools • Cowork AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800&family=JetBrains+Mono:wght@500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script type="module" crossorigin src="/assets/style-CC-2-Z0f.js"></script>
+  <script type="module" crossorigin src="/assets/docs-BI0x-qw-.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/style-BSqOe5t8.css">
+</head>
+
+<body class="bg-zinc-950 text-zinc-200">
+    <!-- Top bar for mobile -->
+    <div
+        class="lg:hidden fixed top-0 left-0 right-0 z-[60] bg-zinc-950 border-b border-white/5 px-6 py-4 flex items-center justify-between">
+        <div class="flex items-center gap-2">
+            <div class="w-8 h-8 bg-yellow-400 rounded-lg flex items-center justify-center font-bold text-zinc-950">C
+            </div>
+            <span class="logo-font font-bold">cowork</span>
+        </div>
+        <button id="mobile-menu-btn" class="p-2 text-zinc-400">
+            <i class="fas fa-bars"></i>
+        </button>
+    </div>
+
+    <div class="flex min-h-screen">
+        <!-- Left Sidebar -->
+        <aside id="sidebar"
+            class="fixed top-0 bottom-0 left-0 z-50 w-64 bg-zinc-950 border-r border-white/5 transform -translate-x-full lg:translate-x-0 transition-transform duration-300">
+            <div class="flex flex-col h-full">
+                <div class="px-6 py-8 border-b border-white/5 hidden lg:block">
+                    <a href="/" class="flex items-center gap-3">
+                        <div
+                            class="w-10 h-10 bg-gradient-to-br from-yellow-400 to-amber-600 rounded-xl flex items-center justify-center font-bold text-zinc-950">
+                            C</div>
+                        <span class="logo-font text-xl font-bold tracking-tighter text-white">cowork</span>
+                    </a>
+                </div>
+
+                <nav class="flex-1 overflow-y-auto px-4 py-8 space-y-8">
+                    <div>
+                        <h5 class="px-2 mb-4 text-[10px] font-bold tracking-[0.2em] text-zinc-500 uppercase">
+                            Introduction</h5>
+                        <div class="space-y-1">
+                            <a href="/docs/index.html"
+                                class="block px-3 py-2 rounded-lg text-zinc-400 hover:text-white transition-colors">Getting
+                                Started</a>
+                            <a href="/docs/architecture.html"
+                                class="block px-3 py-2 rounded-lg text-zinc-400 hover:text-white transition-colors">Architecture</a>
+                        </div>
+                    </div>
+                    <div>
+                        <h5 class="px-2 mb-4 text-[10px] font-bold tracking-[0.2em] text-zinc-500 uppercase">Core
+                            Concepts</h5>
+                        <div class="space-y-1">
+                            <a href="/docs/algorithms.html"
+                                class="block px-3 py-2 rounded-lg text-zinc-400 hover:text-white transition-colors">Algorithms</a>
+                            <a href="/docs/memory.html"
+                                class="block px-3 py-2 rounded-lg text-zinc-400 hover:text-white transition-colors">Memoria
+                                Graph</a>
+                            <a href="/docs/skills.html"
+                                class="block px-3 py-2 rounded-lg bg-white/5 text-yellow-400 font-medium">Skill
+                                Registry</a>
+                        </div>
+                    </div>
+                    <div>
+                        <h5 class="px-2 mb-4 text-[10px] font-bold tracking-[0.2em] text-zinc-500 uppercase">Reference
+                        </h5>
+                        <div class="space-y-1">
+                            <a href="/docs/cli.html"
+                                class="block px-3 py-2 rounded-lg text-zinc-400 hover:text-white transition-colors">CLI
+                                Commands</a>
+                            <a href="/docs/config.html"
+                                class="block px-3 py-2 rounded-lg text-zinc-400 hover:text-white transition-colors">Configuration</a>
+                            <a href="/docs/security.html"
+                                class="block px-3 py-2 rounded-lg text-zinc-400 hover:text-white transition-colors">Security</a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 lg:ml-64 relative">
+            <div class="max-w-4xl mx-auto px-6 lg:px-12 pt-12 lg:pt-24 pb-20">
+                <div id="content" class="prose prose-invert prose-zinc max-w-none">
+                    <h1 class="text-4xl font-extrabold tracking-tight text-white mb-8 logo-font">Available Skills &
+                        Tools</h1>
+                    <p class="text-xl text-zinc-400 leading-relaxed mb-12">
+                        Cowork uses a modular skill system. Skills are collections of tools and domain-specific
+                        instructions that the Meta-Router loads dynamically based on your intent.
+                    </p>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Core Skill Categories</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-12">
+                        <div class="glass-card p-8 rounded-3xl hover:border-yellow-400/30 transition-all group">
+                            <div class="text-yellow-400 mb-6 flex items-center justify-between">
+                                <i class="fas fa-code text-2xl"></i>
+                                <span
+                                    class="text-[10px] mono-font uppercase tracking-widest px-3 py-1 bg-white/5 rounded-full border border-white/5">CODING_TOOLS</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3">Codebase Mastery</h3>
+                            <p class="text-sm text-zinc-400 mb-6">Read, write, and refactor code across entire
+                                repositories with context awareness.</p>
+                            <div class="flex flex-wrap gap-2 text-[10px] mono-font text-zinc-500">
+                                <span>workspace_write</span> • <span>workspace_read</span> • <span>grep_search</span>
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-8 rounded-3xl hover:border-yellow-400/30 transition-all group">
+                            <div class="text-yellow-400 mb-6 flex items-center justify-between">
+                                <i class="fas fa-globe text-2xl"></i>
+                                <span
+                                    class="text-[10px] mono-font uppercase tracking-widest px-3 py-1 bg-white/5 rounded-full border border-white/5">WEB_TOOLS</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3">Web Intelligence</h3>
+                            <p class="text-sm text-zinc-400 mb-6">Scrape, crawl, and extract structured data from any
+                                website or online resource.</p>
+                            <div class="flex flex-wrap gap-2 text-[10px] mono-font text-zinc-500">
+                                <span>web_scrape</span> • <span>web_crawl</span> • <span>firecrawl</span>
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-8 rounded-3xl hover:border-yellow-400/30 transition-all group">
+                            <div class="text-yellow-400 mb-6 flex items-center justify-between">
+                                <i class="fas fa-cloud text-2xl"></i>
+                                <span
+                                    class="text-[10px] mono-font uppercase tracking-widest px-3 py-1 bg-white/5 rounded-full border border-white/5">NEXTCLOUD_TOOLS</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3">Cloud Syncing</h3>
+                            <p class="text-sm text-zinc-400 mb-6">Manage files and folders on your Nextcloud instance
+                                with full CRUD support.</p>
+                            <div class="flex flex-wrap gap-2 text-[10px] mono-font text-zinc-500">
+                                <span>nextcloud_upload</span> • <span>nextcloud_list</span>
+                            </div>
+                        </div>
+
+                        <div class="glass-card p-8 rounded-3xl hover:border-yellow-400/30 transition-all group">
+                            <div class="text-yellow-400 mb-6 flex items-center justify-between">
+                                <i class="fas fa-eye text-2xl"></i>
+                                <span
+                                    class="text-[10px] mono-font uppercase tracking-widest px-3 py-1 bg-white/5 rounded-full border border-white/5">MULTIMODAL_TOOLS</span>
+                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3">Vision & Audio</h3>
+                            <p class="text-sm text-zinc-400 mb-6">Analyze images, generate assets, and perform
+                                speech-to-text / text-to-speech.</p>
+                            <div class="flex flex-wrap gap-2 text-[10px] mono-font text-zinc-500">
+                                <span>vision_analyze</span> • <span>image_generate</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Panel (ToC) -->
+        <aside class="hidden xl:block w-72 h-screen sticky top-0 border-l border-white/5 py-24 px-8 overflow-y-auto">
+            <h5 class="mb-4 text-[10px] font-bold tracking-[0.2em] text-zinc-500 uppercase">On this page</h5>
+            <nav id="toc" class="space-y-3 text-sm">
+                <!-- Generated by docs.js -->
+            </nav>
+        </aside>
+    </div>
+
+</body>
+
+</html>
