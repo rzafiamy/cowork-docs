@@ -16,17 +16,11 @@ const setSidebarState = (isOpen) => {
             sidebarBranding.classList.remove('w-0', 'px-0', 'border-r-0', 'opacity-0');
             sidebarBranding.classList.add('w-64', 'px-6', 'opacity-100');
         }
-        if (window.innerWidth >= 1024) { // lg breakpoint
-            mainContent.classList.add('lg:ml-64');
-        }
     } else {
         sidebar.classList.add('-translate-x-full');
         if (sidebarBranding) {
             sidebarBranding.classList.add('w-0', 'px-0', 'border-r-0', 'opacity-0');
             sidebarBranding.classList.remove('w-64', 'px-6', 'opacity-100');
-        }
-        if (window.innerWidth >= 1024) {
-            mainContent.classList.remove('lg:ml-64');
         }
     }
     localStorage.setItem(SIDEBAR_STATE_KEY, isOpen ? 'open' : 'closed');
