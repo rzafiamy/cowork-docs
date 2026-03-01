@@ -31,19 +31,18 @@
     .search-results {
         @apply absolute top-full left-0 right-0 mt-2 bg-zinc-900 border border-white/10 rounded-2xl shadow-2xl overflow-hidden z-[100] backdrop-blur-xl bg-zinc-900/90;
     }
-}
 
-.logo-font {
-    font-family: 'Outfit', sans-serif;
-}
-
-.mono-font {
-    font-family: 'JetBrains Mono', monospace;
+    main,
+    header,
+    #sidebar-branding {
+        @apply transition-all duration-300 ease-in-out;
+    }
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-    width: 8px;
+    width: 6px;
+    height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -52,4 +51,67 @@
 
 ::-webkit-scrollbar-thumb {
     @apply bg-zinc-800 rounded-full hover:bg-zinc-700 transition-colors;
+}
+
+/* Sidebar Specific Scrollbar (Thinner) */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-white/5 hover:bg-white/10;
+}
+
+/* Docs Layout Fixes */
+@media (min-width: 1024px) {
+    body {
+        height: 100vh;
+        overflow: hidden;
+    }
+
+    main {
+        height: 100vh;
+        overflow-y: auto !important;
+        scrollbar-gutter: stable;
+    }
+}
+
+/* Ensure header stays visible and on top */
+header#doc-header {
+    @apply border-white/10;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+/* Glass effect refinements */
+.glass-card {
+    @apply bg-white/[0.02] border border-white/[0.08] backdrop-blur-2xl shadow-2xl transition-all duration-300;
+}
+
+.search-input {
+    @apply bg-zinc-900/50 border border-white/10 rounded-xl px-4 py-3 text-base text-zinc-100 placeholder-zinc-500 focus:outline-none focus:border-yellow-400/50 focus:ring-1 focus:ring-yellow-400/20 transition-all w-full;
+}
+
+.search-results {
+    @apply absolute top-full left-0 right-0 mt-3 bg-zinc-900/95 border border-white/10 rounded-2xl shadow-2xl overflow-hidden z-[110] backdrop-blur-3xl;
+}
+
+main,
+header,
+#sidebar-branding,
+#sidebar {
+    @apply transition-all duration-300 ease-in-out;
+}
+
+/* Typography refinements */
+.logo-font {
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: -0.04em;
+}
+
+.mono-font {
+    font-family: 'JetBrains Mono', monospace;
+}
+
+kbd {
+    @apply font-sans;
 }

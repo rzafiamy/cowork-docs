@@ -1,12 +1,76 @@
-// Mobile menu toggle
-const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+// Sidebar Persistence & Toggle Logic
 const sidebar = document.getElementById('sidebar');
+const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+const desktopToggleBtn = document.getElementById('sidebar-toggle-desktop');
+const mainContent = document.querySelector('main');
+const header = document.getElementById('doc-header');
 
-if (mobileMenuBtn && sidebar) {
+const SIDEBAR_STATE_KEY = 'cowork-sidebar-state';
+
+const sidebarBranding = document.getElementById('sidebar-branding');
+
+const setSidebarState = (isOpen) => {
+    if (isOpen) {
+        sidebar.classList.remove('-translate-x-full');
+        if (sidebarBranding) {
+            sidebarBranding.classList.remove('w-0', 'px-0', 'border-r-0', 'opacity-0');
+            sidebarBranding.classList.add('w-64', 'px-6', 'opacity-100');
+        }
+        if (window.innerWidth >= 1024) { // lg breakpoint
+            mainContent.classList.add('lg:ml-64');
+        }
+    } else {
+        sidebar.classList.add('-translate-x-full');
+        if (sidebarBranding) {
+            sidebarBranding.classList.add('w-0', 'px-0', 'border-r-0', 'opacity-0');
+            sidebarBranding.classList.remove('w-64', 'px-6', 'opacity-100');
+        }
+        if (window.innerWidth >= 1024) {
+            mainContent.classList.remove('lg:ml-64');
+        }
+    }
+    localStorage.setItem(SIDEBAR_STATE_KEY, isOpen ? 'open' : 'closed');
+};
+
+// Initialize state
+const savedState = localStorage.getItem(SIDEBAR_STATE_KEY);
+// Default to open on desktop, closed on mobile
+let isSidebarOpen = window.innerWidth >= 1024 ? (savedState !== 'closed') : (savedState === 'open');
+
+// Apply initial state without transition to prevent flicking
+sidebar.classList.add('transition-none');
+setSidebarState(isSidebarOpen);
+// Re-enable transitions after a tiny delay
+setTimeout(() => {
+    sidebar.classList.remove('transition-none');
+}, 10);
+
+if (mobileMenuBtn) {
     mobileMenuBtn.addEventListener('click', () => {
-        sidebar.classList.toggle('-translate-x-full');
+        isSidebarOpen = !sidebar.classList.contains('-translate-x-full');
+        setSidebarState(!isSidebarOpen);
     });
 }
+
+if (desktopToggleBtn) {
+    desktopToggleBtn.addEventListener('click', () => {
+        isSidebarOpen = !sidebar.classList.contains('-translate-x-full');
+        setSidebarState(!isSidebarOpen);
+    });
+}
+
+// Handle window resize
+window.addEventListener('resize', () => {
+    if (window.innerWidth >= 1024) {
+        // On desktop, follow the saved state or default to open
+        const state = localStorage.getItem(SIDEBAR_STATE_KEY);
+        setSidebarState(state !== 'closed');
+    } else {
+        // On mobile, default to closed
+        setSidebarState(false);
+    }
+});
+
 
 // Sidebar Active Link Highlighting
 const highlightActiveLink = () => {
@@ -56,6 +120,17 @@ if (content && toc) {
 
             toc.appendChild(link);
         });
+    }
+}
+
+// Update breadcrumb
+const currentPageCrumb = document.getElementById('current-page-crumb');
+if (currentPageCrumb) {
+    const h1 = document.querySelector('h1');
+    if (h1) {
+        currentPageCrumb.textContent = h1.textContent;
+    } else {
+        currentPageCrumb.textContent = document.title.split('•')[0].trim();
     }
 }
 

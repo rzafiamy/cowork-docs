@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Memory • Cowork AI</title>
+    <title>Memoria • Cowork AI</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -21,52 +21,134 @@
         <!-- @partial:sidebar -->
 
         <!-- Main Content Area -->
-        <main class="flex-1 lg:ml-64 relative">
-            <div class="max-w-4xl mx-auto px-6 lg:px-12 pt-12 lg:pt-24 pb-20">
+        <main class="flex-1  relative">
+            <div class="max-w-4xl mx-auto px-6 lg:px-12 pt-20 lg:pt-32 pb-20">
                 <div id="content" class="prose prose-invert prose-zinc max-w-none">
-                    <h1 class="text-4xl font-extrabold tracking-tight text-white mb-8 logo-font">Memoria Knowledge Graph
-                    </h1>
+                    <div
+                        class="inline-flex items-center gap-2 px-3 py-1 bg-yellow-400/10 border border-yellow-400/20 rounded-full mb-6">
+                        <span class="text-[10px] font-bold tracking-widest text-yellow-400 uppercase">Phase 07 •
+                            Memoria</span>
+                    </div>
+                    <h1 class="text-4xl font-extrabold tracking-tight text-white mb-8 logo-font">The Memoria Engine</h1>
                     <p class="text-xl text-zinc-400 leading-relaxed mb-12">
-                        Cowork builds a durable, searchable graph of everything it learns about you and your workflows.
-                        Knowledge is persistent across sessions.
+                        Cowork implements a hybrid long-term memory system designed for zero-latency local execution.
+                        It combines a structured Knowledge Graph with rolling session summaries to provide deep personal
+                        context without context drift.
                     </p>
 
-                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Subject-Predicate-Object (SPO)</h2>
-                    <p class="text-zinc-300 mb-6">Knowledge is stored as structured triplets, enabling high-fidelity
-                        logical reasoning and precise retrieval.</p>
-                    <div class="space-y-4 mb-12">
-                        <div
-                            class="p-6 bg-white/5 border border-white/10 rounded-2xl flex flex-wrap items-center gap-4 text-sm mono-font">
-                            <span class="text-blue-400">User Preferences</span>
-                            <i class="fas fa-arrow-right text-zinc-700"></i>
-                            <span class="text-zinc-400">prefers</span>
-                            <i class="fas fa-arrow-right text-zinc-700"></i>
-                            <span class="text-emerald-400">Tailwind CSS</span>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-16">
+                        <div class="glass-card p-6 rounded-3xl">
+                            <div class="text-yellow-400 mb-4"><i class="fas fa-database text-2xl"></i></div>
+                            <h3 class="text-white font-bold mb-2">Local SQLite</h3>
+                            <p class="text-sm text-zinc-500">Zero external dependencies. Knowledge stays on your machine
+                                in a hardened SQLite database.</p>
                         </div>
-                        <div
-                            class="p-6 bg-white/5 border border-white/10 rounded-2xl flex flex-wrap items-center gap-4 text-sm mono-font">
-                            <span class="text-purple-400">Project Alpha</span>
-                            <i class="fas fa-arrow-right text-zinc-700"></i>
-                            <span class="text-zinc-400">uses</span>
-                            <i class="fas fa-arrow-right text-zinc-700"></i>
-                            <span class="text-amber-400">Python 3.12</span>
+                        <div class="glass-card p-6 rounded-3xl">
+                            <div class="text-yellow-400 mb-4"><i class="fas fa-vector-square text-2xl"></i></div>
+                            <h3 class="text-white font-bold mb-2">Vector KNN</h3>
+                            <p class="text-sm text-zinc-500">Embedded semantic search using sqlite-vec for high-fidelity
+                                retrieval of relevant facts.</p>
+                        </div>
+                        <div class="glass-card p-6 rounded-3xl">
+                            <div class="text-yellow-400 mb-4"><i class="fas fa-brain text-2xl"></i></div>
+                            <h3 class="text-white font-bold mb-2">EWA Decay</h3>
+                            <p class="text-sm text-zinc-500">Exponentially Weighted Average decay ensures that recent
+                                knowledge is prioritized.</p>
                         </div>
                     </div>
 
-                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Local RAG Implementation</h2>
-                    <p class="text-zinc-300 mb-6">Memoria uses a local vector database for zero-latency semantic search
-                        and retrieval during agent execution.</p>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-12">
-                        <div class="glass-card p-6 rounded-2xl">
-                            <h4 class="text-white font-bold mb-2">Symmetric Search</h4>
-                            <p class="text-sm text-zinc-500">Fast matching of user queries against the knowledge graph
-                                using embedded vector similarity.</p>
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Hybrid Knowledge Architecture</h2>
+                    <p class="text-zinc-300 mb-8">Memoria operates on two parallel tracks to balance long-term facts
+                        with immediate conversation context.</p>
+
+                    <div class="space-y-6 mb-12">
+                        <div class="flex gap-6 p-8 bg-white/5 border border-white/10 rounded-[2rem]">
+                            <div
+                                class="flex-shrink-0 w-12 h-12 bg-blue-500/20 text-blue-400 rounded-2xl flex items-center justify-center font-bold">
+                                KG</div>
+                            <div>
+                                <h4 class="text-white font-bold mb-2">Knowledge Graph (SPO Triplets)</h4>
+                                <p class="text-sm text-zinc-400 leading-relaxed mb-4">Atomic facts stored as
+                                    Subject-Predicate-Object triplets. Used for durable preferences, personality traits,
+                                    and technical stack requirements.</p>
+                                <div class="flex flex-wrap gap-2 text-[10px] mono-font opacity-60">
+                                    <span class="bg-zinc-800 px-2 py-1 rounded">USER | PREFERS | TAILWIND</span>
+                                    <span class="bg-zinc-800 px-2 py-1 rounded">PROJECT | USES | PYTHON 3.12</span>
+                                </div>
+                            </div>
                         </div>
-                        <div class="glass-card p-6 rounded-2xl">
-                            <h4 class="text-white font-bold mb-2">Semantic Decay</h4>
-                            <p class="text-sm text-zinc-500">Automatic pruning of outdated or conflicting triplets to
-                                maintain context integrity.</p>
+
+                        <div class="flex gap-6 p-8 bg-white/5 border border-white/10 rounded-[2rem]">
+                            <div
+                                class="flex-shrink-0 w-12 h-12 bg-emerald-500/20 text-emerald-400 rounded-2xl flex items-center justify-center font-bold">
+                                SS</div>
+                            <div>
+                                <h4 class="text-white font-bold mb-2">Rolling Session Summary</h4>
+                                <p class="text-sm text-zinc-400 leading-relaxed">A compressed representation of the
+                                    current conversation history. It provides short-term context and tracks active goals
+                                    without bloating the prompt.</p>
+                            </div>
                         </div>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Retrieval Strategy</h2>
+                    <p class="text-zinc-300 mb-8">When a query is received, Memoria executes a multi-stage retrieval
+                        flow to find the most relevant context:</p>
+
+                    <div class="glass-card p-8 rounded-[2rem] space-y-6 mb-12">
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="w-8 h-8 rounded-full bg-yellow-400 text-zinc-950 flex items-center justify-center font-bold text-xs">
+                                1</div>
+                            <span class="text-white font-medium">Vector KNN Search</span>
+                            <span class="text-[10px] text-zinc-500 uppercase ml-auto">sqlite-vec</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="w-8 h-8 rounded-full bg-zinc-800 text-zinc-400 flex items-center justify-center font-bold text-xs">
+                                2</div>
+                            <span class="text-white font-medium">Manual Cosine Fallback</span>
+                            <span class="text-[10px] text-zinc-500 uppercase ml-auto">Matrix Math</span>
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="w-8 h-8 rounded-full bg-zinc-800 text-zinc-400 flex items-center justify-center font-bold text-xs">
+                                3</div>
+                            <span class="text-white font-medium">Keyword Overlap Fallback</span>
+                            <span class="text-[10px] text-zinc-500 uppercase ml-auto">BM25-like</span>
+                        </div>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Technical Specifications</h2>
+                    <div class="overflow-hidden border border-white/5 rounded-2xl">
+                        <table class="w-full text-sm text-left">
+                            <thead class="bg-white/5 text-zinc-400 text-[10px] uppercase tracking-widest">
+                                <tr>
+                                    <th class="px-6 py-4">Component</th>
+                                    <th class="px-6 py-4">Implementation</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-white/5">
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">Embedding Model</td>
+                                    <td class="px-6 py-4 text-zinc-400">all-MiniLM-L6-v2 (384 dimensions)</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">Storage Engine</td>
+                                    <td class="px-6 py-4 text-zinc-400">SQLite3 + sqlite-vec v0.1.0</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">Decay Algorithm</td>
+                                    <td class="px-6 py-4 text-zinc-400">Exponential (EWA) based on minutes since
+                                        creation</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-6 py-4 font-mono text-yellow-400 text-xs">Consolidation</td>
+                                    <td class="px-6 py-4 text-zinc-400">LLM-powered triplet merging when kg_limit is
+                                        reached</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
@@ -82,7 +164,6 @@
     </div>
 
     <script type="module" src="/src/docs.js"></script>
-    
     <script type="module" src="/src/search.js"></script>
 </body>
 
