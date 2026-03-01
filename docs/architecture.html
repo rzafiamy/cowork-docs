@@ -64,134 +64,362 @@
                     </p>
 
                     <h3 class="text-2xl font-bold text-white mb-8">The 7-Phase Protocol</h3>
-                    <div class="space-y-8 mb-16">
-                        <div
-                            class="glass-card p-8 rounded-2xl border-l-[6px] border-yellow-400 bg-gradient-to-r from-yellow-400/5 to-transparent">
-                            <div class="flex items-center gap-4 mb-4">
-                                <div
-                                    class="w-10 h-10 rounded-full bg-yellow-400/10 flex items-center justify-center text-yellow-400">
-                                    <i class="fas fa-terminal"></i></div>
-                                <h3 class="text-xl font-bold text-white">01 CLI Invocation & Boot</h3>
-                            </div>
-                            <p class="text-zinc-300 text-sm leading-relaxed mb-4">
-                                The deterministic boot sequence initializes the runtime. Here, firewall validations,
-                                environment integrity checks, and session resolutions occur. If a user defines strict
-                                configuration constraints, they are loaded immediately.
-                            </p>
-                            <p class="text-zinc-500 font-mono text-xs">Technical Benefit: Guarantees secure execution
-                                context before parsing any potentially hostile or malformed user instructions.</p>
+
+                    <!-- Phase 1 -->
+                    <section class="mb-16 pb-16 border-b border-white/5">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div
+                                class="w-12 h-12 rounded-full bg-yellow-400/10 flex items-center justify-center text-yellow-400 text-xl">
+                                <i class="fas fa-terminal"></i></div>
+                            <h3 class="text-2xl font-bold text-white">01 CLI Invocation & Boot</h3>
                         </div>
 
-                        <div
-                            class="glass-card p-8 rounded-2xl border-l-[6px] border-amber-500 bg-gradient-to-r from-amber-500/5 to-transparent">
-                            <div class="flex items-center gap-4 mb-4">
-                                <div
-                                    class="w-10 h-10 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-500">
-                                    <i class="fas fa-shield-halved"></i></div>
-                                <h3 class="text-xl font-bold text-white">02 Input Gatekeeper</h3>
+                        <div class="space-y-6 text-zinc-300 leading-relaxed">
+                            <div>
+                                <h4 class="text-white font-bold mb-2">Context & Motivation</h4>
+                                <p>Standard scripts and agents usually jump straight to processing the user prompt.
+                                    However, in enterprise environments where permissions, constraints, and sessions
+                                    must be strictly enforced, skipping a deterministic boot sequence invites
+                                    unpredictability. We needed an absolute zero-state where nothing dynamic happens
+                                    until the environment is confirmed secure.</p>
                             </div>
-                            <p class="text-zinc-300 text-sm leading-relaxed mb-4">
-                                Before any reasoning happens, the Gatekeeper analyzes token density. Large inputs (such
-                                as massive copy-pasted code blocks) are automatically detected and offloaded into the
-                                session scratchpad to prevent context window bloat and truncation errors.
-                            </p>
-                            <p class="text-zinc-500 font-mono text-xs">Technical Benefit: Prevents "lost in the middle"
-                                phenomena. Reference: <a href="https://arxiv.org/abs/2307.03172"
-                                    class="text-amber-500 hover:underline" target="_blank">Lost in the Middle (Liu et
-                                    al., 2023)</a>.</p>
+
+                            <div>
+                                <h4 class="text-white font-bold mb-2">Algorithm & Execution</h4>
+                                <p>The boot sequence is purely programmatic (non-AI). It verifies API keys, loads
+                                    configuration payloads, creates explicit local workspace directories, checks
+                                    firewall constraints (Trust Tiers), and loads any previous Session IDs or arguments
+                                    passed via the CLI before assembling the initial state object.</p>
+                            </div>
+
+                            <div class="bg-zinc-900 border border-white/5 p-4 rounded-xl font-mono text-sm">
+                                <span class="text-zinc-500">// Example Flow:</span><br>
+                                <span class="text-yellow-400">$ cowork run "build my app" --trust-tier=safe</span><br>
+                                <span class="text-zinc-400">-> Parses arguments, sets Trust Tier to 'safe'</span><br>
+                                <span class="text-zinc-400">-> Validates .env API keys</span><br>
+                                <span class="text-zinc-400">-> Resolves filesystem paths & builds State Context</span>
+                            </div>
+
+                            <div
+                                class="flex items-start gap-4 p-4 bg-emerald-500/5 border border-emerald-500/20 rounded-xl">
+                                <i class="fas fa-arrow-trend-up text-emerald-500 mt-1"></i>
+                                <div>
+                                    <strong class="text-emerald-400 block mb-1">The Gain</strong>
+                                    <p class="text-sm">Guarantees a secure execution context before parsing any
+                                        potentially hostile or malformed user commands. Prevents the AI from
+                                        accidentally reading or writing outside of permitted bounds.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Phase 2 -->
+                    <section class="mb-16 pb-16 border-b border-white/5">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div
+                                class="w-12 h-12 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-500 text-xl">
+                                <i class="fas fa-shield-halved"></i></div>
+                            <h3 class="text-2xl font-bold text-white">02 Input Gatekeeper</h3>
                         </div>
 
-                        <div
-                            class="glass-card p-8 rounded-2xl border-l-[6px] border-orange-500 bg-gradient-to-r from-orange-500/5 to-transparent">
-                            <div class="flex items-center gap-4 mb-4">
-                                <div
-                                    class="w-10 h-10 rounded-full bg-orange-500/10 flex items-center justify-center text-orange-500">
-                                    <i class="fas fa-route"></i></div>
-                                <h3 class="text-xl font-bold text-white">03 Meta-Routing & Skill Loading</h3>
+                        <div class="space-y-6 text-zinc-300 leading-relaxed">
+                            <div>
+                                <h4 class="text-white font-bold mb-2">Context & Motivation</h4>
+                                <p>Users often paste massive walls of text, logs, or codebase files directly into the
+                                    prompt. When language models are flooded with excessive prompt data, they experience
+                                    "attention dilution," commonly forgetting instructions provided at the beginning or
+                                    end of the prompt.</p>
                             </div>
-                            <p class="text-zinc-300 text-sm leading-relaxed mb-4">
-                                Uses a zero-temperature fast classifier to parse user intent and load only necessary
-                                Skill Manifests. Our <em>Progressive Disclosure</em> system injects minimal instruction
-                                TOCs until an intent is matched, after which explicit capabilities are activated.
-                            </p>
-                            <p class="text-zinc-500 font-mono text-xs">Technical Benefit: Keeps prompt size tiny (less
-                                cost, less latency) and focuses the LLM purely on the required task schemas (e.g.,
-                                loading PDF generation tools only when a document is requested).</p>
+
+                            <div>
+                                <h4 class="text-white font-bold mb-2">Algorithm & Execution</h4>
+                                <p>The Input Gatekeeper calculates token density for the incoming user message using a
+                                    fast tokenizer. If the input exceeds the context threshold, the gatekeeper
+                                    automatically strips the heavy data from the active prompt, saves it to a structured
+                                    <code>session scratchpad</code> file, and reformats the user's prompt to simply
+                                    reference that file.</p>
+                            </div>
+
+                            <div class="bg-zinc-900 border border-white/5 p-4 rounded-xl font-mono text-sm">
+                                <span class="text-zinc-500">// Example Scenario: User pastes 10,000 lines of
+                                    logs.</span><br>
+                                <span class="text-zinc-400">Gatekeeper calculates 15,000 tokens.</span><br>
+                                <span class="text-zinc-400">Action: Saves logs to
+                                    <code>scratchpad/logs.txt</code></span><br>
+                                <span class="text-amber-500">Injects to LLM: "User uploaded 15k tokens. Reference it via
+                                    scratchpad tool reading 'logs.txt'."</span>
+                            </div>
+
+                            <div class="flex items-center gap-2 text-sm text-zinc-400 border-l-2 border-amber-500 pl-4">
+                                <i class="fas fa-book-open"></i>
+                                <span>Reference: <a href="https://arxiv.org/abs/2307.03172" target="_blank"
+                                        class="text-amber-400 hover:underline">Lost in the Middle: How Language Models
+                                        Use Long Contexts (Liu et al., 2023)</a></span>
+                            </div>
+
+                            <div
+                                class="flex items-start gap-4 p-4 bg-emerald-500/5 border border-emerald-500/20 rounded-xl">
+                                <i class="fas fa-arrow-trend-up text-emerald-500 mt-1"></i>
+                                <div>
+                                    <strong class="text-emerald-400 block mb-1">The Gain</strong>
+                                    <p class="text-sm">Maintains strict context precision and saves thousands of tokens
+                                        worth of API cost. The agent fetches the data only exactly when it is ready to
+                                        reason about it.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Phase 3 -->
+                    <section class="mb-16 pb-16 border-b border-white/5">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div
+                                class="w-12 h-12 rounded-full bg-orange-500/10 flex items-center justify-center text-orange-500 text-xl">
+                                <i class="fas fa-route"></i></div>
+                            <h3 class="text-2xl font-bold text-white">03 Meta-Routing & Skill Loading</h3>
                         </div>
 
-                        <div
-                            class="glass-card p-8 rounded-2xl border-l-[6px] border-rose-500 bg-gradient-to-r from-rose-500/5 to-transparent">
-                            <div class="flex items-center gap-4 mb-4">
-                                <div
-                                    class="w-10 h-10 rounded-full bg-rose-500/10 flex items-center justify-center text-rose-500">
-                                    <i class="fas fa-map"></i></div>
-                                <h3 class="text-xl font-bold text-white">04 Planning</h3>
+                        <div class="space-y-6 text-zinc-300 leading-relaxed">
+                            <div>
+                                <h4 class="text-white font-bold mb-2">Context & Motivation</h4>
+                                <p>Loading every possible instruction, prompt constraint, and tool JSON schema (web
+                                    search, codebase reading, calendar modification, PDF generation) into the system
+                                    prompt for every request makes the LLM sluggish, confused, and prone to hallucinate
+                                    parameter usage due to schema soup.</p>
                             </div>
-                            <p class="text-zinc-300 text-sm leading-relaxed mb-4">
-                                Pre-execution explicit planning. The system establishes a <code>task_goal</code> inside
-                                the session scratchpad. This acts as a task anchor through multi-step executions,
-                                forcing the agent to break down large jobs before execution begins.
-                            </p>
-                            <p class="text-zinc-500 font-mono text-xs">Reasoning: Forces System-2 thinking prior to
-                                Action (AutoGPT style loops without planning drift).</p>
+
+                            <div>
+                                <h4 class="text-white font-bold mb-2">Algorithm & Execution</h4>
+                                <p>Cowork uses <strong>Progressive Disclosure</strong>. We send a microscopic system
+                                    prompt and ask a fast, temperature <code>0.0</code> classifier (the Router) to
+                                    categorize the user intent. Based on the categorization, only the explicit
+                                    capabilities (e.g. tools, system persona, and step-by-step guidance rules) mapping
+                                    to that intent are injected into the context.</p>
+                            </div>
+
+                            <div class="bg-zinc-900 border border-white/5 p-4 rounded-xl font-mono text-sm">
+                                <span class="text-zinc-500">// Example Intent: "Create a slide deck about my
+                                    notes"</span><br>
+                                <span class="text-zinc-400">Router classification: <code>DOCUMENT_TOOLS</code>,
+                                    <code>WORKSPACE_TOOLS</code></span><br>
+                                <span class="text-orange-500">Injects: pptx generation schema, file reading
+                                    schema.</span><br>
+                                <span class="text-zinc-500">// (Leaves out web search, github, and calendar
+                                    tools)</span>
+                            </div>
+
+                            <div
+                                class="flex items-start gap-4 p-4 bg-emerald-500/5 border border-emerald-500/20 rounded-xl">
+                                <i class="fas fa-arrow-trend-up text-emerald-500 mt-1"></i>
+                                <div>
+                                    <strong class="text-emerald-400 block mb-1">The Gain</strong>
+                                    <p class="text-sm">Massively reduces LLM latency and cost by stripping unused
+                                        schema. Focused schema prevents the LLM from trying to use a web-scrape tool
+                                        when it just needs to modify a local file.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Phase 4 -->
+                    <section class="mb-16 pb-16 border-b border-white/5">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div
+                                class="w-12 h-12 rounded-full bg-rose-500/10 flex items-center justify-center text-rose-500 text-xl">
+                                <i class="fas fa-map"></i></div>
+                            <h3 class="text-2xl font-bold text-white">04 Planning</h3>
                         </div>
 
-                        <div
-                            class="glass-card p-8 rounded-2xl border-l-[6px] border-violet-500 bg-gradient-to-r from-violet-500/5 to-transparent">
-                            <div class="flex items-center gap-4 mb-4">
-                                <div
-                                    class="w-10 h-10 rounded-full bg-violet-500/10 flex items-center justify-center text-violet-500">
-                                    <i class="fas fa-rotate"></i></div>
-                                <h3 class="text-xl font-bold text-white">05 Execution (REACT Loop)</h3>
+                        <div class="space-y-6 text-zinc-300 leading-relaxed">
+                            <div>
+                                <h4 class="text-white font-bold mb-2">Context & Motivation</h4>
+                                <p>When given a complex task (e.g., "Refactor this entire API mapping"), agents that
+                                    jump straight into execution often hit dead ends, forget the original goal halfway
+                                    through, or get stuck looping on microscopic edge cases because they never mapped
+                                    the broader terrain.</p>
                             </div>
-                            <p class="text-zinc-300 text-sm leading-relaxed mb-4">
-                                The core engine: iterative Reason → Act → Observe. The agent may make parallel tool
-                                calls interacting directly with real APIs, file systems, or databases. We strictly bound
-                                this loop to a <code>max_steps</code> limit (default: 15). At the limit, the loop forces
-                                a self-assessment and graceful handoff instead of a crash.
-                            </p>
-                            <p class="text-zinc-500 font-mono text-xs">Technical Benefit: Guarantees termination. Zero
-                                infinite loops. Reference: <a href="https://arxiv.org/abs/2210.03629"
-                                    class="text-violet-500 hover:underline" target="_blank">ReAct: Synergizing Reasoning
-                                    and Acting (Yao et al., 2022)</a>.</p>
+
+                            <div>
+                                <h4 class="text-white font-bold mb-2">Algorithm & Execution</h4>
+                                <p>Before action begins, the system invokes planning. The agent generates a structured
+                                    breakdown of the steps necessary to complete the task. This step roadmap is saved
+                                    statically to a <code>task_goal</code> tracker inside the session's workspace. As
+                                    the agent acts in Phase 5, this static plan anchors its reasoning.</p>
+                            </div>
+
+                            <div class="bg-zinc-900 border border-white/5 p-4 rounded-xl font-mono text-sm">
+                                <span class="text-zinc-500">// Example File: workspace/task_goal.txt</span><br>
+                                <span class="text-zinc-400">[ ] Step 1: Read existing API mapping.</span><br>
+                                <span class="text-zinc-400">[ ] Step 2: Extract list of deprecated endpoints.</span><br>
+                                <span class="text-zinc-400">[ ] Step 3: Rewrite routing file.</span>
+                            </div>
+
+                            <div class="flex items-center gap-2 text-sm text-zinc-400 border-l-2 border-rose-500 pl-4">
+                                <i class="fas fa-book-open"></i>
+                                <span>Reference: <a href="https://arxiv.org/abs/2303.11366" target="_blank"
+                                        class="text-rose-400 hover:underline">Reflexion: Language Agents with Verbal
+                                        Reinforcement Learning (Shinn et al., 2023)</a> — Applying self-reflection
+                                    through planning.</span>
+                            </div>
+
+                            <div
+                                class="flex items-start gap-4 p-4 bg-emerald-500/5 border border-emerald-500/20 rounded-xl">
+                                <i class="fas fa-arrow-trend-up text-emerald-500 mt-1"></i>
+                                <div>
+                                    <strong class="text-emerald-400 block mb-1">The Gain</strong>
+                                    <p class="text-sm">Forces "System-2" slow-thinking before acting. If an agent's
+                                        memory window is compressed later, the static plan serves as an indestructible
+                                        anchor to remind it what it was doing.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Phase 5 -->
+                    <section class="mb-16 pb-16 border-b border-white/5">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div
+                                class="w-12 h-12 rounded-full bg-violet-500/10 flex items-center justify-center text-violet-500 text-xl">
+                                <i class="fas fa-rotate"></i></div>
+                            <h3 class="text-2xl font-bold text-white">05 Execution (REACT Loop)</h3>
                         </div>
 
-                        <div
-                            class="glass-card p-8 rounded-2xl border-l-[6px] border-sky-500 bg-gradient-to-r from-sky-500/5 to-transparent">
-                            <div class="flex items-center gap-4 mb-4">
-                                <div
-                                    class="w-10 h-10 rounded-full bg-sky-500/10 flex items-center justify-center text-sky-500">
-                                    <i class="fas fa-compress-alt"></i></div>
-                                <h3 class="text-xl font-bold text-white">06 Context Compression</h3>
+                        <div class="space-y-6 text-zinc-300 leading-relaxed">
+                            <div>
+                                <h4 class="text-white font-bold mb-2">Context & Motivation</h4>
+                                <p>Generative models predict the next token, which makes them inherently poor at
+                                    long-term, dynamic agency unless properly constrained. Open-ended "think-and-act"
+                                    loops frequently fall into infinite error loops (e.g. running bad code, getting an
+                                    error, predicting the same bad code again forever).</p>
                             </div>
-                            <p class="text-zinc-300 text-sm leading-relaxed mb-4">
-                                If the rolling window of the conversation exceeds the <code>context_limit_tokens</code>
-                                (e.g. 6000), a fast, low-temperature LLM pass performs a map-reduce summarization on the
-                                oldest messages, compressing them while maintaining technical keys, code snippets, and
-                                IDs.
-                            </p>
-                            <p class="text-zinc-500 font-mono text-xs">Technical Benefit: Endless context windows
-                                without API rejection or immense token costs.</p>
+
+                            <div>
+                                <h4 class="text-white font-bold mb-2">Algorithm & Execution</h4>
+                                <p>The reasoning phase utilizes a bounded REACT (Reason + Act) loop. The agent reasons
+                                    about its status, calls a tool in parallel, and observes the real-world output.
+                                    Crucially, the loop has a hard limit (<code>max_steps = 15</code>). If the loop hits
+                                    step 15, execution is forcefully halted. The agent is required to make a final
+                                    <em>Tool-Free</em> assessment call dictating returning partial progress, ensuring
+                                    graceful failure instead of an infinite crash.</p>
+                            </div>
+
+                            <div
+                                class="flex items-center gap-2 text-sm text-zinc-400 border-l-2 border-violet-500 pl-4">
+                                <i class="fas fa-book-open"></i>
+                                <span>Reference: <a href="https://arxiv.org/abs/2210.03629" target="_blank"
+                                        class="text-violet-400 hover:underline">ReAct: Synergizing Reasoning and Acting
+                                        in Language Models (Yao et al., 2022)</a></span>
+                            </div>
+
+                            <div
+                                class="flex items-start gap-4 p-4 bg-emerald-500/5 border border-emerald-500/20 rounded-xl">
+                                <i class="fas fa-arrow-trend-up text-emerald-500 mt-1"></i>
+                                <div>
+                                    <strong class="text-emerald-400 block mb-1">The Gain</strong>
+                                    <p class="text-sm">Guarantees termination. Zero infinite loops. The user never has
+                                        an agent process hang indefinitely in the background destroying API credits.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Phase 6 -->
+                    <section class="mb-16 pb-16 border-b border-white/5">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div
+                                class="w-12 h-12 rounded-full bg-sky-500/10 flex items-center justify-center text-sky-500 text-xl">
+                                <i class="fas fa-compress-alt"></i></div>
+                            <h3 class="text-2xl font-bold text-white">06 Context Compression</h3>
                         </div>
 
-                        <div
-                            class="glass-card p-8 rounded-2xl border-l-[6px] border-emerald-500 bg-gradient-to-r from-emerald-500/5 to-transparent">
-                            <div class="flex items-center gap-4 mb-4">
-                                <div
-                                    class="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500">
-                                    <i class="fas fa-brain"></i></div>
-                                <h3 class="text-xl font-bold text-white">07 Memoria Ingestion (Long-Term Memory)</h3>
+                        <div class="space-y-6 text-zinc-300 leading-relaxed">
+                            <div>
+                                <h4 class="text-white font-bold mb-2">Context & Motivation</h4>
+                                <p>Conversations with autonomous agents accumulate massive context histories due to tool
+                                    observation dumps (API responses, file contents). Pushing an ever-growing array of
+                                    past messages to an LLM degrades recall performance and multiplies token cost
+                                    exponentially.</p>
                             </div>
-                            <p class="text-zinc-300 text-sm leading-relaxed mb-4">
-                                Extracts semantic <code>(subject, predicate, object)</code> triplets from user inputs or
-                                critical agent resolutions. These are saved to a local knowledge graph with an
-                                Exponential Weighted Average (EWA) time scale, decaying less relevant facts over weeks
-                                while boosting intensely discussed current topics.
-                            </p>
-                            <p class="text-zinc-500 font-mono text-xs">Technical Benefit: No third-party vector
-                                databases needed. Memory persists over CLI restarts.</p>
+
+                            <div>
+                                <h4 class="text-white font-bold mb-2">Algorithm & Execution</h4>
+                                <p>We dynamically track the rolling token count of the conversation array. If it
+                                    breaches <code>context_limit_tokens</code> (e.g. 6000), Phase 6 triggers. The system
+                                    slices off the oldest half of the messages. A small, fast LLM pass performs a
+                                    map-reduce summarization on these messages. The raw messages are deleted, and the
+                                    dense summary is injected at the top of the array.</p>
+                            </div>
+
+                            <div
+                                class="flex items-start gap-4 p-4 bg-emerald-500/5 border border-emerald-500/20 rounded-xl">
+                                <i class="fas fa-arrow-trend-up text-emerald-500 mt-1"></i>
+                                <div>
+                                    <strong class="text-emerald-400 block mb-1">The Gain</strong>
+                                    <p class="text-sm">Supports theoretically infinite session lengths. You can
+                                        pair-program with Cowork for 6 hours straight without encountering
+                                        context-window maximums or exorbitant message-history costs.</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
+                    </section>
+
+                    <!-- Phase 7 -->
+                    <section class="mb-16 pb-16">
+                        <div class="flex items-center gap-4 mb-6">
+                            <div
+                                class="w-12 h-12 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500 text-xl">
+                                <i class="fas fa-brain"></i></div>
+                            <h3 class="text-2xl font-bold text-white">07 Memoria Ingestion (Long-Term Memory)</h3>
+                        </div>
+
+                        <div class="space-y-6 text-zinc-300 leading-relaxed">
+                            <div>
+                                <h4 class="text-white font-bold mb-2">Context & Motivation</h4>
+                                <p>Traditional conversational agents have terminal amnesia. The moment you clear the
+                                    context or start a new session, you have to re-explain who you are, what the project
+                                    is, and what your preferences are (e.g., "always write code in TypeScript").</p>
+                            </div>
+
+                            <div>
+                                <h4 class="text-white font-bold mb-2">Algorithm & Execution</h4>
+                                <p>Memoria transforms transient facts into durable data. After an execution loop
+                                    concludes, a background worker parses the successful interactions. It extracts
+                                    semantic <code>(subject, predicate, object)</code> data structures. These triplets
+                                    are stored in a local JSON Knowledge Graph. They are given an Exponential Weighted
+                                    Average (EWA) time scale, meaning facts discussed often gain "gravity," while old,
+                                    unused facts rapidly decay towards a deletion threshold.</p>
+                            </div>
+
+                            <div class="bg-zinc-900 border border-white/5 p-4 rounded-xl font-mono text-sm">
+                                <span class="text-zinc-500">// Example Extraction:</span><br>
+                                <span class="text-zinc-400">Subject: "User Project"</span><br>
+                                <span class="text-zinc-400">Predicate: "uses Framework"</span><br>
+                                <span class="text-emerald-400">Object: "TailwindCSS v3.4"</span><br>
+                                <span class="text-zinc-500">// Inected automatically in every future session when CSS is
+                                    mentioned.</span>
+                            </div>
+
+                            <div
+                                class="flex items-center gap-2 text-sm text-zinc-400 border-l-2 border-emerald-500 pl-4">
+                                <i class="fas fa-book-open"></i>
+                                <span>Reference: <a href="https://arxiv.org/abs/2304.03442" target="_blank"
+                                        class="text-emerald-400 hover:underline">Generative Agents: Interactive
+                                        Simulacra of Human Behavior (Park et al., 2023)</a> — Applying observation
+                                    reflection and memory streams.</span>
+                            </div>
+
+                            <div
+                                class="flex items-start gap-4 p-4 bg-emerald-500/5 border border-emerald-500/20 rounded-xl">
+                                <i class="fas fa-arrow-trend-up text-emerald-500 mt-1"></i>
+                                <div>
+                                    <strong class="text-emerald-400 block mb-1">The Gain</strong>
+                                    <p class="text-sm">Creates an emergent, highly personalized AI coworker. The agent
+                                        learns your project structure across weeks and months, completely bypassing the
+                                        need for complex external Vector Databases like Pinecone.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
 
                     <h2 class="text-3xl font-bold text-white mb-6">Execution Tracing & Auditability</h2>
                     <p class="text-zinc-300 leading-relaxed mb-6">
