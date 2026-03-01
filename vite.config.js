@@ -7,13 +7,27 @@ function htmlPartialPlugin() {
         name: 'html-partial-plugin',
         transformIndexHtml(html) {
             const partialRegex = /<!-- @partial:(.+?) -->/g;
-            return html.replace(partialRegex, (match, partialName) => {
-                const partialPath = resolve(__dirname, `src/partials/${partialName}.html`);
-                if (fs.existsSync(partialPath)) {
-                    return fs.readFileSync(partialPath, 'utf-8');
+            let currentHtml = html;
+            let hasPartials = true;
+
+            // Simple loop to handle nested partials (limit to 5 levels to avoid infinite loops)
+            let depth = 0;
+            while (hasPartials && depth < 5) {
+                const newHtml = currentHtml.replace(partialRegex, (match, partialName) => {
+                    const partialPath = resolve(__dirname, `src/partials/${partialName}.html`);
+                    if (fs.existsSync(partialPath)) {
+                        return fs.readFileSync(partialPath, 'utf-8');
+                    }
+                    return `<!-- Partial ${partialName} not found at ${partialPath} -->`;
+                });
+
+                if (newHtml === currentHtml) {
+                    hasPartials = false;
                 }
-                return `<!-- Partial ${partialName} not found at ${partialPath} -->`;
-            });
+                currentHtml = newHtml;
+                depth++;
+            }
+            return currentHtml;
         }
     };
 }
@@ -32,6 +46,8 @@ export default defineConfig({
                 skills: resolve(__dirname, 'docs/skills.html'),
                 config: resolve(__dirname, 'docs/config.html'),
                 security: resolve(__dirname, 'docs/security.html'),
+                acl: resolve(__dirname, 'docs/acl.html'),
+                llm: resolve(__dirname, 'docs/llm.html'),
                 cron: resolve(__dirname, 'docs/cron.html'),
                 jobs: resolve(__dirname, 'docs/jobs.html'),
                 issues: resolve(__dirname, 'docs/issues.html'),

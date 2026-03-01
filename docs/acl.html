@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File ACL • Cowork AI</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800&family=JetBrains+Mono:wght@500&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/src/style.css">
+</head>
+
+<body class="bg-zinc-950 text-zinc-200">
+    <!-- @partial:topbar -->
+
+    <div class="flex min-h-screen">
+        <!-- @partial:sidebar -->
+
+        <!-- Main Content Area -->
+        <main class="flex-1 relative">
+            <div class="max-w-4xl mx-auto px-6 lg:px-12 pt-20 lg:pt-32 pb-20">
+                <div id="content" class="prose prose-invert prose-zinc max-w-none">
+                    <h1 class="text-4xl font-extrabold tracking-tight text-white mb-8 logo-font">File Access Control
+                        (ACL)</h1>
+                    <p class="text-xl text-zinc-400 leading-relaxed mb-12">
+                        The File Access Control Layer (ACL) provides a unified security gateway for all filesystem
+                        operations,
+                        ensuring that every read and write is validated, logged, and audited.
+                    </p>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Core Philosophy</h2>
+                    <p class="text-zinc-300 mb-6">
+                        Similar to the tool firewall, the ACL operates on a <strong>Zero-Trust</strong> principle.
+                        No tool or internal module can bypass the <code>FileManager</code> gateway. This guarantees
+                        absolute consistency
+                        across the entire workspace.
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-12">
+                        <div class="glass-card p-6 rounded-2xl border-t-2 border-yellow-400/50">
+                            <h3 class="text-lg font-bold text-white mb-3 flex items-center gap-2">
+                                <i class="fas fa-shield-alt text-yellow-400"></i>
+                                Immutable Guards
+                            </h3>
+                            <p class="text-zinc-400 text-sm">Rules are enforced at the lowest possible level within the
+                                <code>FileManager</code>, preventing any accidental bypasses.</p>
+                        </div>
+                        <div class="glass-card p-6 rounded-2xl border-t-2 border-amber-500/50">
+                            <h3 class="text-lg font-bold text-white mb-3 flex items-center gap-2">
+                                <i class="fas fa-list-ul text-amber-500"></i>
+                                High-Fidelity Audit
+                            </h3>
+                            <p class="text-zinc-400 text-sm">Every access attempt is logged in <code>acl.log</code> with
+                                timestamps, session IDs, and reasonings.</p>
+                        </div>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Configuration</h2>
+                    <p class="text-zinc-300 mb-6">
+                        ACL rules are defined in <code>~/.cowork/acl.yaml</code>. The structure allows for global
+                        policies
+                        and granular path-based rules using glob patterns.
+                    </p>
+
+                    <div class="bg-zinc-900/50 rounded-2xl p-6 border border-white/5 my-8">
+                        <pre class="text-sm font-mono text-zinc-300"><code><span class="text-zinc-500"># acl.yaml example</span>
+policy:
+  default_read: allow
+  default_write: allow
+
+rules:
+  - access: write
+    pattern: ~/.cowork/config.json
+    action: block
+    description: Protect core configuration from agent tampering.
+
+  - access: any
+    pattern: ~/.cowork/workspace/secrets/**
+    action: audit
+    description: Audit all access to sensitive workspace data.</code></pre>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Development Gateway</h2>
+                    <p class="text-zinc-300 mb-6">
+                        When developing tools for Cowork, always use the <code>file_manager</code> singleton.
+                        It abstracts the complexity of manual path resolution and safety checks.
+                    </p>
+
+                    <div class="bg-zinc-950 border border-white/5 rounded-2xl overflow-hidden shadow-2xl my-8">
+                        <div class="px-5 py-3 bg-white/5 border-b border-white/5 flex items-center justify-between">
+                            <span class="text-[10px] font-bold tracking-widest text-zinc-400 uppercase">Python
+                                Implementation</span>
+                            <i class="fab fa-python text-yellow-400"></i>
+                        </div>
+                        <div class="p-6">
+                            <pre class="text-sm font-mono text-zinc-400"><code><span class="text-blue-400">from</span> cowork.cli.cowork.acl <span class="text-blue-400">import</span> file_manager
+
+<span class="text-zinc-500"># Validated and Audited Text Write</span>
+file_manager.write_text(
+    path=<span class="text-amber-400">"report.md"</span>, 
+    content=<span class="text-amber-400">"# New Report"</span>, 
+    reason=<span class="text-amber-400">"generating execution summary"</span>
+)
+
+<span class="text-zinc-500"># Secure JSON Retrieval</span>
+data = file_manager.read_json(<span class="text-amber-400">"state.json"</span>)</code></pre>
+                        </div>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Access Types</h2>
+                    <ul class="space-y-4 text-zinc-300 list-none pl-0">
+                        <li class="flex gap-4">
+                            <span class="text-yellow-400 mt-1"><i class="fas fa-check-circle"></i></span>
+                            <div>
+                                <strong class="text-white block">READ</strong>
+                                <span class="text-sm text-zinc-400">Includes <code>read_text</code>,
+                                    <code>read_bytes</code>, <code>read_json</code>, <code>listdir</code>, and
+                                    <code>glob</code>.</span>
+                            </div>
+                        </li>
+                        <li class="flex gap-4">
+                            <span class="text-amber-500 mt-1"><i class="fas fa-check-circle"></i></span>
+                            <div>
+                                <strong class="text-white block">WRITE</strong>
+                                <span class="text-sm text-zinc-400">Includes <code>write_text</code>,
+                                    <code>append_text</code>, <code>write_bytes</code>, <code>unlink</code>,
+                                    <code>move</code>, and <code>makedirs</code>.</span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Panel (ToC) -->
+        <aside class="hidden xl:block w-72 h-screen sticky top-0 border-l border-white/5 py-24 px-8 overflow-y-auto">
+            <h5 class="mb-4 text-[10px] font-bold tracking-[0.2em] text-zinc-500 uppercase">On this page</h5>
+            <nav id="toc" class="space-y-3 text-sm">
+                <!-- Generated by docs.js -->
+            </nav>
+        </aside>
+    </div>
+
+    <script type="module" src="/src/docs.js"></script>
+    <script type="module" src="/src/search.js"></script>
+</body>
+
+</html>

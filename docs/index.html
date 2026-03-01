@@ -27,22 +27,97 @@
                     <!-- Content injected here -->
                     <h1 class="text-4xl font-extrabold tracking-tight text-white mb-8 logo-font">Getting Started</h1>
                     <p class="text-lg text-zinc-400 mb-8">
-                        Welcome to the Cowork documentation. Cowork is an autonomous AI coworker designed to execute
-                        complex tasks with a high degree of reliability and persistence.
+                        Welcome to the Cowork documentation. Follow these instructions to set up your autonomous AI
+                        coworker on your local machine.
                     </p>
 
-                    <h2 class="text-2xl font-bold text-white mb-4">Core Principles</h2>
-                    <p class="mb-4">Cowork is built on several key architectural pillars:</p>
-                    <ul class="list-disc list-inside space-y-2 mb-8">
-                        <li><strong>Deterministic Pipeline:</strong> A strict 7-phase execution model.</li>
-                        <li><strong>Persistent Memory:</strong> The Memoria knowledge graph.</li>
-                        <li><strong>Tool Augmented:</strong> Native skills for complex file operations and integrations.
-                        </li>
-                    </ul>
+                    <h2 class="text-2xl font-bold text-white mb-4" id="prerequisites">Prerequisites & System
+                        Requirements</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                        <div class="bg-zinc-900 border border-white/5 rounded-xl p-6">
+                            <h3 class="text-white font-bold mb-2">Hardware</h3>
+                            <ul class="text-zinc-400 space-y-2 text-sm">
+                                <li><i class="fas fa-microchip text-zinc-600 w-5 text-center mr-2"></i> Minimal CPU &
+                                    RAM (CLI is lightweight)</li>
+                                <li><i class="fas fa-hdd text-zinc-600 w-5 text-center mr-2"></i> ~50MB disk storage
+                                    (base installation)</li>
+                                <li><i class="fas fa-server text-zinc-600 w-5 text-center mr-2"></i> External LLM API or
+                                    Local LLM (Ollama)</li>
+                            </ul>
+                        </div>
+                        <div class="bg-zinc-900 border border-white/5 rounded-xl p-6">
+                            <h3 class="text-white font-bold mb-2">Platform & Software</h3>
+                            <ul class="text-zinc-400 space-y-2 text-sm">
+                                <li><i class="fab fa-linux text-zinc-600 w-5 text-center mr-2"></i> Linux, macOS, or
+                                    Windows (WSL)</li>
+                                <li><i class="fab fa-python text-zinc-600 w-5 text-center mr-2"></i> Python 3.10+</li>
+                                <li><i class="fas fa-box text-zinc-600 w-5 text-center mr-2"></i> <code>pip</code>
+                                    (Python package manager)</li>
+                            </ul>
+                        </div>
+                    </div>
 
-                    <h2 class="text-2xl font-bold text-white mb-4">Installation</h2>
+                    <h2 class="text-2xl font-bold text-white mb-4" id="installation">Installation</h2>
+                    <p class="text-zinc-400 mb-4">First, clone the repository and navigate to the CLI directory:</p>
+                    <pre class="bg-zinc-900 border border-white/5 rounded-xl p-6 font-mono text-sm mb-6 text-zinc-300">
+<span class="text-zinc-500"># Clone the repository</span>
+git clone https://github.com/rzafiamy/cowork.git
+cd cowork/cli
+</pre>
+
+                    <p class="text-zinc-400 mb-4">Install the core package using pip. We recommend doing this inside a
+                        virtual environment:</p>
                     <pre
-                        class="bg-zinc-900 border border-white/5 rounded-xl p-6 font-mono text-sm mb-8 text-amber-400">pip install -e .</pre>
+                        class="bg-zinc-900 border border-white/5 rounded-xl p-6 font-mono text-sm mb-6 text-amber-400">pip install -e .</pre>
+
+                    <div class="bg-zinc-900/50 border border-white/5 rounded-xl p-6 mb-8">
+                        <h4 class="text-white font-bold text-sm mb-3">Optional Dependencies</h4>
+                        <p class="text-sm text-zinc-400 mb-3">Depending on the skills you want to enable, you can
+                            install optional extras (e.g. for local model embeddings):</p>
+                        <ul class="font-mono text-xs space-y-2 text-zinc-300">
+                            <li>pip install "cowork[documents]" <span class="text-zinc-500 ml-2 block sm:inline"># PDF,
+                                    PPTX, XLSX, DOCX generation</span></li>
+                            <li>pip install "cowork[local-rag]" <span class="text-zinc-500 ml-2 block sm:inline"># local
+                                    vector search / embeddings</span></li>
+                            <li>pip install "cowork[tools]" <span class="text-zinc-500 ml-2 block sm:inline"># Google
+                                    APIs (Calendar, Drive, Gmail)</span></li>
+                            <li>pip install "cowork[all]" <span class="text-zinc-500 ml-2 block sm:inline"># Install
+                                    everything above</span></li>
+                        </ul>
+                    </div>
+
+                    <h2 class="text-2xl font-bold text-white mb-4" id="configuration">Configuration</h2>
+                    <p class="text-zinc-400 mb-4">Run the setup command to initialize your configuration folder (<code
+                            class="bg-white/10 px-1 rounded text-zinc-300">~/.cowork/</code>) and set up your LLM
+                        provider:</p>
+                    <pre
+                        class="bg-zinc-900 border border-white/5 rounded-xl p-6 font-mono text-sm mb-6 text-zinc-300">cowork setup</pre>
+                    <p class="text-zinc-400 mb-4">Alternatively, you can export environment variables directly in your
+                        shell profile:</p>
+                    <pre class="bg-zinc-900 border border-white/5 rounded-xl p-6 font-mono text-sm mb-8 text-zinc-300">
+export OPENAI_API_KEY=sk-...
+<span class="text-zinc-500"># For OpenAI compatible endpoints (Ollama, LM Studio etc)</span>
+export COWORK_API_ENDPOINT=https://api.openai.com/v1 
+</pre>
+
+                    <h2 class="text-2xl font-bold text-white mb-4" id="starting">Starting the Application</h2>
+                    <p class="text-zinc-400 mb-4">Once configured, you can start interacting with your autonomous
+                        coworker. The default interactive chat mode can be started by simply running:</p>
+                    <pre
+                        class="bg-zinc-900 border border-white/5 rounded-xl p-6 font-mono text-sm mb-8 text-amber-400">cowork</pre>
+
+                    <p class="text-zinc-400 mb-4">Other useful starting commands:</p>
+                    <ul class="text-zinc-400 space-y-3 mb-8 text-sm">
+                        <li><code
+                                class="bg-zinc-800 text-zinc-200 px-2 py-1 rounded font-mono mr-2 text-xs">cowork chat</code>
+                            Explicitly start interactive chat.</li>
+                        <li><code
+                                class="bg-zinc-800 text-zinc-200 px-2 py-1 rounded font-mono mr-2 text-xs">cowork run "task"</code>
+                            Run a one-shot task non-interactively.</li>
+                        <li><code
+                                class="bg-zinc-800 text-zinc-200 px-2 py-1 rounded font-mono mr-2 text-xs">cowork ping</code>
+                            Test your LLM API connectivity to ensure everything is configured.</li>
+                    </ul>
                 </div>
             </div>
         </main>
@@ -51,9 +126,12 @@
         <aside class="hidden xl:block w-72 h-screen sticky top-0 border-l border-white/5 py-24 px-8 overflow-y-auto">
             <h5 class="mb-4 text-[10px] font-bold tracking-[0.2em] text-zinc-500 uppercase">On this page</h5>
             <nav id="toc" class="space-y-3 text-sm">
-                <a href="#" class="block text-yellow-400 font-medium">Core Principles</a>
-                <a href="#" class="block text-zinc-500 hover:text-zinc-300 transition-colors">Installation</a>
-                <a href="#" class="block text-zinc-500 hover:text-zinc-300 transition-colors">Next Steps</a>
+                <a href="#prerequisites" class="block text-yellow-400 font-medium">Prerequisites</a>
+                <a href="#installation"
+                    class="block text-zinc-500 hover:text-zinc-300 transition-colors">Installation</a>
+                <a href="#configuration"
+                    class="block text-zinc-500 hover:text-zinc-300 transition-colors">Configuration</a>
+                <a href="#starting" class="block text-zinc-500 hover:text-zinc-300 transition-colors">Starting Up</a>
             </nav>
         </aside>
     </div>

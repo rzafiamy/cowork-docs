@@ -48,11 +48,11 @@ document.addEventListener('DOMContentLoaded', () => {
         currentCategory = 'all';
         filterButtons.forEach(btn => {
             if (btn.dataset.category === 'all') {
-                btn.classList.add('bg-yellow-400', 'text-zinc-950', 'shadow-lg', 'shadow-yellow-400/10', 'active');
-                btn.classList.remove('bg-white/5', 'text-zinc-500');
+                btn.classList.add('bg-yellow-400', 'text-zinc-950', 'shadow-lg', 'shadow-yellow-400/20', 'active');
+                btn.classList.remove('bg-white/5', 'text-zinc-400', 'hover:text-white', 'hover:bg-white/10');
             } else {
-                btn.classList.remove('bg-yellow-400', 'text-zinc-950', 'shadow-lg', 'shadow-yellow-400/10', 'active');
-                btn.classList.add('bg-white/5', 'text-zinc-500');
+                btn.classList.remove('bg-yellow-400', 'text-zinc-950', 'shadow-lg', 'shadow-yellow-400/20', 'active');
+                btn.classList.add('bg-white/5', 'text-zinc-400', 'hover:text-white', 'hover:bg-white/10');
             }
         });
     }
@@ -64,19 +64,19 @@ document.addEventListener('DOMContentLoaded', () => {
         if (results.length === 0) {
             if (modalSearchInput.value) {
                 modalSearchResults.innerHTML = `
-                    <div class="px-8 py-16 text-center text-zinc-500 animate-fade-in">
-                        <i class="fas fa-search-minus text-3xl mb-4 opacity-20"></i>
+                    <div class="px-8 py-16 text-center text-zinc-400 animate-fade-in">
+                        <i class="fas fa-search-minus text-3xl mb-4 opacity-50"></i>
                         <p class="text-lg">No results found for "${modalSearchInput.value}"</p>
-                        <p class="text-xs uppercase tracking-widest mt-2 opacity-50">Try a different category or keyword</p>
+                        <p class="text-sm font-sans mt-2 opacity-60">Try a different category or keyword</p>
                     </div>`;
             } else {
                 modalSearchResults.innerHTML = `
-                    <div class="px-8 py-16 text-center text-zinc-500 animate-fade-in">
+                    <div class="px-8 py-16 text-center text-zinc-400 animate-fade-in">
                         <div class="w-16 h-16 bg-white/5 rounded-2xl flex items-center justify-center mx-auto mb-6">
-                            <i class="fas fa-keyboard text-2xl opacity-20"></i>
+                            <i class="fas fa-keyboard text-2xl opacity-50"></i>
                         </div>
-                        <p class="text-sm font-medium text-zinc-400">Search documentation...</p>
-                        <p class="text-[10px] mt-3 uppercase tracking-widest opacity-30">Quick search architecture, skills, or CLI</p>
+                        <p class="text-base font-medium text-zinc-300">Search documentation...</p>
+                        <p class="text-sm mt-2 opacity-60">Quick search architecture, skills, or CLI</p>
                     </div>`;
             }
             return;
@@ -154,11 +154,11 @@ document.addEventListener('DOMContentLoaded', () => {
             // Update active state
             filterButtons.forEach(b => {
                 if (b === btn) {
-                    b.classList.add('bg-yellow-400', 'text-zinc-950', 'shadow-lg', 'shadow-yellow-400/10', 'active');
-                    b.classList.remove('bg-white/5', 'text-zinc-500');
+                    b.classList.add('bg-yellow-400', 'text-zinc-950', 'shadow-lg', 'shadow-yellow-400/20', 'active');
+                    b.classList.remove('bg-white/5', 'text-zinc-400', 'hover:text-white', 'hover:bg-white/10');
                 } else {
-                    b.classList.remove('bg-yellow-400', 'text-zinc-950', 'shadow-lg', 'shadow-yellow-400/10', 'active');
-                    b.classList.add('bg-white/5', 'text-zinc-500');
+                    b.classList.remove('bg-yellow-400', 'text-zinc-950', 'shadow-lg', 'shadow-yellow-400/20', 'active');
+                    b.classList.add('bg-white/5', 'text-zinc-400', 'hover:text-white', 'hover:bg-white/10');
                 }
             });
 

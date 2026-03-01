@@ -86,6 +86,20 @@
         ]
     },
     {
+        "id": "llm",
+        "title": "LLM Composition",
+        "description": "Visualizing how Cowork assembles messages and tool call observations into LLM requests.",
+        "url": "/docs/llm.html",
+        "category": "Core",
+        "keywords": [
+            "llm",
+            "composition",
+            "messages",
+            "prompt",
+            "context"
+        ]
+    },
+    {
         "id": "config",
         "title": "Configuration Guide",
         "description": "Managing environment variables, API keys, and model settings.",
@@ -121,6 +135,23 @@
             "ask",
             "block",
             "zero-trust"
+        ]
+    },
+    {
+        "id": "acl",
+        "title": "File ACL",
+        "description": "Information about File Access Control Layer and unified security gateway for filesystem operations.",
+        "url": "/docs/acl.html",
+        "category": "Reference",
+        "keywords": [
+            "acl",
+            "file manager",
+            "security",
+            "filesystem",
+            "guards",
+            "audit",
+            "write",
+            "read"
         ]
     },
     {
