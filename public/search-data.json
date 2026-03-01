@@ -1,26 +1,30 @@
 [
     {
         "id": "index",
-        "title": "Cowork AI Documentation",
+        "title": "Getting Started",
         "description": "Welcome to the Cowork AI documentation. Learn how to use the autonomous agentic coworker.",
         "url": "/docs/index.html",
+        "category": "General",
         "keywords": [
             "getting started",
             "introduction",
-            "setup"
+            "setup",
+            "install"
         ]
     },
     {
         "id": "architecture",
-        "title": "Architecture Overview",
+        "title": "Makix Architecture",
         "description": "Deep dive into the 7-phase execution pipeline and Makix Enterprise Architecture.",
         "url": "/docs/architecture.html",
+        "category": "Architecture",
         "keywords": [
             "pipeline",
             "meta-router",
             "planning",
             "execution",
-            "memoria"
+            "memoria",
+            "phases"
         ]
     },
     {
@@ -28,13 +32,15 @@
         "title": "CLI Reference",
         "description": "Complete guide to Cowork CLI commands: chat, run, sessions, memory, firewall, and more.",
         "url": "/docs/cli.html",
+        "category": "Reference",
         "keywords": [
             "commands",
             "terminal",
             "usage",
             "chat",
             "run",
-            "config"
+            "config",
+            "cli"
         ]
     },
     {
@@ -42,11 +48,13 @@
         "title": "Algorithms & Logic",
         "description": "Detailed explanation of the algorithms powering Cowork, including reasoning and termination guarantees.",
         "url": "/docs/algorithms.html",
+        "category": "Core",
         "keywords": [
             "reasoning",
             "prompting",
             "termination",
-            "hallucination"
+            "hallucination",
+            "logic"
         ]
     },
     {
@@ -54,11 +62,13 @@
         "title": "Memoria Knowledge Graph",
         "description": "How Cowork remembers interactions and builds a long-term knowledge graph.",
         "url": "/docs/memory.html",
+        "category": "Core",
         "keywords": [
             "long-term memory",
             "graph",
             "embeddings",
-            "context"
+            "context",
+            "memoria"
         ]
     },
     {
@@ -66,11 +76,13 @@
         "title": "Skill Registry",
         "description": "Extending Cowork with custom skills and tool integrations.",
         "url": "/docs/skills.html",
+        "category": "Core",
         "keywords": [
             "tools",
             "plugins",
             "registry",
-            "capability"
+            "capability",
+            "skills"
         ]
     },
     {
@@ -78,6 +90,7 @@
         "title": "Configuration Guide",
         "description": "Managing environment variables, API keys, and model settings.",
         "url": "/docs/config.html",
+        "category": "Reference",
         "keywords": [
             "env",
             "api key",
@@ -96,6 +109,7 @@
         "title": "Security & Firewall",
         "description": "Understanding the tool firewall, trust tiers, and safety protocols.",
         "url": "/docs/security.html",
+        "category": "Reference",
         "keywords": [
             "firewall",
             "safety",
@@ -114,6 +128,7 @@
         "title": "File System & Structure",
         "description": "Information about .cowork folders, naming conventions, and internal file structure.",
         "url": "/docs/file-system.html",
+        "category": "Reference",
         "keywords": [
             "folders",
             "directory",
@@ -131,6 +146,7 @@
         "title": "Cron Service",
         "description": "Information about scheduled agent tasks and the background poller.",
         "url": "/docs/cron.html",
+        "category": "Operations",
         "keywords": [
             "cron",
             "schedule",
@@ -144,6 +160,7 @@
         "title": "Job Queue",
         "description": "Durable task management and concurrency control via The Sentinel.",
         "url": "/docs/jobs.html",
+        "category": "Operations",
         "keywords": [
             "jobs",
             "queue",
@@ -157,6 +174,7 @@
         "title": "Issue Manager",
         "description": "Knowledge base for failed executions and troubleshooting hints.",
         "url": "/docs/issues.html",
+        "category": "Operations",
         "keywords": [
             "issues",
             "errors",
@@ -170,6 +188,7 @@
         "title": "Workflow Trace",
         "description": "Event-sourced high-fidelity logging for agent turns.",
         "url": "/docs/trace.html",
+        "category": "Operations",
         "keywords": [
             "trace",
             "logs",
@@ -183,6 +202,7 @@
         "title": "Tools Registry",
         "description": "Central repository for built-in and external tool capabilities.",
         "url": "/docs/tools.html",
+        "category": "Core",
         "keywords": [
             "tools",
             "registry",
