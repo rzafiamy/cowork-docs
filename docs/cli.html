@@ -25,134 +25,383 @@
             <div class="max-w-4xl mx-auto px-6 lg:px-12 pt-20 lg:pt-32 pb-20">
                 <div id="content" class="prose prose-invert prose-zinc max-w-none">
                     <h1 class="text-4xl font-extrabold tracking-tight text-white mb-8 logo-font">CLI Reference</h1>
-                    <p class="text-lg text-zinc-400 mb-12">
+                    <p class="text-xl text-zinc-400 leading-relaxed mb-12">
                         Cowork provides a comprehensive command-line interface for interaction, configuration, and
                         auditing.
                     </p>
 
-                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">cowork chat</h2>
-                    <p
-                        class="text-zinc-400 mb-6 font-medium font-mono text-sm uppercase tracking-widest bg-yellow-400/5 inline-block px-3 py-1 rounded-full border border-yellow-400/10">
-                        Interactive REPL</p>
-                    <p class="text-zinc-300 mb-6">Starts an interactive agentic chat session where you can collaborate
-                        with the AI in real-time.</p>
-                    <pre
-                        class="bg-zinc-900 border border-white/5 rounded-xl p-6 font-mono text-sm mb-8 text-amber-400">cowork chat</pre>
+                    <!-- Concept Section: CLI vs Slash Commands -->
+                    <div class="mb-16 p-8 rounded-2xl bg-zinc-900 border border-white/5 shadow-2xl">
+                        <h2 class="text-2xl font-bold text-white mb-4">Core Concept: CLI vs. Slash Commands</h2>
+                        <p class="text-zinc-300 leading-relaxed mb-6">
+                            Cowork utilizes two distinct mechanisms for command execution depending on where you are
+                            currently positioned in the terminal. Understanding the difference is crucial for mastering
+                            the agent.
+                        </p>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div class="p-6 rounded-xl bg-yellow-400/5 border border-yellow-400/10">
+                                <h3 class="text-lg font-bold text-yellow-400 mb-2">1. System CLI Commands (<code
+                                        class="text-yellow-400/80">cowork ...</code>)</h3>
+                                <p class="text-sm text-zinc-400 mb-4">Executed directly from your bash/zsh terminal.
+                                    Used to boot the agent, run one-shot background tasks, set up environments, or view
+                                    global state without entering chat.</p>
+                                <p class="text-xs font-mono text-zinc-500 bg-black/30 w-full p-2 rounded">~ $ cowork run
+                                    "fix tests"</p>
+                            </div>
+                            <div class="p-6 rounded-xl bg-violet-500/5 border border-violet-500/10">
+                                <h3 class="text-lg font-bold text-violet-400 mb-2">2. Slash Commands (<code
+                                        class="text-violet-400/80">/...</code>)</h3>
+                                <p class="text-sm text-zinc-400 mb-4">Executed <em>inside</em> the interactive
+                                    <code>cowork chat</code> REPL. Used to modify the live state of the agent, switch
+                                    models dynamically, outline goals, or review localized memory without leaving the
+                                    conversation.
+                                </p>
+                                <p class="text-xs font-mono text-zinc-500 bg-black/30 w-full p-2 rounded">Cowork> /model
+                                    claude-3.5-sonnet</p>
+                            </div>
+                        </div>
+                    </div>
 
-                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">cowork run</h2>
-                    <p
-                        class="text-zinc-400 mb-6 font-medium font-mono text-sm uppercase tracking-widest bg-yellow-400/5 inline-block px-3 py-1 rounded-full border border-yellow-400/10">
-                        One-Shot Task</p>
-                    <p class="text-zinc-300 mb-6">Execute a specific task directly and exit. Perfect for automated
-                        workflows and quick fixes.</p>
-                    <pre
-                        class="bg-zinc-900 border border-white/5 rounded-xl p-6 font-mono text-sm mb-8 text-amber-400">cowork run "Refactor utility.js to use ESM"</pre>
+                    <h2 class="text-3xl font-bold text-white mb-8 border-b border-white/5 pb-4">System CLI Commands</h2>
+                    <p class="text-zinc-400 mb-8">Execute these directly in your external terminal.</p>
 
-                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">cowork ai</h2>
-                    <p
-                        class="text-zinc-400 mb-6 font-medium font-mono text-sm uppercase tracking-widest bg-yellow-400/5 inline-block px-3 py-1 rounded-full border border-yellow-400/10">
-                        Profile Management</p>
-                    <p class="text-zinc-300 mb-6">Manage AI profiles including endpoints, models, and API keys. Switch
-                        between different providers seamlessly.</p>
-                    <pre class="bg-zinc-900 border border-white/5 rounded-xl p-6 font-mono text-sm mb-8 text-amber-400">cowork ai list
-cowork ai switch gpt-4o</pre>
+                    <!-- cowork chat -->
+                    <section class="mb-12">
+                        <div class="flex items-center gap-3 mb-4">
+                            <h3 class="text-2xl font-bold text-yellow-400 font-mono">cowork chat</h3>
+                            <span
+                                class="text-[10px] font-bold uppercase tracking-widest bg-yellow-400/10 text-yellow-400 px-2 py-1 rounded-full border border-yellow-400/20">Interactive</span>
+                        </div>
+                        <div class="space-y-4 text-zinc-300 text-sm">
+                            <p><strong>Purpose:</strong> Boots the interactive Agentic REPL.</p>
+                            <p><strong>The Logic:</strong> You want an ongoing pair-programming or research session
+                                where the agent retains rolling context of the conversation and can ask you clarifying
+                                questions.</p>
 
-                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">cowork sessions</h2>
-                    <p
-                        class="text-zinc-400 mb-6 font-medium font-mono text-sm uppercase tracking-widest bg-yellow-400/5 inline-block px-3 py-1 rounded-full border border-yellow-400/10">
-                        History & Context</p>
-                    <p class="text-zinc-300 mb-6">List, resume, or delete chat sessions. Sessions persist all state,
-                        including scratchpad and planning strategy.</p>
-                    <pre class="bg-zinc-900 border border-white/5 rounded-xl p-6 font-mono text-sm mb-8 text-amber-400">cowork sessions list
-cowork session resume [id]</pre>
+                            <h4 class="text-white font-bold mt-4">Options:</h4>
+                            <ul class="list-disc pl-5 text-zinc-400 space-y-1">
+                                <li><code class="text-white">--session-id, -s &lt;id&gt;</code> : Resume a specific past
+                                    session workspace.</li>
+                                <li><code class="text-white">--trace</code> : Force persistence of a full workflow trace
+                                    (.jsonl) for debugging.</li>
+                                <li><code class="text-white">--no-banner</code> : Skip the ASCII dashboard for faster
+                                    boot.</li>
+                            </ul>
 
-                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">cowork memory</h2>
-                    <p
-                        class="text-zinc-400 mb-6 font-medium font-mono text-sm uppercase tracking-widest bg-yellow-400/5 inline-block px-3 py-1 rounded-full border border-yellow-400/10">
-                        Knowledge Graph</p>
-                    <p class="text-zinc-300 mb-6">Inspect and query the persistent knowledge graph. See what the agent
-                        has learned from past interactions.</p>
-                    <pre
-                        class="bg-zinc-900 border border-white/5 rounded-xl p-6 font-mono text-sm mb-8 text-amber-400">cowork memory list</pre>
+                            <div class="bg-zinc-950 p-4 rounded-xl border border-white/5 font-mono text-xs mt-4">
+                                <span class="text-zinc-500">$</span> <span class="text-white">cowork chat
+                                    --no-banner</span><br>
+                                <span class="text-yellow-500 mt-2 block">Cowork> Ready.</span>
+                            </div>
+                        </div>
+                    </section>
 
-                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">cowork vector</h2>
-                    <p
-                        class="text-zinc-400 mb-6 font-medium font-mono text-sm uppercase tracking-widest bg-yellow-400/5 inline-block px-3 py-1 rounded-full border border-yellow-400/10">
-                        RAG Embeddings</p>
-                    <p class="text-zinc-300 mb-6">Manage vector database embeddings for Retrieval-Augmented Generation.
-                    </p>
-                    <pre
-                        class="bg-zinc-900 border border-white/5 rounded-xl p-6 font-mono text-sm mb-8 text-amber-400">cowork vector ingest path/to/docs</pre>
+                    <!-- cowork run -->
+                    <section class="mb-12">
+                        <div class="flex items-center gap-3 mb-4">
+                            <h3 class="text-2xl font-bold text-yellow-400 font-mono">cowork run "&lt;task&gt;"</h3>
+                            <span
+                                class="text-[10px] font-bold uppercase tracking-widest bg-amber-500/10 text-amber-500 px-2 py-1 rounded-full border border-amber-500/20">One-Shot</span>
+                        </div>
+                        <div class="space-y-4 text-zinc-300 text-sm">
+                            <p><strong>Purpose:</strong> Executes a task start-to-finish without entering an interactive
+                                prompt, then exits.</p>
+                            <p><strong>The Logic:</strong> Ideal for CI/CD pipelines, quick detached fixes, or bash
+                                aliases where human interaction is unnecessary or impossible.</p>
 
-                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">cowork firewall</h2>
-                    <p
-                        class="text-zinc-400 mb-6 font-medium font-mono text-sm uppercase tracking-widest bg-yellow-400/5 inline-block px-3 py-1 rounded-full border border-yellow-400/10">
-                        Security Control</p>
-                    <p class="text-zinc-300 mb-6">Audit and configure the tool execution firewall. Control which tools
-                        require handshake confirmation.</p>
-                    <pre class="bg-zinc-900 border border-white/5 rounded-xl p-6 font-mono text-sm mb-8 text-amber-400">cowork firewall list
-cowork firewall edit</pre>
+                            <h4 class="text-white font-bold mt-4">Options:</h4>
+                            <ul class="list-disc pl-5 text-zinc-400 space-y-1">
+                                <li><code class="text-white">--session-id, -s &lt;id&gt;</code> : Run the discrete task
+                                    using context from an existing session.</li>
+                                <li><code class="text-white">--model, -m &lt;model&gt;</code> : Override the text model
+                                    for this run specifically.</li>
+                                <li><code class="text-white">--no-stream</code> : Disable stdout generation streaming
+                                    completely.</li>
+                                <li><code class="text-white">--trace</code> : Generate an execution audit trace on
+                                    completion.</li>
+                            </ul>
 
-                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">cowork trace</h2>
-                    <p
-                        class="text-zinc-400 mb-6 font-medium font-mono text-sm uppercase tracking-widest bg-yellow-400/5 inline-block px-3 py-1 rounded-full border border-yellow-400/10">
-                        Execution Audit</p>
-                    <p class="text-zinc-300 mb-6">View detailed execution traces of the agent's internal reasoning and
-                        tool calls in a beautiful timeline.</p>
-                    <pre
-                        class="bg-zinc-900 border border-white/5 rounded-xl p-6 font-mono text-sm mb-8 text-amber-400">cowork trace --latest</pre>
+                            <div class="bg-zinc-950 p-4 rounded-xl border border-white/5 font-mono text-xs mt-4">
+                                <span class="text-zinc-500">$</span> <span class="text-white">cowork run "Audit
+                                    package.json" -m claude-3-opus</span><br>
+                                <span class="text-emerald-400 mt-1 block">✅ Completed.</span>
+                            </div>
+                        </div>
+                    </section>
 
-                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">cowork cron</h2>
-                    <p
-                        class="text-zinc-400 mb-6 font-medium font-mono text-sm uppercase tracking-widest bg-yellow-400/5 inline-block px-3 py-1 rounded-full border border-yellow-400/10">
-                        Scheduled Tasks</p>
-                    <p class="text-zinc-300 mb-6">Schedule autonomous tasks to run periodically (daily, weekly, or
-                        once).</p>
-                    <pre
-                        class="bg-zinc-900 border border-white/5 rounded-xl p-6 font-mono text-sm mb-8 text-amber-400">cowork cron add daily 09:00 "Generate daily summary"</pre>
+                    <!-- cowork trace -->
+                    <section class="mb-12">
+                        <div class="flex items-center gap-3 mb-4">
+                            <h3 class="text-2xl font-bold text-white font-mono">cowork trace</h3>
+                            <span
+                                class="text-[10px] font-bold uppercase tracking-widest bg-rose-500/10 text-rose-500 px-2 py-1 rounded-full border border-rose-500/20">Audit</span>
+                        </div>
+                        <div class="space-y-4 text-zinc-300 text-sm">
+                            <p><strong>Purpose:</strong> Renders executed JSONL traces into a human-readable timeline.
+                            </p>
+                            <p><strong>The Logic:</strong> Traceability into the black box. Find exactly where token
+                                counts inflated or why a tool call failed by inspecting exact system inputs and outputs
+                                offline.</p>
 
-                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">cowork mm</h2>
-                    <p
-                        class="text-zinc-400 mb-6 font-medium font-mono text-sm uppercase tracking-widest bg-yellow-400/5 inline-block px-3 py-1 rounded-full border border-yellow-400/10">
-                        Multi-Modal</p>
-                    <p class="text-zinc-300 mb-6">Configure Vision, ASR (Speech-to-Text), and TTS (Text-to-Speech)
-                        service endpoints.</p>
-                    <pre
-                        class="bg-zinc-900 border border-white/5 rounded-xl p-6 font-mono text-sm mb-8 text-amber-400">cowork mm status</pre>
+                            <h4 class="text-white font-bold mt-4">Options / Arguments:</h4>
+                            <ul class="list-disc pl-5 text-zinc-400 space-y-1">
+                                <li><code class="text-white">&lt;file_path&gt;</code> : (Optional) Explicit path to a
+                                    `trace.jsonl` file. Defaults to latest globally.</li>
+                            </ul>
 
-                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">cowork config</h2>
-                    <p
-                        class="text-zinc-400 mb-6 font-medium font-mono text-sm uppercase tracking-widest bg-yellow-400/5 inline-block px-3 py-1 rounded-full border border-yellow-400/10">
-                        Settings</p>
-                    <p class="text-zinc-300 mb-6">Manage global agent settings, API keys, and model preferences.</p>
-                    <pre
-                        class="bg-zinc-900 border border-white/5 rounded-xl p-6 font-mono text-sm mb-8 text-amber-400">cowork config set model gpt-4o</pre>
+                            <div class="bg-zinc-950 p-4 rounded-xl border border-white/5 font-mono text-xs mt-4">
+                                <span class="text-zinc-500">$</span> <span class="text-white">cowork trace
+                                    ~/.cowork/traces/session_123.jsonl</span><br>
+                                <span class="text-zinc-400 mt-2 block">Step 1 [0.08s]: Booting meta-router...</span>
+                                <span class="text-zinc-400 block">Step 2 [1.2s]: Tool Call -> codebase_search</span>
+                            </div>
+                        </div>
+                    </section>
 
-                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">cowork setup</h2>
-                    <p
-                        class="text-zinc-400 mb-6 font-medium font-mono text-sm uppercase tracking-widest bg-yellow-400/5 inline-block px-3 py-1 rounded-full border border-yellow-400/10">
-                        Initialization</p>
-                    <p class="text-zinc-300 mb-6">Run the interactive setup wizard to configure your agent environment.
-                    </p>
-                    <pre
-                        class="bg-zinc-900 border border-white/5 rounded-xl p-6 font-mono text-sm mb-8 text-amber-400">cowork setup</pre>
+                    <!-- cowork memory -->
+                    <section class="mb-12">
+                        <div class="flex items-center gap-3 mb-4">
+                            <h3 class="text-2xl font-bold text-white font-mono">cowork memory</h3>
+                            <span
+                                class="text-[10px] font-bold uppercase tracking-widest bg-emerald-500/10 text-emerald-500 px-2 py-1 rounded-full border border-emerald-500/20">Memoria</span>
+                        </div>
+                        <div class="space-y-4 text-zinc-300 text-sm">
+                            <p><strong>Purpose:</strong> Outputs global Memoria summary status and top graph edges.</p>
+                            <p><strong>The Logic:</strong> You want to verify what cross-session knowledge the agent is
+                                holding onto natively or diagnosing what preferences are bleeding over.</p>
 
-                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">cowork tokens</h2>
-                    <p
-                        class="text-zinc-400 mb-6 font-medium font-mono text-sm uppercase tracking-widest bg-yellow-400/5 inline-block px-3 py-1 rounded-full border border-yellow-400/10">
-                        Usage Tracking</p>
-                    <p class="text-zinc-300 mb-6">Monitor cumulative token consumption across different models and
-                        sessions.</p>
-                    <pre
-                        class="bg-zinc-900 border border-white/5 rounded-xl p-6 font-mono text-sm mb-8 text-amber-400">cowork tokens</pre>
+                            <div class="bg-zinc-950 p-4 rounded-xl border border-white/5 font-mono text-xs mt-4">
+                                <span class="text-zinc-500">$</span> <span class="text-white">cowork memory</span><br>
+                                <span class="text-emerald-400 mt-2 block">Memoria Graph Status: 45 nodes, 112 active
+                                    edges.</span>
+                                <span class="text-zinc-400 block">- (User, prefers_db, postgres) [Weight 0.9]</span>
+                            </div>
+                        </div>
+                    </section>
 
-                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">cowork reset</h2>
-                    <p
-                        class="text-zinc-400 mb-6 font-medium font-mono text-sm uppercase tracking-widest bg-yellow-400/5 inline-block px-3 py-1 rounded-full border border-yellow-400/10">
-                        Danger Zone</p>
-                    <p class="text-zinc-300 mb-6">Wipe all local Cowork state and start fresh. Use with caution.</p>
-                    <pre
-                        class="bg-zinc-900 border border-white/5 rounded-xl p-6 font-mono text-sm mb-8 text-amber-400">cowork reset</pre>
+                    <!-- cowork sessions & workspace -->
+                    <section class="mb-12">
+                        <div class="flex items-center gap-3 mb-4">
+                            <h3 class="text-2xl font-bold text-white font-mono">cowork sessions / cowork jobs / cowork
+                                cron</h3>
+                        </div>
+                        <div class="space-y-4 text-zinc-300 text-sm">
+                            <p><strong>Purpose:</strong> Manage long-term environment orchestration elements including
+                                tasks and persisted chats.</p>
+                            <p><strong>The Logic:</strong> You need to reboot the server but you don't want to lose the
+                                context of the 3-hour pair programming session you had. Just look up the session and
+                                resume it. Or manage the built-in periodic cron jobs daemon.</p>
+
+                            <ul class="list-disc pl-5 text-zinc-400 space-y-1">
+                                <li><code class="text-white">cowork sessions (list)</code>: Lists all historical session
+                                    objects.</li>
+                                <li><code class="text-white">cowork jobs</code>: Displays Sentinel background job
+                                    dashboard.</li>
+                                <li><code class="text-white">cowork cron list/view/run-pending</code>: Interacts with
+                                    the local scheduler daemon.</li>
+                            </ul>
+
+                            <div class="bg-zinc-950 p-4 rounded-xl border border-white/5 font-mono text-xs mt-4">
+                                <span class="text-zinc-500">$</span> <span class="text-white">cowork sessions
+                                    list</span><br>
+                                <span class="text-zinc-400 mt-2 block">1. 8f2a9 - "Debugging Redis Cache" - 2.5MB
+                                    context</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- cowork config & setup -->
+                    <section class="mb-16">
+                        <div class="flex items-center gap-3 mb-4">
+                            <h3 class="text-2xl font-bold text-white font-mono">cowork config / setup / reset</h3>
+                        </div>
+                        <div class="space-y-4 text-zinc-300 text-sm">
+                            <p><strong>Purpose:</strong> Controls the `.cowork` host configuration variables and
+                                authentication state directly from the terminal without manual JSON editing.</p>
+                            <p><strong>The Logic:</strong> It's easier and safer to use CLI bindings to configure global
+                                system architecture settings rather than manually writing schema-sensitive settings.</p>
+
+                            <ul class="list-disc pl-5 text-zinc-400 space-y-1">
+                                <li><code class="text-white">cowork setup</code>: Interactive wizard for bootstrapping
+                                    initial env vars.</li>
+                                <li><code class="text-white">cowork config</code>: Displays active system configurations
+                                    and keys.</li>
+                                <li><code class="text-white">cowork tokens</code>: Cumulatively monitor token
+                                    consumption per exact model context.</li>
+                                <li><code class="text-rose-400">cowork reset</code>: WARNING: Purges the entire
+                                    `~/.cowork` local state namespace.</li>
+                            </ul>
+
+                            <div class="bg-zinc-950 p-4 rounded-xl border border-white/5 font-mono text-xs mt-4">
+                                <span class="text-zinc-500">$</span> <span class="text-white">cowork tokens</span><br>
+                                <span class="text-zinc-400 mt-2 block">Model [claude-3.5-sonnet] : 1,402,112 in | 85,022
+                                    out</span>
+                            </div>
+                        </div>
+                    </section>
+
+                    <h2 class="text-3xl font-bold text-white mb-8 border-b border-white/5 pb-4">Interactive Slash
+                        Commands</h2>
+                    <p class="text-zinc-400 mb-8">Execute these directly at the <code>Cowork&gt;</code> prompt during an
+                        active chat session.</p>
+
+                    <div class="grid grid-cols-1 gap-6">
+                        <!-- /model -->
+                        <div
+                            class="bg-zinc-900/50 border border-white/5 rounded-xl p-6 transition-all hover:bg-zinc-900">
+                            <h4 class="text-xl font-bold text-violet-400 font-mono mb-2">/model &lt;name&gt;</h4>
+                            <p class="text-sm text-zinc-300 mb-3"><strong>Purpose:</strong> Instantly hot-swaps the
+                                underlying generative model.</p>
+                            <p class="text-sm text-zinc-400 mb-4"><strong>The Logic:</strong> Swap between fast/cheap
+                                models vs slow/heavy ones mid-conversation. Purposely only updates core text models,
+                                preserving Vision/TTS endpoint mappings.</p>
+                            <div
+                                class="bg-zinc-950 p-4 rounded-lg border border-white/5 font-mono text-xs text-zinc-400 mt-2">
+                                <span class="text-yellow-500">Cowork></span> /model claude-3.5-sonnet<br>
+                                <span class="text-emerald-400 mt-1 block">Model updated to claude-3.5-sonnet.</span>
+                            </div>
+                        </div>
+
+                        <!-- Memory & Vector -->
+                        <div
+                            class="bg-zinc-900/50 border border-white/5 rounded-xl p-6 transition-all hover:bg-zinc-900">
+                            <h4 class="text-xl font-bold text-violet-400 font-mono mb-2">/memory</h4>
+                            <p class="text-sm text-zinc-300 mb-3"><strong>Purpose:</strong> Interact directly with the
+                                local knowledge graph.</p>
+                            <p class="text-sm text-zinc-400 mb-4"><strong>The Logic:</strong> Useful for querying the
+                                embedding memory to ensure the agent digested a standard operating procedure correctly
+                                before proceeding to execution.</p>
+                            <ul class="list-disc pl-5 text-zinc-400 text-sm space-y-1">
+                                <li><code class="text-white">/memory search &lt;query&gt;</code>: Semantic vector search
+                                    against graph knowledge.</li>
+                                <li><code class="text-white">/memory add &lt;sub&gt; &lt;pred&gt; &lt;obj&gt;</code>:
+                                    Manually inject EWA durable triplets.</li>
+                                <li><code class="text-white">/memory clear</code>: Wipes long-term memory for total
+                                    domain pivots.</li>
+                            </ul>
+                            <div
+                                class="bg-zinc-950 p-4 rounded-lg border border-white/5 font-mono text-xs text-zinc-400 mt-4">
+                                <span class="text-yellow-500">Cowork></span> /memory search 'deployment pattern'<br>
+                                <span class="text-emerald-400 mt-1 block">Retrieval Results: Docker Compose with GitHub
+                                    Actions (Score: 0.88)</span>
+                            </div>
+                        </div>
+
+                        <!-- /acl -->
+                        <div
+                            class="bg-zinc-900/50 border border-white/5 rounded-xl p-6 transition-all hover:bg-zinc-900">
+                            <h4 class="text-xl font-bold text-violet-400 font-mono mb-2">/acl log</h4>
+                            <p class="text-sm text-zinc-300 mb-3"><strong>Purpose:</strong> Streams live output from the
+                                file permission gatekeeper.</p>
+                            <p class="text-sm text-zinc-400 mb-4"><strong>The Logic:</strong> Useful for visually
+                                tracking which exact files the <code>FileManager</code> is modifying in the background
+                                and catching unauthorized directory jumps.</p>
+                            <div
+                                class="bg-zinc-950 p-4 rounded-lg border border-white/5 font-mono text-xs text-zinc-400 mt-2">
+                                <span class="text-yellow-500">Cowork></span> /acl log<br>
+                                <span class="text-zinc-400 mt-1 block">[ACL] PERMIT: read -> /etc/hosts</span>
+                            </div>
+                        </div>
+
+                        <!-- Trace Modifiers -->
+                        <div
+                            class="bg-zinc-900/50 border border-white/5 rounded-xl p-6 transition-all hover:bg-zinc-900">
+                            <h4 class="text-xl font-bold text-violet-400 font-mono mb-2">/trace</h4>
+                            <p class="text-sm text-zinc-300 mb-3"><strong>Purpose:</strong> Inspects the context block
+                                tracing metadata linked to this actual live session buffer.</p>
+                            <p class="text-sm text-zinc-400 mb-4"><strong>The Logic:</strong> If an agent unexpectedly
+                                fails inside a loop, you can immediately dump its reasoning steps without having to open
+                                the session JSONL file manually.</p>
+                            <ul class="list-disc pl-5 text-zinc-400 text-sm space-y-1">
+                                <li><code class="text-white">/trace full</code>: Expands timeline view to show full
+                                    textual payloads.</li>
+                                <li><code class="text-white">/trace raw</code>: Displays unformatted JSON event drops.
+                                </li>
+                                <li><code class="text-white">/trace path</code>: Returns the exact absolute path to the
+                                    current trace.</li>
+                            </ul>
+                            <div
+                                class="bg-zinc-950 p-4 rounded-lg border border-white/5 font-mono text-xs text-zinc-400 mt-4">
+                                <span class="text-yellow-500">Cowork></span> /trace path<br>
+                                <span class="text-emerald-400 mt-1 block">Trace file located at:
+                                    ~/.cowork/traces/session_abc.jsonl</span>
+                            </div>
+                        </div>
+
+                        <!-- /scratchpad & /workspace -->
+                        <div
+                            class="bg-zinc-900/50 border border-white/5 rounded-xl p-6 transition-all hover:bg-zinc-900">
+                            <h4 class="text-xl font-bold text-violet-400 font-mono mb-2">/scratchpad &amp; /workspace
+                            </h4>
+                            <p class="text-sm text-zinc-300 mb-3"><strong>Purpose:</strong> Query the local contextual
+                                memory stores.</p>
+                            <p class="text-sm text-zinc-400 mb-4"><strong>The Logic:</strong> View what parameters the
+                                gatekeeper truncated into side-storage (/scratchpad) versus the direct OS files the
+                                agent has successfully observed (/workspace).</p>
+                            <ul class="list-disc pl-5 text-zinc-400 text-sm space-y-1">
+                                <li><code class="text-white">/scratchpad</code>: Lists elements offloaded by the
+                                    Gatekeeper to save context space.</li>
+                                <li><code class="text-white">/workspace</code>: View current workspace directory maps
+                                    and artifacts.</li>
+                            </ul>
+                            <div
+                                class="bg-zinc-950 p-4 rounded-lg border border-white/5 font-mono text-xs text-zinc-400 mt-4">
+                                <span class="text-yellow-500">Cowork></span> /scratchpad<br>
+                                <span class="text-zinc-400 mt-1 block">1 Item: [server_crash_log.txt] mapped into
+                                    context block.</span>
+                            </div>
+                        </div>
+
+                        <!-- Jobs -->
+                        <div
+                            class="bg-zinc-900/50 border border-white/5 rounded-xl p-6 transition-all hover:bg-zinc-900">
+                            <h4 class="text-xl font-bold text-violet-400 font-mono mb-2">/jobs</h4>
+                            <p class="text-sm text-zinc-300 mb-3"><strong>Purpose:</strong> Adjust background task
+                                queues.</p>
+                            <p class="text-sm text-zinc-400 mb-4"><strong>The Logic:</strong> Act on the Sentinel
+                                container pool items directly inside the chat loop if one fails or hangs.</p>
+                            <ul class="list-disc pl-5 text-zinc-400 text-sm space-y-1">
+                                <li><code class="text-white">/jobs clean</code>: Purge success/failure job artifacts
+                                    from Sentinel queue.</li>
+                                <li><code class="text-white">/jobs resume &lt;job_id&gt;</code>: Reboot a dead job
+                                    container within the agent queue.</li>
+                            </ul>
+                        </div>
+
+                        <!-- /config set -->
+                        <div
+                            class="bg-zinc-900/50 border border-white/5 rounded-xl p-6 transition-all hover:bg-zinc-900">
+                            <h4 class="text-xl font-bold text-violet-400 font-mono mb-2">/config set &lt;key&gt;
+                                &lt;value&gt;</h4>
+                            <p class="text-sm text-zinc-300 mb-3"><strong>Purpose:</strong> Override strict
+                                configurations safely.</p>
+                            <p class="text-sm text-zinc-400 mb-4"><strong>The Logic:</strong> Adjust variables like
+                                <code>temperature_agent</code> natively without requiring the server node to restart or
+                                losing active thread context.</p>
+                            <div
+                                class="bg-zinc-950 p-4 rounded-lg border border-white/5 font-mono text-xs text-zinc-400 mt-2">
+                                <span class="text-yellow-500">Cowork></span> /config set max_steps 25<br>
+                                <span class="text-emerald-400 mt-1 block">max_steps set to 25 globally.</span>
+                            </div>
+                        </div>
+
+                        <!-- Standard Utils -->
+                        <div
+                            class="bg-zinc-900/50 border border-white/5 rounded-xl p-6 transition-all hover:bg-zinc-900">
+                            <h4 class="text-xl font-bold text-violet-400 font-mono mb-2">/help, /new, /load &lt;id&gt;,
+                                /clear, /exit</h4>
+                            <p class="text-sm text-zinc-300 mb-3"><strong>Purpose:</strong> The core lifecycle routers.
+                            </p>
+                            <p class="text-sm text-zinc-400 mb-4"><strong>The Logic:</strong> Utilities to branch, fold,
+                                and discard system interactions cleanly.</p>
+                            <ul class="list-disc pl-5 text-zinc-400 text-sm space-y-1">
+                                <li><code class="text-white">/new</code>: Borks a clean context window instantly without
+                                    navigating bash.</li>
+                                <li><code class="text-white">/load &lt;id&gt;</code>: Fetches an archived JSON session
+                                    history directly into the live thread.</li>
+                            </ul>
+                        </div>
+                    </div>
 
                 </div>
             </div>
