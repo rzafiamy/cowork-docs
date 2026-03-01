@@ -26,53 +26,183 @@
                 <div id="content" class="prose prose-invert prose-zinc max-w-none">
                     <h1 class="text-4xl font-extrabold tracking-tight text-white mb-8 logo-font">Makix Architecture</h1>
                     <p class="text-xl text-zinc-400 leading-relaxed mb-12">
-                        A hyper-deterministic, multi-phase agentic pipeline designed for zero-drift execution and 100%
-                        auditability.
+                        A hyper-deterministic, multi-phase agentic pipeline designed for zero-drift execution, complete
+                        traceability, and bounded task completion.
                     </p>
 
-                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">The 7-Phase Protocol</h2>
-                    <div class="space-y-8">
-                        <div class="glass-card p-6 rounded-2xl border-l-4 border-yellow-400">
-                            <h3 class="text-lg font-bold text-white mb-2">01 CLI Invocation & Boot</h3>
-                            <p class="text-zinc-400 text-sm">Deterministic boot sequence with firewall validation and
-                                environment integrity checks.</p>
+                    <!-- Beautiful Architecture Image Schema -->
+                    <div
+                        class="my-16 rounded-2xl overflow-hidden shadow-2xl shadow-yellow-400/10 border border-white/5 bg-zinc-900 group">
+                        <div class="relative w-full aspect-video">
+                            <!-- Inset shadow overlay to blend image borders into dark background -->
+                            <div
+                                class="absolute inset-0 bg-gradient-to-t from-zinc-950 via-transparent to-zinc-950/20 z-10 pointer-events-none">
+                            </div>
+                            <img src="/architecture-diagram.png" alt="Makix 7-Phase Agentic Pipeline Diagram"
+                                class="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
                         </div>
-                        <div class="glass-card p-6 rounded-2xl border-l-4 border-amber-500">
-                            <h3 class="text-lg font-bold text-white mb-2">02 Input Gatekeeper</h3>
-                            <p class="text-zinc-400 text-sm">Analysis of token density and trigger for scratchpad
-                                offloading to prevent context bloat.</p>
-                        </div>
-                        <div class="glass-card p-6 rounded-2xl border-l-4 border-orange-500">
-                            <h3 class="text-lg font-bold text-white mb-2">03 Meta-Routing</h3>
-                            <p class="text-zinc-400 text-sm">Zero-temperature intent classification and dynamic skill
-                                manifest loading.</p>
-                        </div>
-                        <div class="glass-card p-6 rounded-2xl border-l-4 border-rose-500">
-                            <h3 class="text-lg font-bold text-white mb-2">04 Planning</h3>
-                            <p class="text-zinc-400 text-sm">Pre-execution commitment to a JSON-structured roadmap with
-                                termination anchors.</p>
-                        </div>
-                        <div class="glass-card p-6 rounded-2xl border-l-4 border-violet-500">
-                            <h3 class="text-lg font-bold text-white mb-2">05 Execution Loop</h3>
-                            <p class="text-zinc-400 text-sm">Parallel REACT reasoning loop with strict safety breaks (15
-                                step limit).</p>
-                        </div>
-                        <div class="glass-card p-6 rounded-2xl border-l-4 border-sky-500">
-                            <h3 class="text-lg font-bold text-white mb-2">06 Compression</h3>
-                            <p class="text-zinc-400 text-sm">Map-Reduce context compression to maintain technical
-                                precision while resetting token counters.</p>
-                        </div>
-                        <div class="glass-card p-6 rounded-2xl border-l-4 border-emerald-500">
-                            <h3 class="text-lg font-bold text-white mb-2">07 Memoria Ingestion</h3>
-                            <p class="text-zinc-400 text-sm">Durable knowledge extraction as SPO triplets and ingestion
-                                into the vector graph.</p>
+                        <div class="p-6 bg-zinc-950 text-center relative z-20">
+                            <p class="text-sm text-zinc-400 font-mono tracking-wide uppercase">The 7-Phase Autonomous
+                                Workflow</p>
                         </div>
                     </div>
 
-                    <h2 class="text-2xl font-bold text-white mt-12 mb-6">Skill Registry</h2>
-                    <p class="text-zinc-300 mb-6">
-                        Skills are self-contained logical units injected dynamically into the context. This modularity
-                        ensures the agent remains focused on the relevant tool schemas without overwhelming its memory.
+                    <h2 class="text-3xl font-bold text-white mb-6">The Global Architecture: A Deep Dive</h2>
+                    <p class="text-zinc-300 leading-relaxed mb-6">
+                        The Makix architecture is inspired by modern compiler design and bounded-runtime execution
+                        engines. Unlike standard "chatbot" models which process single input-outputs loosely, Cowork
+                        uses a highly structured <strong>7-Phase Pipeline</strong> that enforces boundaries around the
+                        Large Language Model's reasoning.
+                    </p>
+                    <p class="text-zinc-300 leading-relaxed mb-12">
+                        <strong>Analogy:</strong> Think of standard LLM implementations as raw computational engines out
+                        in the open (they can hallucinate, get stuck in infinite loops, or forget context). The Makix
+                        architecture acts as the <em>operating system</em> or <em>flight control tower</em> around that
+                        engine. It directs the inputs, checks the fuel (token budget), safely plots the course
+                        (planning), governs the engine during flight (execution loop), and records the flight data
+                        securely (memory and tracing) before ever returning to the user.
+                    </p>
+
+                    <h3 class="text-2xl font-bold text-white mb-8">The 7-Phase Protocol</h3>
+                    <div class="space-y-8 mb-16">
+                        <div
+                            class="glass-card p-8 rounded-2xl border-l-[6px] border-yellow-400 bg-gradient-to-r from-yellow-400/5 to-transparent">
+                            <div class="flex items-center gap-4 mb-4">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-yellow-400/10 flex items-center justify-center text-yellow-400">
+                                    <i class="fas fa-terminal"></i></div>
+                                <h3 class="text-xl font-bold text-white">01 CLI Invocation & Boot</h3>
+                            </div>
+                            <p class="text-zinc-300 text-sm leading-relaxed mb-4">
+                                The deterministic boot sequence initializes the runtime. Here, firewall validations,
+                                environment integrity checks, and session resolutions occur. If a user defines strict
+                                configuration constraints, they are loaded immediately.
+                            </p>
+                            <p class="text-zinc-500 font-mono text-xs">Technical Benefit: Guarantees secure execution
+                                context before parsing any potentially hostile or malformed user instructions.</p>
+                        </div>
+
+                        <div
+                            class="glass-card p-8 rounded-2xl border-l-[6px] border-amber-500 bg-gradient-to-r from-amber-500/5 to-transparent">
+                            <div class="flex items-center gap-4 mb-4">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-500">
+                                    <i class="fas fa-shield-halved"></i></div>
+                                <h3 class="text-xl font-bold text-white">02 Input Gatekeeper</h3>
+                            </div>
+                            <p class="text-zinc-300 text-sm leading-relaxed mb-4">
+                                Before any reasoning happens, the Gatekeeper analyzes token density. Large inputs (such
+                                as massive copy-pasted code blocks) are automatically detected and offloaded into the
+                                session scratchpad to prevent context window bloat and truncation errors.
+                            </p>
+                            <p class="text-zinc-500 font-mono text-xs">Technical Benefit: Prevents "lost in the middle"
+                                phenomena. Reference: <a href="https://arxiv.org/abs/2307.03172"
+                                    class="text-amber-500 hover:underline" target="_blank">Lost in the Middle (Liu et
+                                    al., 2023)</a>.</p>
+                        </div>
+
+                        <div
+                            class="glass-card p-8 rounded-2xl border-l-[6px] border-orange-500 bg-gradient-to-r from-orange-500/5 to-transparent">
+                            <div class="flex items-center gap-4 mb-4">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-orange-500/10 flex items-center justify-center text-orange-500">
+                                    <i class="fas fa-route"></i></div>
+                                <h3 class="text-xl font-bold text-white">03 Meta-Routing & Skill Loading</h3>
+                            </div>
+                            <p class="text-zinc-300 text-sm leading-relaxed mb-4">
+                                Uses a zero-temperature fast classifier to parse user intent and load only necessary
+                                Skill Manifests. Our <em>Progressive Disclosure</em> system injects minimal instruction
+                                TOCs until an intent is matched, after which explicit capabilities are activated.
+                            </p>
+                            <p class="text-zinc-500 font-mono text-xs">Technical Benefit: Keeps prompt size tiny (less
+                                cost, less latency) and focuses the LLM purely on the required task schemas (e.g.,
+                                loading PDF generation tools only when a document is requested).</p>
+                        </div>
+
+                        <div
+                            class="glass-card p-8 rounded-2xl border-l-[6px] border-rose-500 bg-gradient-to-r from-rose-500/5 to-transparent">
+                            <div class="flex items-center gap-4 mb-4">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-rose-500/10 flex items-center justify-center text-rose-500">
+                                    <i class="fas fa-map"></i></div>
+                                <h3 class="text-xl font-bold text-white">04 Planning</h3>
+                            </div>
+                            <p class="text-zinc-300 text-sm leading-relaxed mb-4">
+                                Pre-execution explicit planning. The system establishes a <code>task_goal</code> inside
+                                the session scratchpad. This acts as a task anchor through multi-step executions,
+                                forcing the agent to break down large jobs before execution begins.
+                            </p>
+                            <p class="text-zinc-500 font-mono text-xs">Reasoning: Forces System-2 thinking prior to
+                                Action (AutoGPT style loops without planning drift).</p>
+                        </div>
+
+                        <div
+                            class="glass-card p-8 rounded-2xl border-l-[6px] border-violet-500 bg-gradient-to-r from-violet-500/5 to-transparent">
+                            <div class="flex items-center gap-4 mb-4">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-violet-500/10 flex items-center justify-center text-violet-500">
+                                    <i class="fas fa-rotate"></i></div>
+                                <h3 class="text-xl font-bold text-white">05 Execution (REACT Loop)</h3>
+                            </div>
+                            <p class="text-zinc-300 text-sm leading-relaxed mb-4">
+                                The core engine: iterative Reason → Act → Observe. The agent may make parallel tool
+                                calls interacting directly with real APIs, file systems, or databases. We strictly bound
+                                this loop to a <code>max_steps</code> limit (default: 15). At the limit, the loop forces
+                                a self-assessment and graceful handoff instead of a crash.
+                            </p>
+                            <p class="text-zinc-500 font-mono text-xs">Technical Benefit: Guarantees termination. Zero
+                                infinite loops. Reference: <a href="https://arxiv.org/abs/2210.03629"
+                                    class="text-violet-500 hover:underline" target="_blank">ReAct: Synergizing Reasoning
+                                    and Acting (Yao et al., 2022)</a>.</p>
+                        </div>
+
+                        <div
+                            class="glass-card p-8 rounded-2xl border-l-[6px] border-sky-500 bg-gradient-to-r from-sky-500/5 to-transparent">
+                            <div class="flex items-center gap-4 mb-4">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-sky-500/10 flex items-center justify-center text-sky-500">
+                                    <i class="fas fa-compress-alt"></i></div>
+                                <h3 class="text-xl font-bold text-white">06 Context Compression</h3>
+                            </div>
+                            <p class="text-zinc-300 text-sm leading-relaxed mb-4">
+                                If the rolling window of the conversation exceeds the <code>context_limit_tokens</code>
+                                (e.g. 6000), a fast, low-temperature LLM pass performs a map-reduce summarization on the
+                                oldest messages, compressing them while maintaining technical keys, code snippets, and
+                                IDs.
+                            </p>
+                            <p class="text-zinc-500 font-mono text-xs">Technical Benefit: Endless context windows
+                                without API rejection or immense token costs.</p>
+                        </div>
+
+                        <div
+                            class="glass-card p-8 rounded-2xl border-l-[6px] border-emerald-500 bg-gradient-to-r from-emerald-500/5 to-transparent">
+                            <div class="flex items-center gap-4 mb-4">
+                                <div
+                                    class="w-10 h-10 rounded-full bg-emerald-500/10 flex items-center justify-center text-emerald-500">
+                                    <i class="fas fa-brain"></i></div>
+                                <h3 class="text-xl font-bold text-white">07 Memoria Ingestion (Long-Term Memory)</h3>
+                            </div>
+                            <p class="text-zinc-300 text-sm leading-relaxed mb-4">
+                                Extracts semantic <code>(subject, predicate, object)</code> triplets from user inputs or
+                                critical agent resolutions. These are saved to a local knowledge graph with an
+                                Exponential Weighted Average (EWA) time scale, decaying less relevant facts over weeks
+                                while boosting intensely discussed current topics.
+                            </p>
+                            <p class="text-zinc-500 font-mono text-xs">Technical Benefit: No third-party vector
+                                databases needed. Memory persists over CLI restarts.</p>
+                        </div>
+                    </div>
+
+                    <h2 class="text-3xl font-bold text-white mb-6">Execution Tracing & Auditability</h2>
+                    <p class="text-zinc-300 leading-relaxed mb-6">
+                        One major problem with autonomous agents is the "black box" syndrome. You ask for a task, it
+                        spins, and outputs code. If it fails, you don't know why.
+                    </p>
+                    <p class="text-zinc-300 leading-relaxed mb-12">
+                        Because Makix forces state-machine boundaries via the 7 phases, every transition is logged into
+                        a durable JSONL trace file (accessible via <code>cowork trace</code>). Every tool call, prompt
+                        generation, error catch, and token usage integer is mapped. This provides <strong>100%
+                            Traceability</strong> for mission-critical enterprise workflows.
                     </p>
                 </div>
             </div>
@@ -88,7 +218,7 @@
     </div>
 
     <script type="module" src="/src/docs.js"></script>
-    
+
     <script type="module" src="/src/search.js"></script>
 </body>
 
